@@ -13,4 +13,6 @@ class Category(val name: String) {
 	}
 
 	override def hashCode = name.hashCode
+
+	override def toString = "Category(%s)".format(name)
 }
