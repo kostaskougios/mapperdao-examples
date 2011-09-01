@@ -83,13 +83,23 @@ object Main extends App {
 			printOrders(orderDao.byTotal(args(1).toDouble, args(2).toDouble))
 		case "add-customer" =>
 			val uuid = UUID.randomUUID()
+
 			val customer = new Customer(args(1), args(2),
 				Address("25 some street", "some avenue", "Athens", "GR", 85100, "Greece", 2), "email@x.x", "1234567",
 				CreditCard(1, "1234 5678 9012 3456", "2011"), "userx" + uuid, "pwd", 22, 25000, Gender.Male)
 
 			val inserted = customerDao.create(customer)
-
 			println("added %d : %s".format(inserted.id, inserted))
+
+			// update the immutable Customer
+			val updatedCustomer = new Customer(args(1), args(2),
+				Address("25 some street", "Bromley", "London", "UK", 85100, "UK", 2), "email@x.x", "2345678",
+				CreditCard(1, "1234 5678 9012 3456", "2011"), "userx" + uuid, "pwd", 22, 25000, Gender.Male)
+			val updated = customerDao.update(inserted, updatedCustomer)
+			println("updated %d : %s".format(updated.id, updated))
+
+			val selected = customerDao.retrieve(updated.id).get
+			println("retrieved %d : %s".format(selected.id, selected))
 	}
 
 	def printCustomers(customers: List[Customer with IntId]) {
