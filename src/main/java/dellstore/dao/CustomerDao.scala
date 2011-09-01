@@ -24,9 +24,9 @@ class CustomerDao(val mapperDao: MapperDao, val queryDao: QueryDao) extends IntI
 	val entity = CustomerEntity
 	import Query._
 
-	private val ce = CustomerEntity
+	private val c = CustomerEntity
 
-	def byState(state: String): List[Customer with IntId] = query(select from ce where ce.state === state)
+	def byState(state: String): List[Customer with IntId] = query(select from c where c.state === state)
 }
 
 object CustomerDao {

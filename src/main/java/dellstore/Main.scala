@@ -8,6 +8,8 @@ import dellstore.dao.ProductDao
 import dellstore.dao.CustomerDao
 import dellstore.model.Customer
 import com.rits.orm.IntId
+import dellstore.dao.OrderDao
+import dellstore.model.Order
 
 /**
  * dellstore sample for postgresql dellstore sample database
@@ -25,11 +27,14 @@ object Main extends App {
 
 	println("Configuring mapperdao")
 
-	val (jdbc, mapperDao, queryDao) = Setup.postGreSql(dataSource, List(CategoryDao.CategoryEntity, ProductDao.ProductEntity, ProductDao.InventoryEntity, CustomerDao.CustomerEntity))
+	val (jdbc, mapperDao, queryDao) = Setup.postGreSql(dataSource,
+		List(CategoryDao.CategoryEntity, ProductDao.ProductEntity, ProductDao.InventoryEntity, CustomerDao.CustomerEntity, OrderDao.OrderEntity)
+	)
 
 	val categoryDao = new CategoryDao(mapperDao, queryDao)
 	val productDao = new ProductDao(mapperDao, queryDao)
 	val customerDao = new CustomerDao(mapperDao, queryDao)
+	val orderDao = new OrderDao(mapperDao, queryDao)
 
 	println("Initialization done.")
 
@@ -60,6 +65,10 @@ object Main extends App {
 		case "customers-by-state" =>
 			val all = customerDao.byState(args(1))
 			printCustomers(all)
+		case "list-orders" =>
+			println("id\torders")
+			println("-----------------------------------------------")
+			printOrders(orderDao.all)
 	}
 
 	def printCustomers(customers: List[Customer with IntId]) {
@@ -67,5 +76,9 @@ object Main extends App {
 	}
 	def printCustomer(c: Customer with IntId) {
 		println("%d :\t%s".format(c.id, c))
+	}
+
+	def printOrders(orders: List[Order with IntId]) {
+		orders.foreach(o => println("%d :\t%s".format(o.id, o)))
 	}
 }
