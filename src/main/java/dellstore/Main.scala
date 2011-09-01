@@ -5,6 +5,7 @@ import org.apache.commons.dbcp.BasicDataSourceFactory
 import com.rits.orm.utils.Setup
 import dellstore.dao.CategoryDao
 import dellstore.dao.ProductDao
+import dellstore.dao.CustomerDao
 
 /**
  * dellstore sample for postgresql dellstore sample database
@@ -22,10 +23,11 @@ object Main extends App {
 
 	println("Configuring mapperdao")
 
-	val (jdbc, mapperDao, queryDao) = Setup.postGreSql(dataSource, List(CategoryDao.CategoryEntity, ProductDao.ProductEntity, ProductDao.InventoryEntity))
+	val (jdbc, mapperDao, queryDao) = Setup.postGreSql(dataSource, List(CategoryDao.CategoryEntity, ProductDao.ProductEntity, ProductDao.InventoryEntity, CustomerDao.CustomerEntity))
 
 	val categoryDao = new CategoryDao(mapperDao, queryDao)
 	val productDao = new ProductDao(mapperDao, queryDao)
+	val customerDao = new CustomerDao(mapperDao, queryDao)
 
 	println("Initialization done.")
 
@@ -47,6 +49,13 @@ object Main extends App {
 			println("-----------------------------------------------")
 			all.foreach { p =>
 				println("%d :\t%s".format(p.id, p))
+			}
+		case "list-customers" =>
+			val all = customerDao.all
+			println("customers")
+			println("-----------------------------------------------")
+			all.foreach { c =>
+				println("%d :\t%s".format(c.id, c))
 			}
 	}
 
