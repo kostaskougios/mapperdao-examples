@@ -45,7 +45,7 @@ object ProductDao {
 		val actor = string("actor", _.actor)
 		val price = float("price", _.price)
 		val category = manyToOne("category", classOf[Category], _.category)
-		val special = boolean("special", _.special)
+		val special = int("special", v => if (v.special) 1 else 0)
 		val inventory = oneToOneReverse(classOf[Inventory], "prod_id", _.inventory)
 
 		val constructor = (m: ValuesMap) => new Product(m(category), m(title), m(actor), m.float(price), m.boolean(special), m(inventory)) with Persisted with IntId {
