@@ -11,6 +11,7 @@ import com.rits.orm.QueryDao
 import com.rits.orm.utils.IntIdCRUD
 import com.rits.orm.utils.IntIdAll
 import com.rits.orm.SimpleEntity
+import com.rits.orm.Query
 
 /**
  * @author kostantinos.kougios
@@ -20,6 +21,13 @@ import com.rits.orm.SimpleEntity
 class ProductDao(val mapperDao: MapperDao, val queryDao: QueryDao) extends IntIdCRUD[Product] with IntIdAll[Product] {
 	import ProductDao._
 	val entity = ProductEntity
+
+	import Query._
+	import queryDao._
+
+	private val p = ProductEntity
+
+	def idRange(min: Int, max: Int) = query(select from p where p.id >= min and p.id <= max)
 }
 
 object ProductDao {

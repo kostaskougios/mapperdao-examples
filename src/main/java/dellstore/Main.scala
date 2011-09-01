@@ -14,6 +14,8 @@ import dellstore.model.Gender
 import dellstore.model.CreditCard
 import dellstore.model.Address
 import java.util.UUID
+import org.scala_tools.time.Imports._
+import dellstore.model.OrderLine
 
 /**
  * dellstore sample for postgresql dellstore sample database
@@ -100,6 +102,23 @@ object Main extends App {
 
 			val selected = customerDao.retrieve(updated.id).get
 			println("retrieved %d : %s".format(selected.id, selected))
+
+		case "add-order" =>
+			val uuid = UUID.randomUUID()
+
+			// first create the customer (we could as well read him from the database)
+			val customer = customerDao.create(new Customer(args(1), args(2),
+				Address("25 some street", "some avenue", "Athens", "GR", 85100, "Greece", 2), "email@x.x", "1234567",
+				CreditCard(1, "1234 5678 9012 3456", "2011"), "userx" + uuid, "pwd", 22, 25000, Gender.Male))
+
+			val products = productDao.idRange(1, 5)
+
+			val now = DateTime.now
+			val orderLines = List(new OrderLine(-10, null, products.head, 5, now), new OrderLine(-11, null, products(2), 5, now))
+			val order = new Order(now, customer, 100.5, 10.5, 90.0, orderLines)
+
+			// this will insert the order, the orderlines and it would update the customer,if it had changed
+			orderDao.create(order)
 	}
 
 	def printCustomers(customers: List[Customer with IntId]) {
