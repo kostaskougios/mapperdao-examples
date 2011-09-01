@@ -1,15 +1,19 @@
 package dellstore.dao
-import com.rits.orm.MapperDao
-import com.rits.orm.QueryDao
-import com.rits.orm.utils.IntIdCRUD
 import com.rits.orm.utils.IntIdAll
-import dellstore.model.Order
+import com.rits.orm.utils.IntIdCRUD
 import com.rits.orm.Entity
 import com.rits.orm.IntId
-import dellstore.model.Customer
+import com.rits.orm.MapperDao
 import com.rits.orm.Persisted
-import com.rits.orm.ValuesMap
 import com.rits.orm.Query
+import com.rits.orm.QueryDao
+import com.rits.orm.SimpleEntity
+import com.rits.orm.ValuesMap
+
+import dellstore.model.Customer
+import dellstore.model.Product
+import dellstore.model.Order
+import dellstore.model.OrderLine
 
 /**
  * @author kostantinos.kougios
@@ -44,10 +48,23 @@ object OrderDao {
 		val netAmount = bigDecimal("netamount", _.netAmount)
 		val tax = bigDecimal("tax", _.tax)
 		val totalAmount = bigDecimal("totalamount", _.totalAmount)
+		val orderLines = oneToMany(classOf[OrderLine], "orderid", _.orderLines)
 
-		val constructor = (m: ValuesMap) => new Order(m(date), m(customer), m.bigDecimal(netAmount), m.bigDecimal(tax), m.bigDecimal(totalAmount)) with Persisted with IntId {
+		val constructor = (m: ValuesMap) => new Order(m(date), m(customer), m.bigDecimal(netAmount), m.bigDecimal(tax), m.bigDecimal(totalAmount), m(orderLines).toList) with Persisted with IntId {
 			val valuesMap = m
 			val id = m(orderid)
+		}
+	}
+
+	object OrderLineEntity extends SimpleEntity[OrderLine]("orderlines", classOf[OrderLine]) {
+		val orderlineid = pk("orderlineid", _.id)
+		val order = manyToOne("orderid", classOf[Order], _.order)
+		val product = oneToOne(classOf[Product], "prod_id", _.product)
+		val quantity = int("quantity", _.quantity)
+		val orderdate = datetime("orderdate", _.date)
+
+		val constructor = (m: ValuesMap) => new OrderLine(m(orderlineid), m(order), m(product), m(quantity), m(orderdate)) with Persisted {
+			val valuesMap = m
 		}
 	}
 }

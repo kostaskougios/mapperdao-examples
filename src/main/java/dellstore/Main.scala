@@ -28,7 +28,7 @@ object Main extends App {
 	println("Configuring mapperdao")
 
 	val (jdbc, mapperDao, queryDao) = Setup.postGreSql(dataSource,
-		List(CategoryDao.CategoryEntity, ProductDao.ProductEntity, ProductDao.InventoryEntity, CustomerDao.CustomerEntity, OrderDao.OrderEntity)
+		List(CategoryDao.CategoryEntity, ProductDao.ProductEntity, ProductDao.InventoryEntity, CustomerDao.CustomerEntity, OrderDao.OrderEntity, OrderDao.OrderLineEntity)
 	)
 
 	val categoryDao = new CategoryDao(mapperDao, queryDao)
