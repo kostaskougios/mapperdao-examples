@@ -9,6 +9,7 @@ import com.rits.orm.IntId
 import dellstore.model.Customer
 import com.rits.orm.Persisted
 import com.rits.orm.ValuesMap
+import com.rits.orm.Query
 
 /**
  * @author kostantinos.kougios
@@ -18,6 +19,21 @@ import com.rits.orm.ValuesMap
 class OrderDao(val mapperDao: MapperDao, val queryDao: QueryDao) extends IntIdCRUD[Order] with IntIdAll[Order] {
 	import OrderDao._
 	val entity = OrderEntity
+
+	import Query._
+	import queryDao._
+
+	private val o = OrderEntity
+	private val c = CustomerDao.CustomerEntity
+
+	/**
+	 * returns all orders from customers living at the provided state
+	 */
+	def byState(state: String): List[Order with IntId] = query(select from o join (o, o.customer, c) where c.state === state)
+	/**
+	 * all orders that the totalamount is between min and max
+	 */
+	def byTotal(min: Double, max: Double): List[Order with IntId] = query(select from o where o.totalAmount >= min and o.totalAmount <= max)
 }
 
 object OrderDao {

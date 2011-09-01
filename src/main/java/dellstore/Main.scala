@@ -69,6 +69,14 @@ object Main extends App {
 			println("id\torders")
 			println("-----------------------------------------------")
 			printOrders(orderDao.all)
+		case "orders-by-state" =>
+			println("id\torders")
+			println("-----------------------------------------------")
+			printOrders(orderDao.byState(args(1)))
+		case "orders-by-total-price" =>
+			println("id\torders")
+			println("-----------------------------------------------")
+			printOrders(orderDao.byTotal(args(1).toDouble, args(2).toDouble))
 	}
 
 	def printCustomers(customers: List[Customer with IntId]) {
