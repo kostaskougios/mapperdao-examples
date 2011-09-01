@@ -118,7 +118,11 @@ object Main extends App {
 			val order = new Order(now, customer, 100.5, 10.5, 90.0, orderLines)
 
 			// this will insert the order, the orderlines and it would update the customer,if it had changed
-			orderDao.create(order)
+			val inserted = orderDao.create(order)
+
+			// at some other part of the code we might have the orderId and we would like to print out the order:
+			val orderId = inserted.id
+			println("Order : %s".format(orderDao.retrieve(orderId)))
 	}
 
 	def printCustomers(customers: List[Customer with IntId]) {
