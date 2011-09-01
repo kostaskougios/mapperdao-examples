@@ -11,4 +11,6 @@ class Inventory(val product: Product, val stock: Int, val sales: Int) {
 		case _ => false
 	}
 	override def hashCode = product.hashCode
+
+	override def toString = "Inventory(%d,%d)".format(stock, sales)
 }

@@ -4,7 +4,6 @@ import com.rits.orm.IntId
 import dellstore.model._
 import com.rits.orm.ValuesMap
 import com.rits.orm.Persisted
-import dellstore.model.Category
 import com.rits.orm.utils.CRUD
 import com.rits.orm.utils.All
 import com.rits.orm.MapperDao
@@ -27,7 +26,7 @@ object ProductDao {
 	object InventoryEntity extends SimpleEntity[Inventory]("inventory", classOf[Inventory]) {
 		val stock = int("quan_in_stock", _.stock)
 		val sales = int("sales", _.sales)
-		val product = manyToOne("prod_id", classOf[Product], _.product)
+		val product = oneToOne(classOf[Product], "prod_id", _.product)
 		val constructor = (m: ValuesMap) => new Inventory(m(product), m(stock), m(sales)) with Persisted {
 			val valuesMap = m
 		}
@@ -39,7 +38,7 @@ object ProductDao {
 		val price = float("price", _.price)
 		val category = manyToOne("category", classOf[Category], _.category)
 		val special = boolean("special", _.special)
-		val inventory = oneToMany(classOf[Inventory], "prod_id", _.inventory)
+		val inventory = oneToOneReverse(classOf[Inventory], "prod_id", _.inventory)
 
 		val constructor = (m: ValuesMap) => new Product(m(category), m(title), m(actor), m.float(price), m.boolean(special), m(inventory)) with Persisted with IntId {
 			val valuesMap = m

@@ -13,5 +13,5 @@ class Product(val category: Category, val title: String, val actor: String, val 
 
 	override def hashCode = title.hashCode
 
-	override def toString = "Product(%s,%s,%s,%f,%s)".format(category, title, actor, price, special)
+	override def toString = "Product(%s,%s,%s,%f,%s,%s)".format(category, title, actor, price, special, inventory)
 }
