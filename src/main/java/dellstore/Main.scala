@@ -6,6 +6,8 @@ import com.rits.orm.utils.Setup
 import dellstore.dao.CategoryDao
 import dellstore.dao.ProductDao
 import dellstore.dao.CustomerDao
+import dellstore.model.Customer
+import com.rits.orm.IntId
 
 /**
  * dellstore sample for postgresql dellstore sample database
@@ -54,9 +56,16 @@ object Main extends App {
 			val all = customerDao.all
 			println("customers")
 			println("-----------------------------------------------")
-			all.foreach { c =>
-				println("%d :\t%s".format(c.id, c))
-			}
+			printCustomers(all)
+		case "customers-by-state" =>
+			val all = customerDao.byState(args(1))
+			printCustomers(all)
 	}
 
+	def printCustomers(customers: List[Customer with IntId]) {
+		customers.foreach { printCustomer(_) }
+	}
+	def printCustomer(c: Customer with IntId) {
+		println("%d :\t%s".format(c.id, c))
+	}
 }

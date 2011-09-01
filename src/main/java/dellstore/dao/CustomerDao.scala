@@ -11,6 +11,7 @@ import com.rits.orm.ValuesMap
 import dellstore.model.Address
 import dellstore.model.CreditCard
 import com.rits.orm.Persisted
+import com.rits.orm.Query
 
 /**
  * @author kostantinos.kougios
@@ -19,8 +20,13 @@ import com.rits.orm.Persisted
  */
 class CustomerDao(val mapperDao: MapperDao, val queryDao: QueryDao) extends IntIdCRUD[Customer] with IntIdAll[Customer] {
 	import CustomerDao._
+	import queryDao._
 	val entity = CustomerEntity
+	import Query._
 
+	private val ce = CustomerEntity
+
+	def byState(state: String): List[Customer with IntId] = query(select from ce where ce.state === state)
 }
 
 object CustomerDao {
@@ -49,6 +55,7 @@ object CustomerDao {
 		val password = string("password", _.password)
 		val age = int("age", _.age)
 		val income = int("income", _.income)
+		// the Gender is stored as String in the db but it is modeled as an Enumeration 
 		val gender = string("gender", customer => Gender.toString(customer.gender))
 
 		// constructor

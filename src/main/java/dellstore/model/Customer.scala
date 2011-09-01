@@ -1,6 +1,9 @@
 package dellstore.model
 
 /**
+ * the Customer entity is stored in 1 flat table in the database, but we can model it better by
+ * creating embedded entities (CreditCard,Address) and an Enumeration for the Gender
+ *
  * @author kostantinos.kougios
  *
  * 1 Sep 2011
@@ -29,6 +32,6 @@ import Gender._
 class Customer(val firstName: String, val lastName: String, val address: Address, val email: String, val phone: String, val creditCard: CreditCard,
 		val userName: String, val password: String, val age: Int, val income: Int, val gender: Gender) {
 
-	override def toString = "Customer(%s,%s)".format(firstName, lastName)
+	override def toString = "Customer(%s,%s,%s,%s,%s)".format(firstName, lastName, address, creditCard, gender)
 }
 
