@@ -3,13 +3,17 @@ package dellstore
 import java.util.Properties
 import org.apache.commons.dbcp.BasicDataSourceFactory
 import com.rits.orm.utils.Setup
-import dellstore.dao.CategoryDao
-import dellstore.dao.ProductDao
-import dellstore.dao.CustomerDao
-import dellstore.model.Customer
 import com.rits.orm.IntId
+import dellstore.dao.CategoryDao
+import dellstore.dao.CustomerDao
 import dellstore.dao.OrderDao
+import dellstore.dao.ProductDao
+import dellstore.model.Customer
 import dellstore.model.Order
+import dellstore.model.Gender
+import dellstore.model.CreditCard
+import dellstore.model.Address
+import java.util.UUID
 
 /**
  * dellstore sample for postgresql dellstore sample database
@@ -77,6 +81,15 @@ object Main extends App {
 			println("id\torders")
 			println("-----------------------------------------------")
 			printOrders(orderDao.byTotal(args(1).toDouble, args(2).toDouble))
+		case "add-customer" =>
+			val uuid = UUID.randomUUID()
+			val customer = new Customer(args(1), args(2),
+				Address("25 some street", "some avenue", "Athens", "GR", 85100, "Greece", 2), "email@x.x", "1234567",
+				CreditCard(1, "1234 5678 9012 3456", "2011"), "userx" + uuid, "pwd", 22, 25000, Gender.Male)
+
+			val inserted = customerDao.create(customer)
+
+			println("added %d : %s".format(inserted.id, inserted))
 	}
 
 	def printCustomers(customers: List[Customer with IntId]) {
