@@ -31,5 +31,5 @@ class Employee(val id: Int, val birthDate: DateTime, val firstName: String, val 
 		case _ => false
 	}
 
-	override def toString = "Employee(%d,%s,%s,%s)".format(id, firstName, lastName, gender)
+	override def toString = "Employee(%d,%s,%s,%s,%s)".format(id, firstName, lastName, gender, employeeDepartment)
 }

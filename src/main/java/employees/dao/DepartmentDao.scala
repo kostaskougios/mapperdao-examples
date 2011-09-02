@@ -24,8 +24,8 @@ class DepartmentDao(val mapperDao: MapperDao, val queryDao: QueryDao) extends Si
 }
 
 object DepartmentDao {
-	object DepartmentEntity extends SimpleEntity[Department]("employees", classOf[Department]) {
-		val dept_no = string("dept_no", _.no)
+	object DepartmentEntity extends SimpleEntity[Department]("departments", classOf[Department]) {
+		val dept_no = pk("dept_no", _.no)
 		val dept_name = string("dept_name", _.name)
 
 		val constructor = (m: ValuesMap) => new Department(m(dept_no), m(dept_name)) with Persisted {
