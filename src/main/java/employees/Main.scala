@@ -5,6 +5,7 @@ import com.rits.orm.utils.Setup
 import dellstore.dao.CategoryDao
 import employees.dao.EmployeeDao
 import employees.model.Employee
+import employees.dao.DepartmentDao
 
 /**
  * @author kostantinos.kougios
@@ -22,7 +23,7 @@ object Main extends App {
 	println("Configuring mapperdao")
 
 	val (jdbc, mapperDao, queryDao) = Setup.mysql(dataSource,
-		List(EmployeeDao.EmployeeEntity)
+		List(EmployeeDao.EmployeeEntity, EmployeeDao.EmployeeDepartmentEntity, DepartmentDao.DepartmentEntity)
 	)
 	val employeeDao = new EmployeeDao(mapperDao, queryDao)
 	println("Initialization done")
@@ -33,7 +34,7 @@ object Main extends App {
 
 	cmd match {
 		case "by-lastName" =>
-			val employees = employeeDao.byLastName(args(1))
+			val employees = employeeDao.maleByLastName(args(1))
 			printEmployees(employees)
 	}
 

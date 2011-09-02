@@ -23,7 +23,7 @@ object Gender extends Enumeration {
 
 import Gender._
 
-class Employee(val id: Int, val birthDate: DateTime, val firstName: String, val lastName: String, val gender: Gender, val hireDate: DateTime) {
+class Employee(val id: Int, val birthDate: DateTime, val firstName: String, val lastName: String, val gender: Gender, val hireDate: DateTime, val employeeDepartment: List[EmployeeDepartment]) {
 
 	// not exactly the perfect equals method but does the trick for persisted entities
 	override def equals(o: Any) = o match {
