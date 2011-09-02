@@ -1,13 +1,13 @@
 package employees.dao
-import com.rits.orm.SimpleEntity
+import com.googlecode.mapperdao.SimpleEntity
 import employees.model.Employee
 import employees.model.Gender
-import com.rits.orm.Persisted
-import com.rits.orm.ValuesMap
-import com.rits.orm.utils.SimpleCRUD
-import com.rits.orm.MapperDao
-import com.rits.orm.QueryDao
-import com.rits.orm.Query
+import com.googlecode.mapperdao.Persisted
+import com.googlecode.mapperdao.ValuesMap
+import com.googlecode.mapperdao.utils.SimpleCRUD
+import com.googlecode.mapperdao.MapperDao
+import com.googlecode.mapperdao.QueryDao
+import com.googlecode.mapperdao.Query
 import employees.model.EmployeeDepartment
 import employees.model.Department
 

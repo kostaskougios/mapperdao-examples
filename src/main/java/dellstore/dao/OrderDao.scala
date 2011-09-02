@@ -1,14 +1,14 @@
 package dellstore.dao
-import com.rits.orm.utils.IntIdAll
-import com.rits.orm.utils.IntIdCRUD
-import com.rits.orm.Entity
-import com.rits.orm.IntId
-import com.rits.orm.MapperDao
-import com.rits.orm.Persisted
-import com.rits.orm.Query
-import com.rits.orm.QueryDao
-import com.rits.orm.SimpleEntity
-import com.rits.orm.ValuesMap
+import com.googlecode.mapperdao.utils.IntIdAll
+import com.googlecode.mapperdao.utils.IntIdCRUD
+import com.googlecode.mapperdao.Entity
+import com.googlecode.mapperdao.IntId
+import com.googlecode.mapperdao.MapperDao
+import com.googlecode.mapperdao.Persisted
+import com.googlecode.mapperdao.Query
+import com.googlecode.mapperdao.QueryDao
+import com.googlecode.mapperdao.SimpleEntity
+import com.googlecode.mapperdao.ValuesMap
 
 import dellstore.model.Customer
 import dellstore.model.Product

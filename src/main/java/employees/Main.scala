@@ -1,7 +1,7 @@
 package employees
 import org.apache.commons.dbcp.BasicDataSourceFactory
 import java.util.Properties
-import com.rits.orm.utils.Setup
+import com.googlecode.mapperdao.utils.Setup
 import dellstore.dao.CategoryDao
 import employees.dao.EmployeeDao
 import employees.model.Employee

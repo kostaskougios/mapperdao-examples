@@ -2,8 +2,8 @@ package dellstore
 
 import java.util.Properties
 import org.apache.commons.dbcp.BasicDataSourceFactory
-import com.rits.orm.utils.Setup
-import com.rits.orm.IntId
+import com.googlecode.mapperdao.utils.Setup
+import com.googlecode.mapperdao.IntId
 import dellstore.dao.CategoryDao
 import dellstore.dao.CustomerDao
 import dellstore.dao.OrderDao
