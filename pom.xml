@@ -14,9 +14,9 @@
 			<version>${scala.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.googlecode</groupId>
+			<groupId>com.googlecode.mapperdao</groupId>
 			<artifactId>mapperdao</artifactId>
-			<version>0.5</version>
+			<version>0.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
