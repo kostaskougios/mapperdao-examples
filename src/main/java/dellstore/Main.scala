@@ -16,6 +16,7 @@ import dellstore.model.Address
 import java.util.UUID
 import org.scala_tools.time.Imports._
 import dellstore.model.OrderLine
+import com.googlecode.mapperdao.jdbc.Transaction
 
 /**
  * dellstore sample for postgresql dellstore sample database
@@ -33,14 +34,32 @@ object Main extends App {
 
 	println("Configuring mapperdao")
 
-	val (jdbc, mapperDao, queryDao) = Setup.postGreSql(dataSource,
+	val (j, m, q) = Setup.postGreSql(dataSource,
 		List(CategoryDao.CategoryEntity, ProductDao.ProductEntity, ProductDao.InventoryEntity, CustomerDao.CustomerEntity, OrderDao.OrderEntity, OrderDao.OrderLineEntity)
 	)
 
-	val categoryDao = new CategoryDao(mapperDao, queryDao)
-	val productDao = new ProductDao(mapperDao, queryDao)
-	val customerDao = new CustomerDao(mapperDao, queryDao)
-	val orderDao = new OrderDao(mapperDao, queryDao)
+	val txM = Transaction.transactionManager(j)
+
+	val categoryDao = new CategoryDao {
+		val mapperDao = m
+		val queryDao = q
+		val txManager = txM
+	}
+	val productDao = new ProductDao {
+		val mapperDao = m
+		val queryDao = q
+		val txManager = txM
+	}
+	val customerDao = new CustomerDao {
+		val mapperDao = m
+		val queryDao = q
+		val txManager = txM
+	}
+	val orderDao = new OrderDao {
+		val mapperDao = m
+		val queryDao = q
+		val txManager = txM
+	}
 
 	println("Initialization done.")
 

@@ -30,7 +30,7 @@ class EmployeeDao(val mapperDao: MapperDao, val queryDao: QueryDao) extends Simp
 
 object EmployeeDao {
 	object EmployeeEntity extends SimpleEntity[Employee]("employees", classOf[Employee]) {
-		val emp_no = pk("emp_no", _.id)
+		val emp_no = intPK("emp_no", _.id)
 		val birth_date = datetime("birth_date", _.birthDate)
 		val first_name = string("first_name", _.firstName)
 		val last_name = string("last_name", _.lastName)
@@ -47,8 +47,8 @@ object EmployeeDao {
 	}
 
 	object EmployeeDepartmentEntity extends SimpleEntity[EmployeeDepartment]("dept_emp", classOf[EmployeeDepartment]) {
-		val emp_no = pk("emp_no", _.employee.id)
-		val dept_no = pk("dept_no", _.department.no)
+		val emp_no = intPK("emp_no", ed => if (ed.employee != null) ed.employee.id else -1)
+		val dept_no = stringPK("dept_no", ed => if (ed.department != null) ed.department.no else null)
 		val from_date = datetime("from_date", _.fromDate)
 		val to_date = datetime("to_date", _.toDate)
 
