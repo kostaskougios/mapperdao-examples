@@ -35,7 +35,7 @@ object ProductDao {
 		val stock = int("quan_in_stock", _.stock)
 		val sales = int("sales", _.sales)
 		val product = oneToOne(classOf[Product], "prod_id", _.product)
-		val constructor = (m: ValuesMap) => new Inventory(m(product), m(stock), m(sales)) with Persisted {
+		def constructor(implicit m: ValuesMap) = new Inventory(product, stock, sales) with Persisted {
 			val valuesMap = m
 		}
 	}
@@ -45,12 +45,12 @@ object ProductDao {
 		val actor = string("actor", _.actor)
 		val price = float("price", _.price)
 		val category = manyToOne("category", classOf[Category], _.category)
-		val special = int("special", v => if (v.special) 1 else 0)
+		val special = boolean("special", v => v.special)
 		val inventory = oneToOneReverse(classOf[Inventory], "prod_id", _.inventory)
 
-		val constructor = (m: ValuesMap) => new Product(m(category), m(title), m(actor), m.float(price), m.boolean(special), m(inventory)) with Persisted with IntId {
+		def constructor(implicit m: ValuesMap) = new Product(category, title, actor, price, special, inventory) with Persisted with IntId {
 			val valuesMap = m
-			val id = m(ProductEntity.id)
+			val id: Int = ProductEntity.id
 		}
 	}
 }

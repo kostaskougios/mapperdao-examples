@@ -60,15 +60,16 @@ object CustomerDao {
 		val gender = string("gender", customer => Gender.toString(customer.gender))
 
 		// constructor
-		val constructor = (m: ValuesMap) => {
-			// instantiate the embedded entities
-			val address = Address(m(address1), m(address2), m(city), m(state), m(zip), m(country), m(region))
-			val creditCard = CreditCard(m(creditcardtype), m(creditcard), m(creditcardexpiration))
-			val g = Gender.fromString(m(gender))
-			new Customer(m(firstname), m(lastname), address, m(email), m(phone), creditCard, m(username), m(password), m(age), m(income), g) with Persisted with IntId {
-				val valuesMap = m
-				val id = m(customerId)
+		def constructor(implicit m: ValuesMap) =
+			{
+				// instantiate the embedded entities
+				val address = Address(address1, address2, city, state, zip, country, region)
+				val creditCard = CreditCard(creditcardtype, creditcard, creditcardexpiration)
+				val g = Gender.fromString(gender)
+				new Customer(firstname, lastname, address, email, phone, creditCard, username, password, age, income, g) with Persisted with IntId {
+					val valuesMap = m
+					val id: Int = customerId
+				}
 			}
-		}
 	}
 }

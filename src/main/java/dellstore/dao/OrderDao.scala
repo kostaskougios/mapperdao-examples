@@ -50,7 +50,7 @@ object OrderDao {
 		val totalAmount = bigDecimal("totalamount", _.totalAmount)
 		val orderLines = oneToMany(classOf[OrderLine], "orderid", _.orderLines)
 
-		val constructor = (m: ValuesMap) => new Order(m(date), m(customer), m.bigDecimal(netAmount), m.bigDecimal(tax), m.bigDecimal(totalAmount), m(orderLines).toList) with Persisted with IntId {
+		def constructor(implicit m: ValuesMap) = new Order(date, customer, netAmount, tax, totalAmount, orderLines) with Persisted with IntId {
 			val valuesMap = m
 			val id = m(orderid)
 		}
@@ -63,7 +63,7 @@ object OrderDao {
 		val quantity = int("quantity", _.quantity)
 		val orderdate = datetime("orderdate", _.date)
 
-		val constructor = (m: ValuesMap) => new OrderLine(m(orderlineid), m(order), m(product), m(quantity), m(orderdate)) with Persisted {
+		def constructor(implicit m: ValuesMap) = new OrderLine(orderlineid, order, product, quantity, orderdate) with Persisted {
 			val valuesMap = m
 		}
 	}
