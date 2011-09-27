@@ -51,7 +51,7 @@ object OrderDao {
 		val orderLines = oneToMany(classOf[OrderLine], "orderid", _.orderLines)
 
 		def constructor(implicit m: ValuesMap) = new Order(date, customer, netAmount, tax, totalAmount, orderLines) with Persisted with IntId {
-			val id = m(orderid)
+			val id: Int = orderid
 		}
 	}
 
