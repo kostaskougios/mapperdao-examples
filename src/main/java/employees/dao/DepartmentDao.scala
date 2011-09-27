@@ -28,9 +28,7 @@ object DepartmentDao {
 		val dept_no = stringPK("dept_no", _.no)
 		val dept_name = string("dept_name", _.name)
 
-		def constructor(implicit m: ValuesMap) = new Department(dept_no, dept_name) with Persisted {
-			val valuesMap = m
-		}
+		def constructor(implicit m: ValuesMap) = new Department(dept_no, dept_name) with Persisted
 	}
 
 }

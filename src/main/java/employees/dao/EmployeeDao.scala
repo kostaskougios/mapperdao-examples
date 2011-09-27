@@ -40,9 +40,7 @@ object EmployeeDao {
 
 		def constructor(implicit m: ValuesMap) = {
 			val g = Gender.fromString(gender)
-			new Employee(emp_no, birth_date, first_name, last_name, g, hire_date, employeeDepartment) with Persisted {
-				val valuesMap = m
-			}
+			new Employee(emp_no, birth_date, first_name, last_name, g, hire_date, employeeDepartment) with Persisted
 		}
 	}
 
@@ -55,8 +53,6 @@ object EmployeeDao {
 		val employee = manyToOne("emp_no", classOf[Employee], _.employee)
 		val department = manyToOne("dept_no", classOf[Department], _.department)
 
-		def constructor(implicit m: ValuesMap) = new EmployeeDepartment(employee, department, from_date, to_date) with Persisted {
-			val valuesMap = m
-		}
+		def constructor(implicit m: ValuesMap) = new EmployeeDepartment(employee, department, from_date, to_date) with Persisted
 	}
 }

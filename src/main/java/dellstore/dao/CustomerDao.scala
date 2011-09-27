@@ -67,7 +67,6 @@ object CustomerDao {
 				val creditCard = CreditCard(creditcardtype, creditcard, creditcardexpiration)
 				val g = Gender.fromString(gender)
 				new Customer(firstname, lastname, address, email, phone, creditCard, username, password, age, income, g) with Persisted with IntId {
-					val valuesMap = m
 					val id: Int = customerId
 				}
 			}

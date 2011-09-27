@@ -29,7 +29,6 @@ object CategoryDao {
 		val name = string("categoryname", _.name)
 
 		def constructor(implicit m: ValuesMap) = new Category(name) with Persisted with IntId {
-			val valuesMap = m
 			val id: Int = CategoryEntity.id
 		}
 	}
