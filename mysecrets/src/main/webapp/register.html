@@ -1,0 +1,18 @@
+<lift:surround with="default" at="content">
+	<h2>Create an account</h2>
+	<p>
+		<lift:register.form form="POST">
+			<field>Email (and user name)</field>
+			<register:email/>
+			<field>Full Name</field>
+			<register:name/>
+			
+			<field>Password</field>
+			<register:pwd/>
+			<field>Verify Password</field>
+			<register:pwdVerify/>
+			<register:submit/>
+		</lift:register.form>
+   	</p>
+</lift:surround>
+

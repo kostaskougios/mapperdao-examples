@@ -1,0 +1,13 @@
+<lift:surround with="default" at="content">
+	<h2>Login to your account</h2>
+	<p>
+		<lift:login.form form="POST">
+			<field>Email Address</field>
+			<login:email/>
+			<field>Password</field>
+			<login:pwd/>
+			<login:submit/>
+		</lift:login.form>
+   	</p>
+</lift:surround>
+

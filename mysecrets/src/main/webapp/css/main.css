@@ -1,0 +1,96 @@
+@CHARSET "UTF-8";
+
+/* =INITIAL 
+   v2.1, by Faruk Ates - www.kurafire.net
+   Addendum by Robert Nyman - www.robertnyman.com */
+
+/* Neutralize styling: 
+   Elements we want to clean out entirely: */
+html, body, form, fieldset {
+        margin: 0;
+        padding: 0;
+}
+
+/* Neutralize styling: 
+   Elements with a vertical margin: */
+h1, h2, h3, h4, h5, h6, p, pre,
+blockquote, ul, ol, dl, address {
+        margin: 0;
+        padding: 0;
+}
+
+/* Apply left margin:
+   Only to the few elements that need it: */
+li, dd, blockquote {
+        margin-left: 1em;
+}
+
+/* Miscellaneous conveniences: */
+form label {
+        cursor: pointer;
+}
+fieldset {
+        border: none;
+}
+
+img {
+	border: none;
+}
+
+/* END OF MASS RESET */
+
+.clear {
+	clear:both;
+}
+
+#header {
+	border:1px solid black;
+	height:100px;
+}
+#menu {
+	display:block;
+	float:left;
+	width:200px;
+	min-height:500px;
+	border-right: 1px solid black;
+	background: silver;
+}
+#content {
+	float:left;
+	min-height:500px;
+	margin: 8px;
+}
+
+field {
+	float:left;
+	clear:left;
+	display: block;
+	width:200px;
+}
+
+input {
+	float:left;
+	clear:right;
+	display: block;
+}
+
+fieldset {
+	clear:both;
+}
+
+input[type=checkbox] {
+	clear:none;
+	float:left;
+	display:block;
+}
+.shareWith {
+	clear:right;
+}
+
+fieldset {
+	border:1px solid black;
+}
+
+#sharedWithTable {
+	border:1px solid black;
+}
