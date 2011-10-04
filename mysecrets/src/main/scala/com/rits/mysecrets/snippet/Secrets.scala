@@ -72,13 +72,13 @@ class Secrets extends Logger {
 		)
 	}
 
+	object title extends RequestVar("")
+	object secret extends RequestVar("")
+	// the secret will be shared with this set of users
+	object sharedWith extends RequestVar(Set[User]())
+	object remindersVar extends RequestVar(Set[Reminder]())
+	object firstTime extends RequestVar(true)
 	def edit(in: NodeSeq): NodeSeq = {
-		object title extends RequestVar("")
-		object secret extends RequestVar("")
-		// the secret will be shared with this set of users
-		object sharedWith extends RequestVar(Set[User]())
-		object remindersVar extends RequestVar(Set[Reminder]())
-		object firstTime extends RequestVar(true)
 
 		// a list of constraints for validation
 		def validation = List(
@@ -194,7 +194,7 @@ class Secrets extends Logger {
 
 		bind(
 			"edit", in,
-			"secretVar" -> hidden(() => secretVar.set(sv)),
+			"remindersVar" -> hidden(() => (r: Set[Reminder]) => remindersVar.set(r)),
 			"title" -> text(title, title(_)),
 			"secret" -> textarea(secret, secret(_)),
 			"users" -> bindUsers _,
