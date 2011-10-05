@@ -14,11 +14,6 @@ import S._
  */
 class Global {
 	def welcome(in: NodeSeq): NodeSeq = {
-		val user = UserVar.get
-		if (user == null)
-			Text("")
-		else {
-			bind("user", in, "name" -> user.name)
-		}
+		UserVar.get.map(u => bind("user", in, "name" -> u.name)).getOrElse(Text(""))
 	}
 }

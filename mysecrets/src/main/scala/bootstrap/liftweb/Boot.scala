@@ -11,6 +11,8 @@ import net.liftweb.sitemap.SiteMap
 import net.liftweb.util.LoanWrapper
 import com.rits.mysecrets.snippet.UserVar
 import com.rits.mysecrets.Daos
+import net.liftweb.sitemap.Loc.If
+import net.liftweb.http.RedirectResponse
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -21,6 +23,7 @@ class Boot {
 		// where to search snippet
 		LiftRules.addToPackages("com.rits.mysecrets")
 
+		val ifLogged = If(() => UserVar.get.isDefined, () => RedirectResponse("invalid"))
 		// Build SiteMap
 		// TODO: hide menus when they are not valid (user not logged in)
 		val entries =
@@ -30,8 +33,8 @@ class Boot {
 				Menu(Loc("Register", List("register"), "Registration")) ::
 				Menu(Loc("RegistrationSuccesfull", List("registration-succesfull"), "Registration Succesfull", Hidden)) ::
 				// after login pages
-				Menu(Loc("secrets/list", List("secrets", "list"), "Secrets List")) ::
-				Menu(Loc("secrets/edit", List("secrets", "edit"), "Create a Secret")) ::
+				Menu(Loc("secrets/list", List("secrets", "list"), "Secrets List", ifLogged)) ::
+				Menu(Loc("secrets/edit", List("secrets", "edit"), "Create a Secret", ifLogged)) ::
 				Menu(Loc("secrets/view", List("secrets", "view"), "View a Secret", Hidden)) ::
 				Nil
 		LiftRules.setSiteMap(SiteMap(entries: _*))

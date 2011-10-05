@@ -20,20 +20,20 @@ class Login {
 		object email extends RequestVar("")
 		object pwd extends RequestVar("")
 
-		def process() {
-			val user = userDao.login(email.get, pwd.get)
+			def process() {
+				val user = userDao.login(email.get, pwd.get)
 
-			if (Validation.isValid(
-				(!user.isDefined, "Invalid user name or password."),
-				(email.isEmpty, "Please enter an email address"),
-				(!email.contains("@"), "Invalid Email address"),
-				(pwd.isEmpty(), "Password must be provided")
-			)) {
-				// store user in session
-				UserVar.set(user.get)
-				redirectTo("secrets/list")
+				if (Validation.isValid(
+					(!user.isDefined, "Invalid user name or password."),
+					(email.isEmpty, "Please enter an email address"),
+					(!email.contains("@"), "Invalid Email address"),
+					(pwd.isEmpty(), "Password must be provided")
+				)) {
+					// store user in session
+					UserVar.set(user)
+					redirectTo("secrets/list")
+				}
 			}
-		}
 		bind(
 			"login", in,
 			"email" -> text(email, email(_)),
@@ -43,4 +43,4 @@ class Login {
 	}
 }
 
-object UserVar extends SessionVar[User](null)
+object UserVar extends SessionVar[Option[User]](None)
