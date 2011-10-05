@@ -25,6 +25,7 @@ class Boot {
 		// TODO: hide menus when they are not valid (user not logged in)
 		val entries =
 			Menu(Loc("Home", List("index"), "Home")) ::
+				Menu(Loc("Test", List("test"), "Test Page")) ::
 				Menu(Loc("Login", List("login"), "Login Page")) ::
 				Menu(Loc("Register", List("register"), "Registration")) ::
 				Menu(Loc("RegistrationSuccesfull", List("registration-succesfull"), "Registration Succesfull", Hidden)) ::
