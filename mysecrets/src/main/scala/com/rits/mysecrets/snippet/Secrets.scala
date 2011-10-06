@@ -77,6 +77,7 @@ class Secrets extends Logger {
 		object secretTitleVar extends RequestVar("")
 		object sharedWithVar extends RequestVar(scala.collection.mutable.Set[User]())
 		object remindersVar extends RequestVar(scala.collection.mutable.Set[Reminder]())
+		object isNewVar extends RequestVar(!secretVar.get.isDefined)
 			// a list of constraints for validation
 			def validation = List(
 				(titleVar.isEmpty(), "Please enter a title for the secret."),
@@ -92,46 +93,46 @@ class Secrets extends Logger {
 		// now we'll decide if we edit an existing
 		// secret or create a new one. The submit
 		// button & callbacks are modified accordingly
-		val subm = secretVar.get match {
-			case None =>
-				// Create a new secret
-				info("Creating a new secret.")
-				submit("Save", () => Validation.onValidation({
-					// create the instance of the new secret
-					val user = UserVar.get.get // get user from session
-					val s = new Secret(titleVar.get, secretTitleVar.get, user, sharedWithVar.get.toSet, remindersVar.get.toSet)
-					// insert it into the database
-					val newSecret = secretDao.create(s)
-					info("Created Secret (%d : %s)".format(newSecret.id, newSecret))
-					redirectTo("list")
-				}, validation))
-			case Some(oldSecret) =>
-				// editing an existing secret
-				info("Updating secret (%d : %s)".format(oldSecret.id, oldSecret))
-				// set the request variables from the secret properties
-				if (!request.get.post_?) {
-					titleVar.set(oldSecret.title)
-					secretTitleVar.set(oldSecret.secret)
-					sharedWithVar(sharedWithVar.get ++= oldSecret.sharedWith)
-				}
-				// on submit, we'll update the secret to the
-				// database using the secretDao. Since we are
-				// updating an immutable class, we need to copy
-				// over the previous values and modify them
-				// accordingly.
-				submit("Update", () => Validation.onValidation({
-					// update database. We need both the oldSecret and the new updatedSecret instances.
-					val us = getUpdatedSecret
-					val updated = secretDao.update(oldSecret, us)
-					info("Secret updated from %s to %s".format(oldSecret, updated))
-					redirectTo("list")
-				}, validation))
+		val subm = if (isNewVar.get) {
+			// Create a new secret
+			info("Creating a new secret.")
+			submit("Save", () => Validation.onValidation({
+				// create the instance of the new secret
+				val user = UserVar.get.get // get user from session
+				val s = new Secret(titleVar.get, secretTitleVar.get, user, sharedWithVar.get.toSet, remindersVar.get.toSet)
+				// insert it into the database
+				val newSecret = secretDao.create(s)
+				info("Created Secret (%d : %s)".format(newSecret.id, newSecret))
+				redirectTo("list")
+			}, validation))
+		} else {
+			val oldSecret = secretVar.get.get
+			// editing an existing secret
+			info("Updating secret (%d : %s)".format(oldSecret.id, oldSecret))
+			// set the request variables from the secret properties
+			if (!request.get.post_?) {
+				titleVar.set(oldSecret.title)
+				secretTitleVar.set(oldSecret.secret)
+				sharedWithVar(sharedWithVar.get ++= oldSecret.sharedWith)
+			}
+			// on submit, we'll update the secret to the
+			// database using the secretDao. Since we are
+			// updating an immutable class, we need to copy
+			// over the previous values and modify them
+			// accordingly.
+			submit("Update", () => Validation.onValidation({
+				// update database. We need both the oldSecret and the new updatedSecret instances.
+				val us = getUpdatedSecret
+				val updated = secretDao.update(oldSecret, us)
+				info("Secret updated from %s to %s".format(oldSecret, updated))
+				redirectTo("list")
+			}, validation))
 		}
 
 			// Sharing secrets.
 			// it is important to iterate through the original
 			// sharedWith set, because we want to modify it
-			def bindUsers(template: NodeSeq): NodeSeq = (sharedWithVar.get ++ userDao.allBut(UserVar.get.get).toSet).toList.flatMap { user =>
+			def bindSharedWithUsers(template: NodeSeq): NodeSeq = (sharedWithVar.get ++ userDao.allBut(UserVar.get.get).toSet).toList.flatMap { user =>
 				bind("edit", template,
 					"userName" -> user.name,
 					"emailCheckbox" -> checkbox(
@@ -197,11 +198,10 @@ class Secrets extends Logger {
 			"edit", in,
 			"title" -> text(titleVar, titleVar(_)),
 			"secret" -> textarea(secretTitleVar, secretTitleVar(_)),
-			"users" -> bindUsers _,
+			"users" -> bindSharedWithUsers _,
 			"reminders" -> bindReminders _,
 			"addReminder" -> submit("Add Reminder", () => {
-				val us = getUpdatedSecret
-				secretVar.set(Some(us))
+				remindersVar.get += Daily(10, Set())
 			}),
 			"submit" -> subm
 		)
