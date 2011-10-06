@@ -22,15 +22,14 @@ class Test extends Logger {
 		object phoneVar extends RequestVar("")
 		object secretVar extends RequestVar[Secret](null)
 		info("Rendering: name: %s phone: %s, secret: %s".format(nameVar.get, phoneVar.get, secretVar.get))
-		val secret = new Secret("xxx", "yyy", null, Set(), Set())
-		secretVar.set(secret)
 
 		bind("test", in,
 			"name" -> text(nameVar, nameVar(_)),
 			"phone" -> text(phoneVar, phoneVar(_)),
-			"secret" -> hidden(() => secretVar(secret)),
 			"add" -> submit("Add", () => {
 				info("Adding: name: %s phone:%s".format(nameVar.get, phoneVar.get))
+				val secret = new Secret("xxx", "yyy", null, Set(), Set())
+				secretVar.set(secret)
 			}),
 			"submit" -> submit("Save", () => {
 				info("Submit: name: %s phone: %s, secret: %s".format(nameVar.get, phoneVar.get, secretVar.get))

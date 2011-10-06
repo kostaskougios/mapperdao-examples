@@ -35,32 +35,32 @@ class Secrets extends Logger {
 		val secrets = secretDao.all(user) // find all secrets of user
 		val sharedSecrets = secretDao.sharedWith(user) // find all secrets other users share with this user
 
-			// binds the secrets of this user
-			def bindSecrets(template: NodeSeq): NodeSeq = secrets.flatMap { secret =>
-				bind("secret", template,
-					"title" -> SHtml.link("view.html", () => secretVar(Some(secret)), Text(secret.title)),
-					"shared" -> (if (secret.sharedWith.isEmpty) "no" else "yes"),
-					"edit" -> SHtml.link("edit.html", () => secretVar(Some(secret)), Text("Edit")),
-					"delete" -> SHtml.link("list.html", () => secretDao.delete(secret), Text("Delete"))
-				)
-			}
+		// binds the secrets of this user
+		def bindSecrets(template: NodeSeq): NodeSeq = secrets.flatMap { secret =>
+			bind("secret", template,
+				"title" -> SHtml.link("view.html", () => secretVar(Some(secret)), Text(secret.title)),
+				"shared" -> (if (secret.sharedWith.isEmpty) "no" else "yes"),
+				"edit" -> SHtml.link("edit.html", () => secretVar(Some(secret)), Text("Edit")),
+				"delete" -> SHtml.link("list.html", () => secretDao.delete(secret), Text("Delete"))
+			)
+		}
 
-			// binds the secrets shared by other users
-			def bindSharedSecrets(template: NodeSeq): NodeSeq = sharedSecrets.flatMap { secret =>
-				bind("secret", template,
-					"title" -> SHtml.link("view.html", () => secretVar(Some(secret)), Text(secret.title)),
-					"by" -> secret.user.name
-				)
-			}
+		// binds the secrets shared by other users
+		def bindSharedSecrets(template: NodeSeq): NodeSeq = sharedSecrets.flatMap { secret =>
+			bind("secret", template,
+				"title" -> SHtml.link("view.html", () => secretVar(Some(secret)), Text(secret.title)),
+				"by" -> secret.user.name
+			)
+		}
 
 		bind("secret", in, "list" -> bindSecrets _, "shared" -> bindSharedSecrets _)
 	}
 
 	def view(in: NodeSeq): NodeSeq = {
 		val secret = secretVar.get.get // the secretVar definately contains a secret
-			def bindSharedWith(template: NodeSeq): NodeSeq = secret.sharedWith.flatMap { user =>
-				bind("user", template, "name" -> user.name, "email" -> user.email)
-			}.toSeq
+		def bindSharedWith(template: NodeSeq): NodeSeq = secret.sharedWith.flatMap { user =>
+			bind("user", template, "name" -> user.name, "email" -> user.email)
+		}.toSeq
 
 		bind("secret", in,
 			"id" -> secret.id,
@@ -79,11 +79,11 @@ class Secrets extends Logger {
 	object remindersVar extends RequestVar(Set[Reminder]())
 	def edit(in: NodeSeq): NodeSeq = {
 
-			// a list of constraints for validation
-			def validation = List(
-				(title.isEmpty(), "Please enter a title for the secret."),
-				(secret.isEmpty(), "Please enter description for the secret")
-			)
+		// a list of constraints for validation
+		def validation = List(
+			(title.isEmpty(), "Please enter a title for the secret."),
+			(secret.isEmpty(), "Please enter description for the secret")
+		)
 
 		// now we'll decide if we edit an existing
 		// secret or create a new one. The submit
@@ -125,80 +125,81 @@ class Secrets extends Logger {
 				}, validation))
 		}
 
-			// Sharing secrets.
-			// it is important to iterate through the original
-			// sharedWith set, because we want to modify it
-			def bindUsers(template: NodeSeq): NodeSeq = (sharedWith.get ++ userDao.allBut(UserVar.get.get).toSet).toList.flatMap { user =>
-				bind("edit", template,
-					"userName" -> user.name,
-					"emailCheckbox" -> checkbox(
-						// if user is contained in the set, the checkbox should be checked
-						sharedWith.get.contains(user),
-						if (_)
-							// for every checked checkbox, we'll add the user to the shared set.
-							sharedWith.set(sharedWith.get + user)
-						else
-							// for every unchecked checkbox, we'll remove the user from the shared set.
-							sharedWith.set(sharedWith.get - user)
-					)
+		// Sharing secrets.
+		// it is important to iterate through the original
+		// sharedWith set, because we want to modify it
+		def bindUsers(template: NodeSeq): NodeSeq = (sharedWith.get ++ userDao.allBut(UserVar.get.get).toSet).toList.flatMap { user =>
+			bind("edit", template,
+				"userName" -> user.name,
+				"emailCheckbox" -> checkbox(
+					// if user is contained in the set, the checkbox should be checked
+					sharedWith.get.contains(user),
+					if (_)
+						// for every checked checkbox, we'll add the user to the shared set.
+						sharedWith.set(sharedWith.get + user)
+					else
+						// for every unchecked checkbox, we'll remove the user from the shared set.
+						sharedWith.set(sharedWith.get - user)
 				)
-			}
-			// binds the reminders
-			def bindReminders(template: NodeSeq): NodeSeq = remindersVar.get.toList.flatMap { reminder =>
-				var reminderType = ""
-				var hourOfDay = ""
-				var dayOfWeek = ""
-				var time = ""
-				bind("reminder", template,
-					"type" -> select(
-						List(("daily", "Daily"), ("weekly", "Weekly"), ("once", "Once")),
-						reminder match {
-							case _: Daily => Full("daily")
-							case _: Weekly => Full("weekly")
-							case _: RemindOnce => Full("once")
-						},
-						reminderType = _),
-					"hourOfDay" -> text((reminder match {
-						case Daily(hourOfDay, _) => hourOfDay
-						case Weekly(hourOfDay, _, _) => hourOfDay
-						case RemindOnce(time, _) => time.getHourOfDay
-					}).toString, hourOfDay = _),
-					"dayOfWeek" -> text((reminder match {
-						case _: Daily => -1
-						case Weekly(_, dayOfWeek, _) => dayOfWeek
-						case RemindOnce(time, _) => time.getDayOfWeek
-					}).toString, dayOfWeek = _),
-					"time" -> text((reminder match {
-						case _: Daily => ""
-						case _: Weekly => ""
-						case RemindOnce(time, _) => time.toString(ISODateTimeFormat.dateTime)
-					}), t => {
-						time = t
+			)
+		}
+		// binds the reminders
+		def bindReminders(template: NodeSeq): NodeSeq = remindersVar.get.toList.flatMap { reminder =>
+			var reminderType = ""
+			var hourOfDay = ""
+			var dayOfWeek = ""
+			var time = ""
+			bind("reminder", template,
+				"type" -> select(
+					List(("daily", "Daily"), ("weekly", "Weekly"), ("once", "Once")),
+					reminder match {
+						case _: Daily => Full("daily")
+						case _: Weekly => Full("weekly")
+						case _: RemindOnce => Full("once")
+					},
+					reminderType = _),
+				"hourOfDay" -> text((reminder match {
+					case Daily(hourOfDay, _) => hourOfDay
+					case Weekly(hourOfDay, _, _) => hourOfDay
+					case RemindOnce(time, _) => time.getHourOfDay
+				}).toString, hourOfDay = _),
+				"dayOfWeek" -> text((reminder match {
+					case _: Daily => -1
+					case Weekly(_, dayOfWeek, _) => dayOfWeek
+					case RemindOnce(time, _) => time.getDayOfWeek
+				}).toString, dayOfWeek = _),
+				"time" -> text((reminder match {
+					case _: Daily => ""
+					case _: Weekly => ""
+					case RemindOnce(time, _) => time.toString(ISODateTimeFormat.dateTime)
+				}), t => {
+					time = t
 
-						val newReminder = reminderType match {
-							case "daily" => new Daily(hourOfDay.toShort, Set())
-							case "weekly" => new Weekly(hourOfDay.toShort, dayOfWeek.toShort, Set())
-							case "once" =>
-								val fmt = ISODateTimeFormat.dateTime()
-								new RemindOnce(fmt.parseDateTime(time), Set())
-						}
-						if (newReminder != reminder) {
-							remindersVar.set(remindersVar.get - reminder + newReminder)
-						}
-					})
-				)
-			}
+					val newReminder = reminderType match {
+						case "daily" => new Daily(hourOfDay.toShort, Set())
+						case "weekly" => new Weekly(hourOfDay.toShort, dayOfWeek.toShort, Set())
+						case "once" =>
+							val fmt = ISODateTimeFormat.dateTime()
+							new RemindOnce(fmt.parseDateTime(time), Set())
+					}
+					if (newReminder != reminder) {
+						remindersVar.set(remindersVar.get - reminder + newReminder)
+					}
+				})
+			)
+		}
 
+		val sv = secretVar.get
+		val rv = remindersVar.get
 		bind(
 			"edit", in,
-			"remindersVar" -> hidden(() => (r: Set[Reminder]) => remindersVar.set(r)),
-			"secretVar" -> hidden(() => (s: Option[Secret with IntId]) => secretVar.set(s)),
 			"title" -> text(title, title(_)),
 			"secret" -> textarea(secret, secret(_)),
 			"users" -> bindUsers _,
 			"reminders" -> bindReminders _,
 			"addReminder" -> submit("Add Reminder", () => {
-				remindersVar.set(remindersVar.get + new Daily(10, Set()))
+				remindersVar.set(rv + new Daily(10, Set()))
+				secretVar.set(sv)
 			}),
 			"submit" -> subm
 		)
