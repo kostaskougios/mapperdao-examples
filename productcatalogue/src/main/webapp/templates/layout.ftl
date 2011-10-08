@@ -9,7 +9,7 @@
           type="text/css"
           media="screen"
           href="/css/main.css"/>
-    <title>Simple Circumflex Application</title>
+    <title>MapperDao demo for Circumflex</title>
   </head>
   <body>
     <div id="header">
@@ -19,10 +19,7 @@
         [#nested/]
       </div>
       <div id="footer">
-        <span class="copyright">2008-${currentDate?string("yyyy")}</span> ©
-        <a class="home" href="http://${headers['Host']!"localhost"}">
-          ${headers['Host']!"localhost"}
-        </a>
+      	The mapperdao team
       </div>
     </div>
   </body>
