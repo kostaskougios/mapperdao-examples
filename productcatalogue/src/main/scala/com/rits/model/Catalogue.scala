@@ -7,7 +7,7 @@ package com.rits.model
  *
  * 10 Oct 2011
  */
-class Product(
+case class Product(
 	val title: String,
 	val description: String,
 	val prices: Set[Price],
@@ -15,8 +15,8 @@ class Product(
 	val categories: List[Category],
 	val tags: Set[String])
 
-class Price(val currency: String, val unitPrice: Double, val salePrice: Double)
+case class Price(val currency: String, val unitPrice: Double, val salePrice: Double)
 
-class Attribute(val name: String, val value: String)
+case class Attribute(val name: String, val value: String)
 
-class Category(val name: String, val parent: Option[Category])
+case class Category(val name: String, val parent: Option[Category])

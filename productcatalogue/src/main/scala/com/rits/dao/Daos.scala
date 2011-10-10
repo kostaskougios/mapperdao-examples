@@ -28,4 +28,12 @@ object Daos {
 	val productsDao = new ProductsDao {
 		val (mapperDao, queryDao, txManager) = (md, q, txM)
 	}
+
+	val attributesDao = new AttributesDao {
+		val (mapperDao, queryDao, txManager) = (md, q, txM)
+	}
+
+	val categoriesDao = new CategoriesDao {
+		val (mapperDao, queryDao, txManager) = (md, q, txM)
+	}
 }
