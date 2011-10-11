@@ -1,5 +1,6 @@
 package com.rits.dao
 import com.rits.model._
+import org.specs2.mutable.SpecificationWithJUnit
 
 /**
  * @author kostantinos.kougios
@@ -7,7 +8,7 @@ import com.rits.model._
  * 10 Oct 2011
  */
 class ProductDaoSpec extends SpecificationWithJUnit {
-	val productDao = Daos.productsDao
+	val productsDao = Daos.productsDao
 	val attributesDao = Daos.attributesDao
 
 	"persist" in {
@@ -15,6 +16,6 @@ class ProductDaoSpec extends SpecificationWithJUnit {
 		val categories = List(Category("Linux", Some(Category("Operating Systems", None))))
 		val p = Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set())
 		val created = productsDao.create(p)
-		created must_== productsDao.get(created.id)
+		created must_== productsDao.retrieve(created.id)
 	}
 }
