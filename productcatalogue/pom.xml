@@ -11,12 +11,14 @@
 		<port>8080</port>
 		<cx.version>2.0.3</cx.version>
 		<cx.router>com.rits.productcatalogue.Main</cx.router>
+		<scala.version>2.9.1</scala.version>
+		<scala.lib.version>2.9.0-1</scala.lib.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-library</artifactId>
-			<version>2.9.1</version>
+			<version>${scala.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.mapperdao</groupId>
@@ -68,9 +70,15 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.scala-tools.testing</groupId>
-			<artifactId>specs_2.9.1</artifactId>
-			<version>1.6.9</version>
+			<groupId>org.specs2</groupId>
+			<artifactId>specs2_${scala.lib.version}</artifactId>
+			<version>1.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.specs2</groupId>
+			<artifactId>specs2-scalaz-core_${scala.lib.version}</artifactId>
+			<version>6.0.RC2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
