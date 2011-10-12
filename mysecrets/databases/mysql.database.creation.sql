@@ -1,0 +1,1 @@
+CREATE SCHEMA `mysecrets` DEFAULT CHARACTER SET utf8 ;
