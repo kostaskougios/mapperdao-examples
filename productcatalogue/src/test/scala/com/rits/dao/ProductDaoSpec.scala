@@ -16,6 +16,7 @@ class ProductDaoSpec extends SpecificationWithJUnit {
 		val categories = List(Category("Linux", Some(Category("Operating Systems", None))))
 		val p = Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set())
 		val created = productsDao.create(p)
+		created must_== p
 		val retrieved = productsDao.retrieve(created.id).get
 		retrieved must_== created
 	}
