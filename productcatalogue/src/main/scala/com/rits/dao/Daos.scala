@@ -13,7 +13,7 @@ object Daos {
 	// database connectivity setup (private to this factory)
 	// We'll use apache's basic data source to pool the connections
 	private val properties = new Properties
-	properties.load(getClass.getResourceAsStream("/jdbc.properties"))
+	properties.load(getClass.getResourceAsStream("/jdbc.postgresql.properties"))
 	private val dataSource = BasicDataSourceFactory.createDataSource(properties)
 
 	// and we'll connect to postgresql database, registering UserEntiry,SecretEntity...

@@ -16,14 +16,14 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>${scala.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>com.googlecode.mapperdao</groupId>
 			<artifactId>mapperdao</artifactId>
 			<version>0.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>ru.circumflex</groupId>
@@ -61,6 +61,11 @@
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
 		</dependency>
 		<!-- Testing -->
 		<dependency>
@@ -165,6 +170,26 @@
 			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+		<repository>
+			<id>scala-tools.releases</id>
+			<name>Scala-Tools Dependencies Repository for Releases</name>
+			<url>http://scala-tools.org/repo-releases</url>
+		</repository>
+		<repository>
+			<id>scala-tools.org.snapshots</id>
+			<name>Scala Tools Maven2 Repository</name>
+			<url>http://scala-tools.org/repo-snapshots</url>
+			<snapshots />
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>scala-tools.releases</id>
+			<name>Scala-Tools Plugins Repository for Releases</name>
+			<url>http://scala-tools.org/repo-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
 	<profiles>
 		<profile>
 			<id>InEclipse</id>
