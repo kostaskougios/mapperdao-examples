@@ -8,6 +8,7 @@ import com.rits.model.Attribute
 import com.rits.model.Price
 import com.rits.model.Product
 import com.googlecode.mapperdao.SimpleEntity
+import com.googlecode.mapperdao.SimpleColumn
 
 /**
  * entity declarations for all domain classes
@@ -60,6 +61,7 @@ object Entities {
 		val unitPrice = double("unitprice", _.unitPrice)
 		val salePrice = double("saleprice", _.salePrice)
 		val pks = declarePrimaryKeys(SimpleColumn("currency"))
+
 		def constructor(implicit m: ValuesMap) = new Price(currency, unitPrice, salePrice) with Persisted
 	}
 }
