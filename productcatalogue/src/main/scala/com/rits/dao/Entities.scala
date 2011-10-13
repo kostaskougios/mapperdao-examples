@@ -59,7 +59,7 @@ object Entities {
 		val currency = string("currency", _.currency)
 		val unitPrice = double("unitprice", _.unitPrice)
 		val salePrice = double("saleprice", _.salePrice)
-
+		val pks = declarePrimaryKeys(SimpleColumn("currency"))
 		def constructor(implicit m: ValuesMap) = new Price(currency, unitPrice, salePrice) with Persisted
 	}
 }
