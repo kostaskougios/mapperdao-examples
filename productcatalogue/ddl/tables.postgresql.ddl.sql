@@ -36,7 +36,7 @@ create table Price (
 	saleprice decimal(6,3),
 	product_id int not null,
 	primary key (product_id,currency),
-	foreign key (product_id) references Product(id)
+	foreign key (product_id) references Product(id) on delete cascade
 )
 ;
 
