@@ -48,3 +48,7 @@ create table Product_Category (
 	foreign key(category_id) references Category(id) on delete cascade
 )
 ;
+
+create unique index IX_Attribute_name_value on Attribute(name,value)
+
+;
