@@ -10,12 +10,15 @@ import org.specs2.mutable.SpecificationWithJUnit
 class ProductDaoSpec extends SpecificationWithJUnit {
 	val productsDao = Daos.productsDao
 	val attributesDao = Daos.attributesDao
+	val categoriesDao = Daos.categoriesDao
 
 	"persist" in {
 		val a1 = attributesDao.getOrCreate("performance", "fast")
 		val a2 = attributesDao.getOrCreate("security", "extra secure")
 		val attributes = Set(a1, a2)
-		val categories = List(Category("Linux", Some(Category("Operating Systems", None))))
+
+		val cat = categoriesDao.createHierarchy(List("Operating Systems", "Linux"))
+		val categories = List(cat)
 		val p = Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set())
 		val created = productsDao.create(p)
 		created must_== p
@@ -27,7 +30,8 @@ class ProductDaoSpec extends SpecificationWithJUnit {
 		val a1 = attributesDao.getOrCreate("performance", "fast")
 		val a2 = attributesDao.getOrCreate("security", "extra secure")
 		val attributes = Set(a1, a2)
-		val categories = List(Category("Linux", Some(Category("Operating Systems", None))))
+		val cat = categoriesDao.createHierarchy(List("Operating Systems", "iMac"))
+		val categories = List(cat)
 		val p = Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set())
 		val created = productsDao.create(p)
 

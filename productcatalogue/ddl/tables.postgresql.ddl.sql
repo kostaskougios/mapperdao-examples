@@ -52,3 +52,6 @@ create table Product_Category (
 create unique index IX_Attribute_name_value on Attribute(name,value)
 
 ;
+
+create unique index IX_Category_Name_Parent on Category(name,parent_id)
+;
