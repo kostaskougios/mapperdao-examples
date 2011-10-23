@@ -12,7 +12,9 @@ class ProductDaoSpec extends SpecificationWithJUnit {
 	val attributesDao = Daos.attributesDao
 
 	"persist" in {
-		val attributes = Set(Attribute("performance", "fast"), Attribute("security", "extra secure"))
+		val a1 = attributesDao.getOrCreate("performance", "fast")
+		val a2 = attributesDao.getOrCreate("security", "extra secure")
+		val attributes = Set(a1, a2)
 		val categories = List(Category("Linux", Some(Category("Operating Systems", None))))
 		val p = Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set())
 		val created = productsDao.create(p)
@@ -22,7 +24,9 @@ class ProductDaoSpec extends SpecificationWithJUnit {
 	}
 
 	"update prices" in {
-		val attributes = Set(Attribute("performance", "fast"), Attribute("security", "extra secure"))
+		val a1 = attributesDao.getOrCreate("performance", "fast")
+		val a2 = attributesDao.getOrCreate("security", "extra secure")
+		val attributes = Set(a1, a2)
 		val categories = List(Category("Linux", Some(Category("Operating Systems", None))))
 		val p = Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set())
 		val created = productsDao.create(p)
