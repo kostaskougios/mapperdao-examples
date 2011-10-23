@@ -1,4 +1,4 @@
-﻿create table Attribute (
+create table Attribute (
 	id serial not null,
 	name varchar(100) not null,
 	value varchar(100) not null,
