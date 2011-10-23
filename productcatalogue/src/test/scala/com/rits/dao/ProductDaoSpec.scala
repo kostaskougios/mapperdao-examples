@@ -39,4 +39,11 @@ class ProductDaoSpec extends SpecificationWithJUnit {
 		val updated = productsDao.update(created, newP)
 		updated must_== newP
 	}
+
+	"persist attributes" in {
+		val a1 = attributesDao.getOrCreate("performance", "fast")
+		val a2 = attributesDao.getOrCreate("security", "extra secure")
+		val p = productsDao.create(Product("test1", "desc1", Set(), Set(a1, a2), List(), Set()))
+		productsDao.retrieve(p.id).get must_== p
+	}
 }
