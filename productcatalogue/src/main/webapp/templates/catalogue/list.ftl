@@ -7,6 +7,7 @@
 		<th>Title</th>
 		<th>Description</th>
 		<th>Categories</th>
+		<th>Attributes</th>
 	</tr>
 	[#list products as p]
 		<tr>
@@ -15,6 +16,11 @@
 			<td>
 				[#list p.categories as c]
 					${c.name} [#if c_has_next], [/#if]
+				[/#list]
+			</td>
+			<td>
+				[#list p.attributes as a]
+					${a.name}: ${a.value} [#if a_has_next], [/#if]
 				[/#list]
 			</td>
 		</tr>

@@ -13,7 +13,7 @@ import com.rits.dao.Daos
 class CatalogRouter extends RequestRouter("/catalogue") {
 	import Daos._
 	get("/list") = {
-		val products = productsDao.page(1, 10)
+		val products = productsDao.page(1, 20)
 		ftl("catalogue/list.ftl", Map("products" -> products))
 	}
 }
