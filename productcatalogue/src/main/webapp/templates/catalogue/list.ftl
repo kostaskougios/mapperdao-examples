@@ -26,4 +26,9 @@
 		</tr>
 	[/#list]
 </table>
+<ul>
+	[#list 1..numOfPages as page]
+		<li>${page}</li>
+	[/#list]
+</ul>
 [/@page]
