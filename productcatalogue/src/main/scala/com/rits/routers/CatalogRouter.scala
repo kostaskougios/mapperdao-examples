@@ -1,5 +1,9 @@
 package com.rits.routers
-import ru.circumflex._, core._, web._, freemarker._
+import ru.circumflex._
+import core._
+import web._
+import freemarker._
+import com.rits.dao.Daos
 
 /**
  * @author kostantinos.kougios
@@ -7,5 +11,9 @@ import ru.circumflex._, core._, web._, freemarker._
  * 9 Oct 2011
  */
 class CatalogRouter extends RequestRouter("/catalogue") {
-	get("/list") = ftl("catalogue/list.ftl")
+	import Daos._
+	get("/list") = {
+		val products = productsDao.page(1, 10)
+		ftl("catalogue/list.ftl", Map("products" -> products))
+	}
 }
