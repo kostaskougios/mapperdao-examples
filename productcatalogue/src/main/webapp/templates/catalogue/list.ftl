@@ -11,7 +11,11 @@
 	</tr>
 	[#list products as p]
 		<tr>
-			<td>${p.title}</td>
+			<td>
+				<a href="edit?id=${p.id}">
+					${p.title}
+				</a>
+			</td>
 			<td>${p.description}</td>
 			<td>
 				[#list p.categories as c]
@@ -28,7 +32,9 @@
 </table>
 <ul>
 	[#list 1..numOfPages as page]
-		<li>${page}</li>
+		<li>
+			<a href="?page=${page}">${page}</a>
+		</li>
 	[/#list]
 </ul>
 [/@page]
