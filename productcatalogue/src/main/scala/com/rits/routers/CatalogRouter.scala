@@ -4,6 +4,7 @@ import core._
 import web._
 import freemarker._
 import com.rits.dao.Daos
+import com.rits.model._
 
 /**
  * @author kostantinos.kougios
@@ -20,9 +21,17 @@ class CatalogRouter extends RequestRouter("/catalogue") {
 		ftl("catalogue/list.ftl", Map("products" -> products, "numOfPages" -> numOfPages))
 	}
 
-	get("/edit") = {
+	get("/edit/:id") = {
 		val id = param("id").toInt
 		val product = productsDao.retrieve(id)
 		ftl("catalogue/edit.ftl", Map("product" -> product))
+	}
+
+	post("/edit/:id") = {
+		val id = param("id").toInt
+		val oldProduct = productsDao.retrieve(id).get
+		val newProduct = Product(param("title"), param("description"), oldProduct.prices, oldProduct.attributes, oldProduct.categories, oldProduct.tags)
+		productsDao.update(oldProduct, newProduct)
+		redirect("../list")
 	}
 }

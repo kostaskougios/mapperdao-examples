@@ -8,5 +8,7 @@
 	<br/>
 	<label>Description</label>
 	<textarea rows="10" cols="80" name="description">${product.description}</textarea>
+	<br/>
+	<input type="submit" value="Save"/>
 </form>
 [/@page]

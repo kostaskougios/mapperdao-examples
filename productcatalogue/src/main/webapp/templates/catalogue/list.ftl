@@ -12,7 +12,7 @@
 	[#list products as p]
 		<tr>
 			<td>
-				<a href="edit?id=${p.id}">
+				<a href="edit/${p.id}">
 					${p.title}
 				</a>
 			</td>
