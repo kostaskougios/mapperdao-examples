@@ -15,10 +15,9 @@ package object routers {
 	 */
 	protected class Groups(groups: GrcvMap) {
 		/**
-		 * calls the provided function for each row of the group. The function must be
-		 * a function row name,Map(column name, value) => V
+		 * returns a list of row name,Map(column name, value)
 		 */
-		def group[V](groupName: String)(f: (String, Map[String, String]) => V): Iterable[V] = groups(groupName).map(t => f(t._1, t._2.toMap))
+		def group[V](groupName: String): List[(String, Map[String, String])] = groups(groupName).map(t => (t._1, t._2.toMap)).toList
 	}
 
 	def getGroups =

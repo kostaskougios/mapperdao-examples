@@ -24,8 +24,14 @@
 	<br/>
 	<fieldset>
 		<legend>Prices</legend>
+		[#-- product prices --]
 		[#list product.prices as price]
 			[@renderPrice currency="${price.currency}" unitPrice="${price.unitPrice}" salePrice="${price.salePrice}" /]
+			<br/>
+		[/#list]
+		[#-- provide 3 extra slots for the user to enter prices in new currencies --]
+		[#list 1..3 as i]
+			[@renderPrice currency="" unitPrice="" salePrice="" /]
 			<br/>
 		[/#list]
 	</fieldset>

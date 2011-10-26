@@ -7,6 +7,7 @@ import freemarker._
 import com.rits.dao.Daos
 import com.rits.model._
 import routers._
+import com.googlecode.mapperdao.utils.Helpers
 
 /**
  * @author kostantinos.kougios
@@ -31,15 +32,18 @@ class CatalogRouter extends RequestRouter("/catalogue") {
 
 	post("/edit/:id") = {
 		val id = param("id").toInt
-		val newPrices = getGroups.group("price") { (row, m) =>
+		val newPrices = getGroups.group("price").filterNot(t => t._2("currency").isEmpty).map { t =>
+			val (row, m) = t
 			new Price(m("currency"), m("unitPrice").toDouble, m("salePrice").toDouble)
-		}
-		println("\n\n" + newPrices + "\n\n")
+		}.toSet
 		val oldProduct = productsDao.retrieve(id).get
+		// import mapperdao's collection manipulation helpers
+		import Helpers._
+		val modifiedPrices = modified(oldProduct.prices, newPrices)
 		val newProduct = Product(
 			param("title"),
 			param("description"),
-			oldProduct.prices,
+			modifiedPrices,
 			oldProduct.attributes,
 			oldProduct.categories,
 			oldProduct.tags
