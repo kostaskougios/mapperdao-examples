@@ -29,3 +29,11 @@ pre {
 #footer {
   text-align: center;
 }
+
+.currency , .unitPrice , .salePrice {
+	width:100px;
+}
+
+.currency {
+	background: silver;
+}
