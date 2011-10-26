@@ -27,7 +27,7 @@ class CatalogRouter extends RequestRouter("/catalogue") {
 	get("/edit/:id") = {
 		val id = param("id").toInt
 		val product = productsDao.retrieve(id)
-		ftl("catalogue/edit.ftl", Map("product" -> product))
+		ftl("catalogue/edit.ftl", Map("product" -> product, "saved" -> flash.getOrElse("saved", false)))
 	}
 
 	post("/edit/:id") = {
@@ -49,6 +49,7 @@ class CatalogRouter extends RequestRouter("/catalogue") {
 			oldProduct.tags
 		)
 		productsDao.update(oldProduct, newProduct)
+		flash("saved") = true
 		redirect("../edit/" + id)
 		//redirect("../list")
 	}

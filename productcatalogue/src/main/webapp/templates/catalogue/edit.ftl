@@ -4,8 +4,11 @@
 
 [#assign priceCounter = 1]
 [#macro renderPrice currency unitPrice salePrice]
-	<label>Currency</label>
-	<input type="text" name="price[currency,${priceCounter}]" value="${currency}" class="currency"/>
+	<select name="price[currency,${priceCounter}]">
+		[#list ["","GBP","EUR","USD","YEN"] as c]
+			<option value="${c}" [#if c==currency] selected="selected" [/#if] >${c}</option>
+		[/#list]
+	</select>
 	<label>UnitPrice</label>
 	<input type="text" name="price[unitPrice,${priceCounter}]" value="${unitPrice}" class="unitPrice"/>
 	<label>SalePrice</label>
@@ -15,6 +18,12 @@
 [/#macro]
 
 <h3>Edit Product</h3>
+
+[#if saved]
+<p class="msg">
+	Product saved. <a href="../list">Back to the list of products.</a>
+</p>
+[/#if]
 <form method="post">
 	<label>Title</label>
 	<input name="title" value="${product.title}"/>
@@ -36,5 +45,6 @@
 		[/#list]
 	</fieldset>
 	<input type="submit" value="Save"/>
+	<a href="../list">Cancel</a>
 </form>
 [/@page]

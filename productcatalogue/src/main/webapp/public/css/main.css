@@ -34,6 +34,9 @@ pre {
 	width:100px;
 }
 
-.currency {
+.msg {
+	text-align:center;
 	background: silver;
+	height: 40px;
+	padding-top: 20px;	
 }
