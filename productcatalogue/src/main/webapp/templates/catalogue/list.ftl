@@ -30,7 +30,7 @@
 		</tr>
 	[/#list]
 </table>
-<ul>
+<ul id="pages">
 	[#list 1..numOfPages as page]
 		<li>
 			<a href="?page=${page}">${page}</a>

@@ -28,6 +28,7 @@ pre {
 
 #footer {
   text-align: center;
+  clear:both;
 }
 
 .currency , .unitPrice , .salePrice {
@@ -40,3 +41,13 @@ pre {
 	height: 40px;
 	padding-top: 20px;	
 }
+
+#pages li {
+	display:block;
+	float:left;
+	width:30px;
+}
+#pages {
+	display:block;
+	clear:both;
+} 

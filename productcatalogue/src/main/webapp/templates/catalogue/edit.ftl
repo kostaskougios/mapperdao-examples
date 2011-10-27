@@ -31,9 +31,11 @@
 	<label>Description</label>
 	<textarea rows="10" cols="80" name="description">${product.description}</textarea>
 	<br/>
+	[#----------------------------------------------------------------------------- 
+		product prices 
+	-------------------------------------------------------------------------------]
 	<fieldset>
 		<legend>Prices</legend>
-		[#-- product prices --]
 		[#list product.prices as price]
 			[@renderPrice currency="${price.currency}" unitPrice="${price.unitPrice}" salePrice="${price.salePrice}" /]
 			<br/>
@@ -43,6 +45,13 @@
 			[@renderPrice currency="" unitPrice="" salePrice="" /]
 			<br/>
 		[/#list]
+	</fieldset>
+	
+	[#----------------------------------------------------------------------------- 
+		product attributes 
+	-------------------------------------------------------------------------------]
+	<fieldset>
+		<legend>Attributes</legend>
 	</fieldset>
 	<input type="submit" value="Save"/>
 	<a href="../list">Cancel</a>

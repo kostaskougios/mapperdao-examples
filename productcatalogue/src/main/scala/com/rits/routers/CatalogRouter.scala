@@ -31,15 +31,25 @@ class CatalogRouter extends RequestRouter("/catalogue") {
 	}
 
 	post("/edit/:id") = {
+		// we will process the post request, for simplicity we'll skip validation
 		val id = param("id").toInt
+
+		// parse the prices for this product
 		val newPrices = getGroups.group("price").filterNot(t => t._2("currency").isEmpty).map { t =>
 			val (row, m) = t
 			new Price(m("currency"), m("unitPrice").toDouble, m("salePrice").toDouble)
 		}.toSet
+
+		// get the old product from the database
 		val oldProduct = productsDao.retrieve(id).get
-		// import mapperdao's collection manipulation helpers
+		// import mapperdao's collection manipulation helpers.
+		// those will help us to get the updated collections
 		import Helpers._
-		val modifiedPrices = modified(oldProduct.prices, newPrices)
+		// merges the 2 sets, returning modifiedPrices==newPrices
+		// but modifiedPrices retains instances from oldProduct.prices
+		val modifiedPrices = merge(oldProduct.prices, newPrices)
+
+		// now we can create the new instance of the Product
 		val newProduct = Product(
 			param("title"),
 			param("description"),
