@@ -31,8 +31,20 @@ pre {
   clear:both;
 }
 
+label {
+	display:block;
+	float:left;
+}
+
+#prices select {
+	display:block;
+	float:left;
+	clear:left;
+}
+
 .currency , .unitPrice , .salePrice {
 	width:100px;
+	float:left;
 }
 
 .msg {
@@ -47,7 +59,22 @@ pre {
 	float:left;
 	width:30px;
 }
+
 #pages {
 	display:block;
 	clear:both;
-} 
+}
+
+.attributeName , .attributeValue {
+	width: 100px;
+	display: block;
+	float:left;
+}
+
+.attributeValue {
+	clear:right;
+}
+
+.clear {
+	clear:both;
+}
