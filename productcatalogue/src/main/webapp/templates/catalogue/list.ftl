@@ -37,4 +37,5 @@
 		</li>
 	[/#list]
 </ul>
+<a id="newProductLink" href="edit/0">Create New Product</a>
 [/@page]

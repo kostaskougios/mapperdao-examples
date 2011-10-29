@@ -15,6 +15,9 @@ case class Product(
 	val categories: List[Category],
 	val tags: Set[String])
 
+object Product {
+	def empty = new Product("", "", Set(), Set(), List(), Set())
+}
 case class Price(val currency: String, val unitPrice: Double, val salePrice: Double)
 
 case class Attribute(val name: String, val value: String)
