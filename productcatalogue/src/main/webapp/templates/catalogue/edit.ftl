@@ -27,6 +27,14 @@
 	<div class="clear"></div>
 [/#macro]
 
+[#assign catCounter = 1]
+[#macro renderCategory hierarchy]
+	<label>Category hierarchy</label>
+	<input type="text" name="category[hierarchy,${catCounter}]" value="${hierarchy}" class="categoryHierarchy"/>
+	
+	[#assign catCounter = catCounter + 1]
+[/#macro]
+
 <h3>Edit Product</h3>
 
 [#if saved]
@@ -65,6 +73,18 @@
 		[/#list]
 		[#list 1..3 as i]
 			[@renderAttribute name="" value=""/]
+		[/#list]
+	</fieldset>
+	[#----------------------------------------------------------------------------- 
+		product categories 
+	-------------------------------------------------------------------------------]
+	<fieldset id="categories">
+		<legend>Categories</legend>
+		[#list product.categories as category]
+			[@renderCategory hierarchy="${category.commaSeparated}"/]
+		[/#list]
+		[#list 1..3 as i]
+			[@renderCategory hierarchy=""/]
 		[/#list]
 	</fieldset>
 	<input type="submit" value="Save"/>

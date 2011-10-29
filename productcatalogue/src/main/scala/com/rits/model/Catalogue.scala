@@ -19,4 +19,9 @@ case class Price(val currency: String, val unitPrice: Double, val salePrice: Dou
 
 case class Attribute(val name: String, val value: String)
 
-case class Category(val name: String, val parent: Option[Category])
+case class Category(val name: String, val parent: Option[Category]) {
+	def commaSeparated: String = parent match {
+		case Some(p) => "%s,%s".format(p.commaSeparated, name)
+		case None => name
+	}
+}

@@ -75,6 +75,15 @@ label {
 	clear:right;
 }
 
+.categoryHierarchy {
+	width: 300px;
+	display: block;
+	float:left;
+}
+
+#categories label {
+	clear:left;
+}
 .clear {
 	clear:both;
 }

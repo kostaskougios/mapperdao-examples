@@ -19,7 +19,7 @@
         [#nested/]
       </div>
       <div id="footer">
-      	The mapperdao team
+      	mapperdao example, <a href="http://code.google.com/p/mapperdao/">http://code.google.com/p/mapperdao/</a>
       </div>
     </div>
   </body>
