@@ -53,10 +53,8 @@ object Entities {
 		// self reference 
 		val parent = manyToOneOption("parent_id", classOf[Category], _.parent)
 
-		def constructor(implicit m: ValuesMap) = {
-			new Category(name, parent) with Persisted with IntId {
-				val id: Int = CategoryEntity.id
-			}
+		def constructor(implicit m: ValuesMap) = new Category(name, parent) with Persisted with IntId {
+			val id: Int = CategoryEntity.id
 		}
 	}
 
