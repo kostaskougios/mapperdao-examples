@@ -28,11 +28,15 @@ abstract class CategoriesDao extends TransactionalIntIdCRUD[Category] {
 			val q = (
 				select
 				from c
-				where c.name === name and c.category === parent.getOrElse(null)
+				where c.name === name and c.parent === parent.getOrElse(null)
 			)
 			querySingleResult(q).getOrElse(create(Category(name, parent)))
 		}
 
+	/**
+	 * creates (if not already present) a hierarchy of categories and
+	 * returns the leaf category.
+	 */
 	def createHierarchy(categories: List[String]): Category =
 		{
 			def createHierarchy(categories: List[String], parent: Option[Category]): Category =

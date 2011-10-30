@@ -1,6 +1,8 @@
 package com.rits.routers
 
 /**
+ * Global Preferences
+ *
  * @author kostantinos.kougios
  *
  * 25 Oct 2011

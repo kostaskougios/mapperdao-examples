@@ -5,6 +5,9 @@ import com.googlecode.mapperdao.jdbc.Transaction
 import org.apache.commons.dbcp.BasicDataSourceFactory
 
 /**
+ * this is a factory for all the dao's. It initializes the database connection pool
+ * and mapperdao. It then injects all dependencies to the dao's.
+ *
  * @author kostantinos.kougios
  *
  * 10 Oct 2011
