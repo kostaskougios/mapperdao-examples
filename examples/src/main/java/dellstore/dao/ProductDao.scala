@@ -34,7 +34,7 @@ object ProductDao {
 	object InventoryEntity extends SimpleEntity[Inventory]("inventory", classOf[Inventory]) {
 		val stock = int("quan_in_stock", _.stock)
 		val sales = int("sales", _.sales)
-		val product = oneToOne(classOf[Product], "prod_id", _.product)
+		val product = oneToOne(ProductEntity, "prod_id", _.product)
 		def constructor(implicit m: ValuesMap) = new Inventory(product, stock, sales) with Persisted
 	}
 	object ProductEntity extends Entity[IntId, Product]("products", classOf[Product]) {
@@ -42,9 +42,9 @@ object ProductDao {
 		val title = string("title", _.title)
 		val actor = string("actor", _.actor)
 		val price = float("price", _.price)
-		val category = manyToOne("category", classOf[Category], _.category)
+		val category = manyToOne("category", CategoryDao.CategoryEntity, _.category)
 		val special = boolean("special", v => v.special)
-		val inventory = oneToOneReverse(classOf[Inventory], "prod_id", _.inventory)
+		val inventory = oneToOneReverse(InventoryEntity, "prod_id", _.inventory)
 
 		def constructor(implicit m: ValuesMap) = new Product(category, title, actor, price, special, inventory) with Persisted with IntId {
 			val id: Int = ProductEntity.id

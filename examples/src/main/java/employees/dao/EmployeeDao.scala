@@ -36,7 +36,7 @@ object EmployeeDao {
 		val last_name = string("last_name", _.lastName)
 		val gender = string("gender", employee => Gender.toString(employee.gender))
 		val hire_date = datetime("hire_date", _.hireDate)
-		val employeeDepartment = oneToMany(classOf[EmployeeDepartment], "emp_no", _.employeeDepartment)
+		val employeeDepartment = oneToMany(EmployeeDepartmentEntity, "emp_no", _.employeeDepartment)
 
 		def constructor(implicit m: ValuesMap) = {
 			val g = Gender.fromString(gender)
@@ -50,8 +50,8 @@ object EmployeeDao {
 		val from_date = datetime("from_date", _.fromDate)
 		val to_date = datetime("to_date", _.toDate)
 
-		val employee = manyToOne("emp_no", classOf[Employee], _.employee)
-		val department = manyToOne("dept_no", classOf[Department], _.department)
+		val employee = manyToOne("emp_no", EmployeeEntity, _.employee)
+		val department = manyToOne("dept_no", DepartmentDao.DepartmentEntity, _.department)
 
 		def constructor(implicit m: ValuesMap) = new EmployeeDepartment(employee, department, from_date, to_date) with Persisted
 	}
