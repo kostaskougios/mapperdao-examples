@@ -47,7 +47,7 @@ object ReminderDao {
 			case remindOnce: RemindOnce => remindOnce.time
 		})
 
-		val remindUsers = manyToMany(classOf[User], _.remindUsers)
+		val remindUsers = manyToMany(UserDao.UserEntity, _.remindUsers)
 
 		def constructor(implicit m: ValuesMap) = m.int(t) match {
 			case 0 => new Daily(hourOfDay, remindUsers) with IntId with Persisted {
