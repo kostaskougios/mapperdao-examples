@@ -9,6 +9,7 @@ import com.rits.model.Price
 import com.rits.model.Product
 import com.googlecode.mapperdao.SimpleEntity
 import com.googlecode.mapperdao.SimpleColumn
+import com.googlecode.mapperdao.StringEntity
 
 /**
  * entity declarations for all domain classes
@@ -32,16 +33,18 @@ object Entities {
 		val attributes = manyToMany(AttributeEntity, _.attributes)
 		// products contain 0..n categories
 		val categories = manyToMany(CategoryEntity, _.categories)
-
+		val tags = oneToManySimpleTypeString(TagsEntity, _.tags)
 		/**
 		 * this method constructs a Product instance when it is loaded from the database. The
 		 * implicit 'm' variable is used to convert all the above columns into their equivalent
 		 * values in a typesafe manner.
 		 */
-		def constructor(implicit m: ValuesMap) = new Product(title, description, prices, attributes, categories, Set()) with IntId with Persisted {
+		def constructor(implicit m: ValuesMap) = new Product(title, description, prices, attributes, categories, tags) with IntId with Persisted {
 			val id: Int = ProductEntity.id // converted implicitly using 'm'
 		}
 	}
+
+	object TagsEntity extends StringEntity("Tags", "product_id", "tag")
 
 	/**
 	 * Categories are hierarchical. A category might have a parent category. We

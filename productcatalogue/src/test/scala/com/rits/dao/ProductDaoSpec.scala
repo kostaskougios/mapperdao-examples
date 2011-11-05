@@ -60,7 +60,7 @@ class ProductDaoSpec extends SpecificationWithJUnit {
 
 		val cat = categoriesDao.createHierarchy(List("Operating Systems", "Linux"))
 		val categories = List(cat)
-		val p = Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set())
+		val p = Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set("processor", "3000ghz"))
 		val created = productsDao.create(p)
 		created must_== p
 		val retrieved = productsDao.retrieve(created.id).get
@@ -75,11 +75,12 @@ class ProductDaoSpec extends SpecificationWithJUnit {
 		val cat1 = categoriesDao.createHierarchy(List("Operating Systems", "Linux"))
 		val cat2 = categoriesDao.createHierarchy(List("Operating Systems", "Leopard"))
 		val categories = List(cat1, cat2)
-		val p = productsDao.create(Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set()))
-		val u = productsDao.update(p, Product("test1", "desc1", p.prices.filterNot(_.currency == "GBP"), Set(a1), List(cat2), Set()))
+		val p = productsDao.create(Product("test1", "desc1", Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set("processor", "3000ghz")))
+		val u = productsDao.update(p, Product("test1", "desc1", p.prices.filterNot(_.currency == "GBP"), Set(a1), List(cat2), Set("processor", "2000ghz")))
 		val r = productsDao.retrieve(u.id).get
 		r.prices must_== Set(Price("EUR", 12.50, 11.05))
 		r.attributes must_== Set(a1)
 		r.categories must_== List(cat2)
+		r.tags must_== Set("processor", "2000ghz")
 	}
 }

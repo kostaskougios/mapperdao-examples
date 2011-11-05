@@ -55,3 +55,11 @@ create unique index IX_Attribute_name_value on Attribute(name,value)
 
 create unique index IX_Category_Name_Parent on Category(name,parent_id)
 ;
+
+create table Tags (
+	product_id int not null,
+	tag varchar(30) not null,
+	foreign key (product_id) references Product(id) on delete cascade
+)
+
+;
