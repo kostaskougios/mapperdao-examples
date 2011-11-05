@@ -98,6 +98,9 @@ class CatalogRouter extends RequestRouter("/catalogue") {
 		// ... and categories
 		val modifiedCategories = merge(oldProduct.categories, newCategories)
 
+		// tags, for simple entities we don't have to merge
+		// the sets, we can just create a new set
+		val tags = param("tags").split(",").map(_.trim).toSet
 		/**
 		 * now we are ready to create the updated product and store it into
 		 * the database using mapperdao and the dao layer:
@@ -110,7 +113,7 @@ class CatalogRouter extends RequestRouter("/catalogue") {
 			modifiedPrices,
 			modifiedAttributes,
 			modifiedCategories,
-			oldProduct.tags
+			tags
 		)
 		val updated = oldProduct match {
 			case p: Product with IntId with Persisted => productsDao.update(p, newProduct)

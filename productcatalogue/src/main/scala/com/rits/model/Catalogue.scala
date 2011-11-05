@@ -10,12 +10,14 @@ package com.rits.model
  * 10 Oct 2011
  */
 case class Product(
-	val title: String,
-	val description: String,
-	val prices: Set[Price],
-	val attributes: Set[Attribute],
-	val categories: List[Category],
-	val tags: Set[String])
+		val title: String,
+		val description: String,
+		val prices: Set[Price],
+		val attributes: Set[Attribute],
+		val categories: List[Category],
+		val tags: Set[String]) {
+	def tagsCommaSeparated = tags.mkString(",")
+}
 
 object Product {
 	def empty = new Product("", "", Set(), Set(), List(), Set())

@@ -87,6 +87,14 @@
 			[@renderCategory hierarchy=""/]
 		[/#list]
 	</fieldset>
+	[#----------------------------------------------------------------------------- 
+		product categories 
+	-------------------------------------------------------------------------------]
+	<fieldset id="tags">
+		<legend>Tags</legend>
+		<label>Tags (comma separated)</label>
+		<input type="text" name="tags" value="${product.tagsCommaSeparated}"/>
+	</fieldset>
 	<input type="submit" value="Save"/>
 	<a href="../list">Cancel</a>
 </form>
