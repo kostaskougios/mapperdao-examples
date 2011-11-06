@@ -50,7 +50,7 @@ object Entities {
 	 * tags is a simple StringEntity that maps to "Tags" table, the FK to the Product table is the "product_id" column
 	 * and the value is stored in the "tag" column.
 	 */
-	object TagsEntity extends StringEntity("Tags", "product_id", "tag")
+	val TagsEntity = StringEntity.oneToMany("Tags", "product_id", "tag")
 
 	/**
 	 * Categories are hierarchical. A category might have a parent category. We
