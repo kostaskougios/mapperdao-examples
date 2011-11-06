@@ -13,7 +13,7 @@ import com.googlecode.mapperdao.utils.IntIdAll
  * if there is a problem.
  *
  * By mixin the IntIdAll[Product] trait, the dao acquires methods that
- * return pages from the product table.
+ * return pages of rows from the product table.
  *
  * @author kostantinos.kougios
  *

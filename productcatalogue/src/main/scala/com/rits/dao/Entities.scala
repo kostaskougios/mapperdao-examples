@@ -33,6 +33,8 @@ object Entities {
 		val attributes = manyToMany(AttributeEntity, _.attributes)
 		// products contain 0..n categories
 		val categories = manyToMany(CategoryEntity, _.categories)
+		// a simple type mapping for a string value. the Set[String] is
+		// mapped via the TagsEntity (declared below)
 		val tags = oneToManySimpleTypeString(TagsEntity, _.tags)
 		/**
 		 * this method constructs a Product instance when it is loaded from the database. The
@@ -44,6 +46,10 @@ object Entities {
 		}
 	}
 
+	/**
+	 * tags is a simple StringEntity that maps to "Tags" table, the FK to the Product table is the "product_id" column
+	 * and the value is stored in the "tag" column.
+	 */
 	object TagsEntity extends StringEntity("Tags", "product_id", "tag")
 
 	/**
