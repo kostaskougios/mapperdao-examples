@@ -3,13 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.rits</groupId>
 	<artifactId>mysecrets</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.8.4</version>
 	<packaging>war</packaging>
 	<name>mysecrets Project</name>
 	<inceptionYear>2011</inceptionYear>
 	<properties>
 		<scala.version>2.9.1</scala.version>
-		<mapperdao.version>0.8.3</mapperdao.version>
+		<mapperdao.version>0.8.4</mapperdao.version>
 		<!-- Common plugin settings -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
