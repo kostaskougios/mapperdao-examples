@@ -1,12 +1,15 @@
 package com.rits.dao
 import com.rits.model._
 import org.specs2.mutable.SpecificationWithJUnit
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
 /**
  * @author kostantinos.kougios
  *
  * 10 Oct 2011
  */
+@RunWith(classOf[JUnitRunner])
 class ProductDaoSpec extends SpecificationWithJUnit {
 	val productsDao = Daos.productsDao
 	val attributesDao = Daos.attributesDao
