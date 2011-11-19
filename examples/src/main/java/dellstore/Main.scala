@@ -76,14 +76,14 @@ object Main extends App {
 				println("%d :\t%s".format(c.id, c))
 			}
 		case "list-products" =>
-			val all = productDao.all
+			val all = productDao.page(1, 20)
 			println("id\tproduct")
 			println("-----------------------------------------------")
 			all.foreach { p =>
 				println("%d :\t%s".format(p.id, p))
 			}
 		case "list-customers" =>
-			val all = customerDao.all
+			val all = customerDao.page(1, 20)
 			println("customers")
 			println("-----------------------------------------------")
 			printCustomers(all)
@@ -93,7 +93,7 @@ object Main extends App {
 		case "list-orders" =>
 			println("id\torders")
 			println("-----------------------------------------------")
-			printOrders(orderDao.all)
+			printOrders(orderDao.page(1, 20))
 		case "orders-by-state" =>
 			println("id\torders")
 			println("-----------------------------------------------")

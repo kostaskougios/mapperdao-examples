@@ -25,18 +25,23 @@ class EmployeeDao(val mapperDao: MapperDao, val queryDao: QueryDao) extends Simp
 	// alias for queries
 	val e = EmployeeEntity
 
-	def maleByLastName(lastName: String) = query(select from e where e.last_name === lastName and e.gender === "M")
+	def maleByLastName(lastName: String) = query(
+		select
+			from e
+			where e.last_name === lastName
+			and e.gender === "M"
+	)
 }
 
 object EmployeeDao {
 	object EmployeeEntity extends SimpleEntity[Employee]("employees", classOf[Employee]) {
-		val emp_no = intPK("emp_no", _.id)
-		val birth_date = datetime("birth_date", _.birthDate)
-		val first_name = string("first_name", _.firstName)
-		val last_name = string("last_name", _.lastName)
-		val gender = string("gender", employee => Gender.toString(employee.gender))
-		val hire_date = datetime("hire_date", _.hireDate)
-		val employeeDepartment = oneToMany(EmployeeDepartmentEntity, "emp_no", _.employeeDepartment)
+		val emp_no = key("emp_no") to (_.id)
+		val birth_date = column("birth_date") to (_.birthDate)
+		val first_name = column("first_name") to (_.firstName)
+		val last_name = column("last_name") to (_.lastName)
+		val gender = column("gender") to (employee => Gender.toString(employee.gender))
+		val hire_date = column("hire_date") to (_.hireDate)
+		val employeeDepartment = onetomany(EmployeeDepartmentEntity) foreignkey "emp_no" to (_.employeeDepartment)
 
 		def constructor(implicit m: ValuesMap) = {
 			val g = Gender.fromString(gender)
@@ -45,13 +50,13 @@ object EmployeeDao {
 	}
 
 	object EmployeeDepartmentEntity extends SimpleEntity[EmployeeDepartment]("dept_emp", classOf[EmployeeDepartment]) {
-		val emp_no = intPK("emp_no", ed => if (ed.employee != null) ed.employee.id else -1)
-		val dept_no = stringPK("dept_no", ed => if (ed.department != null) ed.department.no else null)
-		val from_date = datetime("from_date", _.fromDate)
-		val to_date = datetime("to_date", _.toDate)
+		val emp_no = key("emp_no") to (ed => if (ed.employee != null) ed.employee.id else -1)
+		val dept_no = key("dept_no") to (ed => if (ed.department != null) ed.department.no else null)
+		val from_date = column("from_date") to (_.fromDate)
+		val to_date = column("to_date") to (_.toDate)
 
-		val employee = manyToOne("emp_no", EmployeeEntity, _.employee)
-		val department = manyToOne("dept_no", DepartmentDao.DepartmentEntity, _.department)
+		val employee = manytoone(EmployeeEntity) foreignkey "emp_no" to (_.employee)
+		val department = manytoone(DepartmentDao.DepartmentEntity) foreignkey "dept_no" to (_.department)
 
 		def constructor(implicit m: ValuesMap) = new EmployeeDepartment(employee, department, from_date, to_date) with Persisted
 	}
