@@ -39,4 +39,6 @@ object Daos {
 	val categoriesDao = new CategoriesDao {
 		val (mapperDao, queryDao, txManager) = (md, q, txM)
 	}
+
+	val jdbc = j
 }
