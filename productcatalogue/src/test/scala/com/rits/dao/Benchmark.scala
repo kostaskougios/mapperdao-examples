@@ -45,15 +45,20 @@ object Benchmark extends App {
 
 	def persist(iterations: Int, threads: Int) = benchmark {
 
-		ExecutorServiceManager.lifecycle(threads, iterations) { i =>
-			val a1 = attributesDao.getOrCreate(nextWord, nextWord)
-			val a2 = attributesDao.getOrCreate(nextWord, nextWord)
-			val attributes = Set(a1, a2)
+		ExecutorServiceManager.lifecycle(threads, iterations / 100) { i =>
+			for (i <- 1 to 100)
+				try {
+					val a1 = attributesDao.getOrCreate(nextWord, nextWord)
+					val a2 = attributesDao.getOrCreate(nextWord, nextWord)
+					val attributes = Set(a1, a2)
 
-			val cat = categoriesDao.createHierarchy(List(nextWord, nextWord))
-			val categories = List(cat)
-			val p = Product(nextWord, nextWord, Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set(nextWord, nextWord))
-			productsDao.create(p)
+					val cat = categoriesDao.createHierarchy(List(nextWord, nextWord))
+					val categories = List(cat)
+					val p = Product(nextWord, nextWord, Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set(nextWord, nextWord))
+					productsDao.create(p)
+				} catch {
+					case e => System.err.println(e)
+				}
 		}
 	}
 
@@ -62,8 +67,14 @@ object Benchmark extends App {
 		words(pos)
 	}
 	def cleanup = {
+
 		println("cleaning up")
-		List("tags", "price", "category", "attribute", "product").foreach { table =>
+
+		List("tags", "price", "product_attribute", "product_category").foreach { table =>
+			jdbc.update("truncate table %s".format(table))
+			jdbc.update("vacuum %s".format(table))
+		}
+		List("category", "attribute", "product").foreach { table =>
 			println("deleting %s".format(table))
 			jdbc.update("delete from %s".format(table))
 			println("vacuum %s".format(table))
