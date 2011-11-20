@@ -63,3 +63,6 @@ create table Tags (
 )
 
 ;
+
+create index IX_Attribute_Name on attribute(name);
+create unique index IX_Category_Name_Parent on category(name,parent_id);

@@ -72,13 +72,13 @@ object Benchmark extends App {
 
 		List("tags", "price", "product_attribute", "product_category").foreach { table =>
 			jdbc.update("truncate table %s".format(table))
-			jdbc.update("vacuum %s".format(table))
+			jdbc.update("vacuum full analyse %s".format(table))
 		}
 		List("category", "attribute", "product").foreach { table =>
 			println("deleting %s".format(table))
 			jdbc.update("delete from %s".format(table))
 			println("vacuum %s".format(table))
-			jdbc.update("vacuum %s".format(table))
+			jdbc.update("vacuum full analyse %s".format(table))
 		}
 		println("done cleaning up")
 	}
