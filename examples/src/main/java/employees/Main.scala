@@ -2,10 +2,8 @@ package employees
 import org.apache.commons.dbcp.BasicDataSourceFactory
 import java.util.Properties
 import com.googlecode.mapperdao.utils.Setup
-import dellstore.dao.CategoryDao
-import employees.dao.EmployeeDao
 import employees.model.Employee
-import employees.dao.DepartmentDao
+import employees.dao._
 
 /**
  * @author kostantinos.kougios
@@ -23,7 +21,7 @@ object Main extends App {
 	println("Configuring mapperdao")
 
 	val (jdbc, mapperDao, queryDao) = Setup.mysql(dataSource,
-		List(EmployeeDao.EmployeeEntity, EmployeeDao.EmployeeDepartmentEntity, DepartmentDao.DepartmentEntity)
+		List(EmployeeEntity, EmployeeDepartmentEntity, DepartmentEntity)
 	)
 	val employeeDao = new EmployeeDao(mapperDao, queryDao)
 	println("Initialization done")

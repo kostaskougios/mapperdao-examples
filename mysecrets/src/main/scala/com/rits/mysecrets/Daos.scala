@@ -30,9 +30,9 @@ object Daos extends Logger {
 
 	// and we'll connect to the database, registering UserEntiry,SecretEntity...
 	private val entities = List(
-		UserDao.UserEntity,
-		SecretDao.SecretEntity,
-		ReminderDao.ReminderEntity
+		UserEntity,
+		SecretEntity,
+		ReminderEntity
 	)
 
 	private val (j, md, q) = database match {
