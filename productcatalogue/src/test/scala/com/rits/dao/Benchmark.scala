@@ -27,26 +27,31 @@ object Benchmark extends App {
 	val wordsSz = words.size
 	val wordCounter = new AtomicInteger
 
-	val csv = new StringBuilder("iterations,throughput\n")
-	cleanup
-	println("warming up ...")
+	val persistCsv = new StringBuilder("persist\niterations,throughput\n")
+	val selectCsv = new StringBuilder("select\niterations,throughput\n")
 
-	persist(1000, THREADS)
+	val loops = new AtomicInteger
+
 	println("starting benchmark")
 
-	(10000 to 100000 by 10000) foreach { iterations =>
-		cleanup
-		val dt = persist(iterations, THREADS)
-		val throughput = (1000 * iterations) / dt
-		println("threads %d , iterations: %d , %d millis, throughput: %d / sec".format(THREADS, iterations, dt, throughput))
-		csv append iterations append "," append throughput append "\n"
-		println(csv.toString)
+	List(5000, 1000, 5000, 50000, 250000, 500000, 1000000) foreach { iterations =>
+		println("%d iterations".format(iterations))
+		doPersist(iterations)
+		doSelect(iterations)
 	}
 
+	def doPersist(iterations: Int) {
+		cleanup
+		loops.set(0)
+		val dt = persist(iterations, THREADS)
+		val throughput = (1000 * loops.get) / dt
+		println("persist: threads %d , loops: %d , %d millis, throughput: %d / sec".format(THREADS, loops.get, dt, throughput))
+		persistCsv append loops.get append "," append throughput append "\n"
+		println(persistCsv.toString)
+	}
 	def persist(iterations: Int, threads: Int) = benchmark {
-
 		ExecutorServiceManager.lifecycle(threads, iterations / 100) { i =>
-			for (i <- 1 to 100)
+			for (j <- 1 to 100)
 				try {
 					val a1 = attributesDao.getOrCreate(nextWord, nextWord)
 					val a2 = attributesDao.getOrCreate(nextWord, nextWord)
@@ -56,9 +61,30 @@ object Benchmark extends App {
 					val categories = List(cat)
 					val p = Product(nextWord, nextWord, Set(Price("GBP", 10.5, 9.99), Price("EUR", 12.50, 11.05)), attributes, categories, Set(nextWord, nextWord))
 					productsDao.create(p)
+					loops.incrementAndGet
 				} catch {
 					case e => System.err.println(e)
 				}
+		}
+	}
+
+	def doSelect(iterations: Int) {
+		loops.set(0)
+		val dt = select(iterations, THREADS)
+		val throughput = (1000 * loops.get) / dt
+		println("select: threads %d , loops: %d , %d millis, throughput: %d / sec".format(THREADS, loops.get, dt, throughput))
+		selectCsv append loops.get append "," append throughput append "\n"
+		println(selectCsv.toString)
+	}
+	def select(iterations: Int, threads: Int) = benchmark {
+		println("getting list of product id's")
+		val ids = jdbc.queryForList("select id from product").map(_("id").asInstanceOf[Int]).grouped(THREADS).toList
+		println("running benchmark with %d sets of id's".format(ids.size))
+		ExecutorServiceManager.lifecycle(threads, ids) { list =>
+			list.foreach { id =>
+				productsDao.retrieve(id)
+				loops.incrementAndGet
+			}
 		}
 	}
 
