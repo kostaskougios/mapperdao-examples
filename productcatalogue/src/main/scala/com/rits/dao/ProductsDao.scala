@@ -2,7 +2,6 @@ package com.rits.dao
 
 import com.googlecode.mapperdao.utils.TransactionalIntIdCRUD
 import com.rits.model._
-import Entities._
 import com.googlecode.mapperdao.utils.IntIdAll
 
 /**

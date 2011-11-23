@@ -20,7 +20,6 @@ object Daos {
 	private val dataSource = BasicDataSourceFactory.createDataSource(properties)
 
 	// and we'll connect to postgresql database, registering UserEntiry,SecretEntity...
-	import Entities._
 	private val (j, md, q) = Setup.postGreSql(dataSource, List(ProductEntity, CategoryEntity, AttributeEntity, PriceEntity))
 	// our dao's are transactional, hence we need a transaction manager. MapperDao uses spring's
 	// excellent support for transactions via the org.springframework.transaction.PlatformTransactionManager
