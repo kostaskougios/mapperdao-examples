@@ -59,6 +59,9 @@
 				<configuration>
 					<scalaVersion>${scala.version}</scalaVersion>
 					<charset>${project.build.sourceEncoding}</charset>
+					<args>
+						<arg>-Xexperimental</arg>
+					</args>
 					<jvmArgs>
 						<jvmArg>-Xmx1024m</jvmArg>
 					</jvmArgs>

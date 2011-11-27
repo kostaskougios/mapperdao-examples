@@ -94,6 +94,9 @@
 				<version>2.15.2</version>
 				<configuration>
 					<charset>${project.build.sourceEncoding}</charset>
+					<args>
+						<arg>-Xexperimental</arg>
+					</args>
 					<jvmArgs>
 						<jvmArg>-Xmx1024m</jvmArg>
 						<jvmArg>-DpackageLinkDefs=file://${project.build.directory}/packageLinkDefs.properties</jvmArg>
