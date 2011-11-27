@@ -16,11 +16,17 @@ object Daos {
 	// database connectivity setup (private to this factory)
 	// We'll use apache's basic data source to pool the connections
 	private val properties = new Properties
-	properties.load(getClass.getResourceAsStream("/jdbc.postgresql.properties"))
+	val database = System.getProperty("database")
+	if (database == null) throw new IllegalArgumentException("Please configure -Ddatabase=X, X can be postgresql or oracle")
+	properties.load(getClass.getResourceAsStream("/jdbc.%s.properties".format(database)))
 	private val dataSource = BasicDataSourceFactory.createDataSource(properties)
 
-	// and we'll connect to postgresql database, registering UserEntiry,SecretEntity...
-	private val (j, md, q) = Setup.postGreSql(dataSource, List(ProductEntity, CategoryEntity, AttributeEntity, PriceEntity))
+	// and we'll connect to the database, registering UserEntiry,SecretEntity...
+	private val entities = List(ProductEntity, CategoryEntity, AttributeEntity, PriceEntity)
+	private val (j, md, q) = database match {
+		case "postgresql" => Setup.postGreSql(dataSource, entities)
+		case "oracle" => Setup.oracle(dataSource, entities)
+	}
 	// our dao's are transactional, hence we need a transaction manager. MapperDao uses spring's
 	// excellent support for transactions via the org.springframework.transaction.PlatformTransactionManager
 	// (Our application is not using spring framework to manage beans, this app is a typical lift web app)

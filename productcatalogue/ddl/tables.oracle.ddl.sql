@@ -1,5 +1,5 @@
 create table Attribute (
-	id serial not null,
+	id int not null,
 	name varchar(100) not null,
 	value varchar(100) not null,
 	primary key(id)
@@ -7,7 +7,7 @@ create table Attribute (
 ;
 
 create table Category (
-	id serial not null,
+	id int not null,
 	name varchar(100) not null,
 	parent_id int,
 	primary key(id),
@@ -16,12 +16,13 @@ create table Category (
 ;
 
 create table Product (
-	id serial not null,
+	id int not null,
 	title varchar(100) not null,
-	description text not null,
+	description long not null,
 	primary key(id)
 )
 ;
+
 create table Product_Attribute (
 	product_id int not null,
 	attribute_id int not null,
@@ -65,3 +66,7 @@ create table Tags (
 ;
 
 create index IX_Attribute_Name on attribute(name);
+
+create sequence ProductSeq increment by 1 start with 1;
+create sequence CategorySeq increment by 1 start with 1;
+create sequence AttributeSeq increment by 1 start with 1;

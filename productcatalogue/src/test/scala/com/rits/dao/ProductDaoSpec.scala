@@ -11,6 +11,7 @@ import org.specs2.runner.JUnitRunner
  */
 @RunWith(classOf[JUnitRunner])
 class ProductDaoSpec extends SpecificationWithJUnit {
+
 	val productsDao = Daos.productsDao
 	val attributesDao = Daos.attributesDao
 	val categoriesDao = Daos.categoriesDao
