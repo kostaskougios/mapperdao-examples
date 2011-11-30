@@ -23,10 +23,7 @@ object Daos {
 
 	// and we'll connect to the database, registering UserEntiry,SecretEntity...
 	private val entities = List(ProductEntity, CategoryEntity, AttributeEntity, PriceEntity)
-	private val (j, md, q) = database match {
-		case "postgresql" => Setup.postGreSql(dataSource, entities)
-		case "oracle" => Setup.oracle(dataSource, entities)
-	}
+	private val (j, md, q) = Setup(database, dataSource, entities)
 	// our dao's are transactional, hence we need a transaction manager. MapperDao uses spring's
 	// excellent support for transactions via the org.springframework.transaction.PlatformTransactionManager
 	// (Our application is not using spring framework to manage beans, this app is a typical lift web app)
