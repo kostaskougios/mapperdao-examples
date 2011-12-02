@@ -49,9 +49,8 @@ object ProductEntity extends Entity[IntId, Product](classOf[Product]) {
 	 * values in a typesafe manner.
 	 */
 	def constructor(implicit m) = new Product(title, description, prices, attributes, categories, tags) with IntId with Persisted {
-		val id: Int = ProductEntity.id // converted implicitly using 'm'
+		val id: Int = ProductEntity.id // converted to Int implicitly using 'm'
 	}
-
 }
 
 /**
@@ -95,6 +94,9 @@ object PriceEntity extends SimpleEntity[Price](classOf[Price]) {
 	def constructor(implicit m) = new Price(currency, unitPrice, salePrice) with Persisted
 }
 
+/**
+ * utility methods
+ */
 object Compatibility {
 	/**
 	 * defines the sequence only for sequence-based databases
