@@ -15,4 +15,7 @@ object Daos {
 
 	val computerDao = new ComputerDao {
 	}
+
+	val companyDao = new CompanyDao {
+	}
 }

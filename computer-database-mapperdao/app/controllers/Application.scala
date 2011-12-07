@@ -27,7 +27,10 @@ object Application extends Controller {
 			"name" -> requiredText,
 			"introduced" -> optional(date("yyyy-MM-dd")),
 			"discontinued" -> optional(date("yyyy-MM-dd")),
-			"company" -> optional(number)
+			"company" -> {
+				val id = optional(number)
+				companyDao.retrieve(id)
+			}
 		)
 	)
 
@@ -47,7 +50,7 @@ object Application extends Controller {
 	 */
 	def list(page: Int, orderBy: Int, filter: String) = Action { implicit request =>
 		Ok(html.list(
-			computerDao.page(page, 10),
+			Page(computerDao.page(page, 10), page, 10 * page, computerDao.countAll),
 			orderBy, filter
 		))
 	}
