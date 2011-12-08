@@ -4,7 +4,7 @@ import PlayProject._
 
 object ApplicationBuild extends Build {
 
-    val appName         = "computer-database"
+    val appName         = "computer-database-mapperdao"
     val appVersion      = "1.0"
 
     val appDependencies = Seq("com.googlecode.mapperdao" % "mapperdao" % "0.9.2")
