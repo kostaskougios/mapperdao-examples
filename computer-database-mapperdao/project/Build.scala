@@ -17,7 +17,8 @@ object ApplicationBuild extends Build {
 		// Add your own project settings here
 		resolvers += (
 			"Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository"
-		)
+		),
+		scalacOptions ++= Seq("-Xexperimental")
 	)
 
 }

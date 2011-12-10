@@ -6,7 +6,9 @@ import play.api.data._
 import play.api.data.validation.Constraints._
 import views._
 import models._
+
 import dao.Daos._
+import org.scala_tools.time.Imports._
 
 /**
  * Manage a database of computers
@@ -23,7 +25,6 @@ object Application extends Controller {
 	 */
 	val computerForm = Form(
 		of(Computer.apply _)(
-			"id" -> ignored(NotAssigned),
 			"name" -> requiredText,
 			"introduced" -> optional(date("yyyy-MM-dd")),
 			"discontinued" -> optional(date("yyyy-MM-dd")),

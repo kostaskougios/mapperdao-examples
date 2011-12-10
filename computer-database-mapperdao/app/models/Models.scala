@@ -1,9 +1,10 @@
 package models
+import java.util.Date
 
-import org.joda.time.DateTime
+//import org.scala_tools.time.Imports._
 
 case class Company(name: String)
-case class Computer(name: String, introduced: Option[DateTime], discontinued: Option[DateTime], company: Option[Company])
+case class Computer(name: String, introduced: Option[Date], discontinued: Option[Date], company: Option[Company])
 
 /**
  * Helper for pagination.

@@ -8,5 +8,4 @@ import models.Company
  *
  * 7 Dec 2011
  */
-abstract class CompanyDao extends TransactionalIntIdCRUD[Company] with IntIdAll[Company] {
-}
+abstract class CompanyDao extends TransactionalIntIdCRUD[Company] with IntIdAll[Company]

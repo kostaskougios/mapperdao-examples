@@ -8,5 +8,4 @@ import com.googlecode.mapperdao.utils.IntIdAll
  *
  * 7 Dec 2011
  */
-abstract class ComputerDao extends TransactionalIntIdCRUD[Computer] with IntIdAll[Computer] {
-}
+abstract class ComputerDao extends TransactionalIntIdCRUD[Computer] with IntIdAll[Computer]
