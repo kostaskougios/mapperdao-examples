@@ -1,4 +1,4 @@
-@(computerForm: Form[Computer])
+@(computerForm: Form[Computer],companies:List[(String,String)])
 
 @import helper._
 
@@ -16,7 +16,7 @@
 
             @select(
                 computerForm("company"), 
-                Company.options, 
+                companies, 
                 'label -> "Company", 'default -> "-- Choose a company --"
             )(twitterBootstrapInput)
             

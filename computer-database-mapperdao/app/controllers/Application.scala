@@ -86,7 +86,8 @@ object Application extends Controller {
 	 * Display the 'new computer form'.
 	 */
 	def create = Action {
-		Ok(html.createForm(computerForm))
+		val companyOptions = companyDao.all.map(company => (company.id.toString, company.name))
+		Ok(html.createForm(computerForm, companyOptions))
 	}
 
 	/**
