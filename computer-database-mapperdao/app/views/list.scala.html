@@ -1,15 +1,10 @@
-@import com.googlecode.mapperdao._
-
-@(currentPage: Page[(Computer with IntId, Option[Company])], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash)
+@(currentPage: Page[(Computer with com.googlecode.mapperdao.IntId, Option[Company])], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash)
 
 @****************************************
 * Helper generating navigation links    *
 ****************************************@
 @link(newPage: Int, newOrderBy: Option[Int] = None) = @{
-    routes.Application.list(newPage, newOrderBy.map { orderBy =>
-        if(orderBy == Math.abs(currentOrderBy)) -currentOrderBy else orderBy
-    }.getOrElse(currentOrderBy), currentFilter)
-    
+    routes.Application.list(newPage, 0)
 }
 
 @**********************************
