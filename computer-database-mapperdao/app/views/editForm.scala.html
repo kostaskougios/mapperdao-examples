@@ -1,4 +1,6 @@
-@(id: Int, computerForm: Form[Computer])
+@(id: Int, computerForm: Form[Computer], companies:List[(String,String)])
+
+@import com.googlecode.mapperdao._
 
 @import helper._
 
@@ -16,7 +18,7 @@
             
             @select(
                 computerForm("company"), 
-                Company.options, 
+                companies), 
                 'label -> "Company", 'default -> "-- Choose a company --"
             )(twitterBootstrapInput)
         

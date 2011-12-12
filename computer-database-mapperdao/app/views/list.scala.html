@@ -1,4 +1,6 @@
-@(currentPage: Page[(Computer, Option[Company])], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash)
+@import com.googlecode.mapperdao._
+
+@(currentPage: Page[(Computer with IntId, Option[Company])], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash)
 
 @****************************************
 * Helper generating navigation links    *
@@ -56,7 +58,7 @@
                 @computers.map { 
                     case (computer, company) => {
                         <tr>
-                            <td><a href="@routes.Application.edit(computer.id.get)">@computer.name</a></td>
+                            <td><a href="@routes.Application.edit(computer.id)">@computer.name</a></td>
                             <td>
                                 @computer.introduced.map(_.format("dd MMM yyyy")).getOrElse { <em>-</em> }
                             </td>
