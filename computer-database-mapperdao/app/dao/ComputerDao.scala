@@ -12,6 +12,7 @@ import com.googlecode.mapperdao.QueryConfig
 abstract class ComputerDao extends TransactionalIntIdCRUD[Computer] with IntIdAll[Computer] {
 	import com.googlecode.mapperdao.Query._
 
+	// aliases for queries/joins
 	private val ce = ComputerEntity
 	private val co = CompanyEntity
 
