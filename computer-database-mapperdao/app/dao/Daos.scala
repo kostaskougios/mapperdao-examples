@@ -14,8 +14,16 @@ object Daos {
 	val txManager = Transaction.transactionManager(jdbc)
 
 	val computerDao = new ComputerDao {
+		val entity = ComputerEntity
+		val queryDao = Daos.queryDao
+		val txManager = Daos.txManager
+		val mapperDao = Daos.mapperDao
 	}
 
 	val companyDao = new CompanyDao {
+		val entity = CompanyEntity
+		val queryDao = Daos.queryDao
+		val txManager = Daos.txManager
+		val mapperDao = Daos.mapperDao
 	}
 }

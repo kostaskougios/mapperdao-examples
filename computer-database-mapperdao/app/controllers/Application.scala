@@ -6,9 +6,9 @@ import play.api.data._
 import play.api.data.validation.Constraints._
 import views._
 import models._
-
 import dao.Daos._
 import org.scala_tools.time.Imports._
+import java.util.Date
 
 /**
  * Manage a database of computers
@@ -23,8 +23,16 @@ object Application extends Controller {
 	/**
 	 * Describe the computer form (used in both edit and create screens).
 	 */
+	def unapply(name: String, introduced: Option[Date], discontinued: Option[Date], companyId: Option[Long]) =
+		{
+			val company = companyId match {
+				case Some(id) => companyDao.retrieve(id.toInt)
+				case None => None
+			}
+			Computer(name, introduced, discontinued, company)
+		}
 	val computerForm = Form(
-		of(Computer.apply _)(
+		of(unapply _)(
 			"name" -> requiredText,
 			"introduced" -> optional(date("yyyy-MM-dd")),
 			"discontinued" -> optional(date("yyyy-MM-dd")),
@@ -69,22 +77,23 @@ object Application extends Controller {
 	 *
 	 * @param id Id of the computer to edit
 	 */
-	def update(id: Long) = Action { implicit request =>
+	def update(id: Int) = Action { implicit request =>
 		computerForm.bindFromRequest.fold(
-			formWithErrors => BadRequest(html.editForm(id, formWithErrors)),
+			formWithErrors => BadRequest(html.editForm(id, formWithErrors, allCompaniesForView)),
 			computer => {
-				Computer.update(id, computer)
+				val oldV = computerDao.retrieve(id).get
+				computerDao.update(oldV, computer)
 				Home.flashing("success" -> "Computer %s has been updated".format(computer.name))
 			}
 		)
 	}
 
+	def allCompaniesForView = companyDao.all.map(company => (company.id.toString, company.name))
 	/**
 	 * Display the 'new computer form'.
 	 */
 	def create = Action {
-		val companyOptions = companyDao.all.map(company => (company.id.toString, company.name))
-		Ok(html.createForm(computerForm, companyOptions))
+		Ok(html.createForm(computerForm, allCompaniesForView))
 	}
 
 	/**
@@ -92,9 +101,9 @@ object Application extends Controller {
 	 */
 	def save = Action { implicit request =>
 		computerForm.bindFromRequest.fold(
-			formWithErrors => BadRequest(html.createForm(formWithErrors)),
+			formWithErrors => BadRequest(html.createForm(formWithErrors, allCompaniesForView)),
 			computer => {
-				Computer.insert(computer)
+				computerDao.create(computer)
 				Home.flashing("success" -> "Computer %s has been created".format(computer.name))
 			}
 		)
