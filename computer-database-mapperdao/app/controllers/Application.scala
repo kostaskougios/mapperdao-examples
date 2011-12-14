@@ -54,7 +54,10 @@ object Application extends Controller {
 	def list(page: Int, orderBy: Int, filter: String) = Action { implicit request =>
 		val pg = page + 1
 		Ok(html.list(
-			Page(computerDao.pageOrderedByName(pg, 10).map(computer => (computer, computer.company)), pg, 10 * pg, computerDao.countAll),
+			Page(
+				computerDao.pageOrderedBy(pg, 10, orderBy).map(computer => (computer, computer.company)),
+				pg, 10 * pg, computerDao.countAll
+			),
 			orderBy, filter
 		))
 	}
