@@ -23,16 +23,13 @@ object Application extends Controller {
 	/**
 	 * Describe the computer form (used in both edit and create screens).
 	 */
-	def unapply(name: String, introduced: Option[Date], discontinued: Option[Date], companyId: Option[Long]) =
-		{
-			val company = companyId match {
-				case Some(id) => companyDao.retrieve(id.toInt)
-				case None => None
-			}
-			Computer(name, introduced, discontinued, company)
-		}
+
+	// we'll create this here since it is specific to the controller rather than the domain class
+
 	val computerForm = Form(
-		of(unapply _)(
+		of((name: String, introduced: Option[Date], discontinued: Option[Date], companyId: Option[Long]) =>
+			Computer(name, introduced, discontinued, companyId.map(id => companyDao.retrieve(id.toInt).get))
+		)(
 			"name" -> requiredText,
 			"introduced" -> optional(date("yyyy-MM-dd")),
 			"discontinued" -> optional(date("yyyy-MM-dd")),
@@ -55,8 +52,9 @@ object Application extends Controller {
 	 * @param filter Filter applied on computer names
 	 */
 	def list(page: Int, orderBy: Int, filter: String) = Action { implicit request =>
+		val pg = page + 1
 		Ok(html.list(
-			Page(computerDao.page(page, 10).map(computer => (computer, computer.company)), page, 10 * page, computerDao.countAll),
+			Page(computerDao.pageOrderedByName(pg, 10).map(computer => (computer, computer.company)), pg, 10 * pg, computerDao.countAll),
 			orderBy, filter
 		))
 	}
