@@ -68,7 +68,7 @@ object Application extends Controller {
 	 */
 	def edit(id: Int) = Action {
 		computerDao.retrieve(id).map { computer =>
-			Ok(html.editForm(id, computerForm.fill(computer), companyDao.all.map(c => (c.id.toString, c.name))))
+			Ok(html.editForm(id, computerForm.fill(computer), allCompaniesForView))
 		}.getOrElse(NotFound)
 	}
 
