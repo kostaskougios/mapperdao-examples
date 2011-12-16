@@ -15,7 +15,7 @@ object CompanyEntity extends Entity[IntId, Company](classOf[Company]) {
 	val name = column("name") to (_.name)
 
 	def constructor(implicit m) = new Company(name) with IntId with Persisted {
-		val id: Int = id
+		val id: Int = CompanyEntity.id
 	}
 }
 
@@ -27,6 +27,6 @@ object ComputerEntity extends Entity[IntId, Computer](classOf[Computer]) {
 	val company = manytoone(CompanyEntity) option (_.company)
 
 	def constructor(implicit m) = new Computer(name, introduced, discontinued, company) with IntId with Persisted {
-		val id: Int = id
+		val id: Int = ComputerEntity.id
 	}
 }

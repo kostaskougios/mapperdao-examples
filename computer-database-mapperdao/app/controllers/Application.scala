@@ -7,7 +7,6 @@ import play.api.data.validation.Constraints._
 import views._
 import models._
 import dao.Daos._
-import org.scala_tools.time.Imports._
 import java.util.Date
 
 /**
@@ -27,14 +26,15 @@ object Application extends Controller {
 	// we'll create this here since it is specific to the controller rather than the domain class
 
 	val computerForm = Form(
-		of((name: String, introduced: Option[Date], discontinued: Option[Date], companyId: Option[Long]) =>
-			Computer(name, introduced, discontinued, companyId.map(id => companyDao.retrieve(id.toInt).get))
+		of(
+			(name: String, introduced: Option[Date], discontinued: Option[Date], companyId: Option[Long]) =>
+				Computer(name, introduced, discontinued, companyId.map(id => companyDao.retrieve(id.toInt).get))
 		)(
-			"name" -> requiredText,
-			"introduced" -> optional(date("yyyy-MM-dd")),
-			"discontinued" -> optional(date("yyyy-MM-dd")),
-			"company" -> optional(number)
-		)
+				"name" -> requiredText,
+				"introduced" -> optional(date("yyyy-MM-dd")),
+				"discontinued" -> optional(date("yyyy-MM-dd")),
+				"company" -> optional(number)
+			)
 	)
 
 	// -- Actions
@@ -53,7 +53,6 @@ object Application extends Controller {
 	 */
 	def list(page: Int, orderBy: Int, filter: String) = Action { implicit request =>
 		val computers = computerDao.pageOrderedBy(page + 1, 10, orderBy)
-		println(computers.map(_.id))
 		Ok(html.list(
 			Page(
 				computers.map(computer => (computer, computer.company)),
