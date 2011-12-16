@@ -52,9 +52,11 @@ object Application extends Controller {
 	 * @param filter Filter applied on computer names
 	 */
 	def list(page: Int, orderBy: Int, filter: String) = Action { implicit request =>
+		val computers = computerDao.pageOrderedBy(page + 1, 10, orderBy)
+		println(computers.map(_.id))
 		Ok(html.list(
 			Page(
-				computerDao.pageOrderedBy(page + 1, 10, orderBy).map(computer => (computer, computer.company)),
+				computers.map(computer => (computer, computer.company)),
 				page, 10 * page, computerDao.countAll
 			),
 			orderBy, filter
