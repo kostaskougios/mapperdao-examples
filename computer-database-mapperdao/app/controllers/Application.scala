@@ -8,6 +8,7 @@ import views._
 import models._
 import dao.Daos._
 import java.util.Date
+import com.googlecode.mapperdao.IntId
 
 /**
  * Manage a database of computers
@@ -24,17 +25,17 @@ object Application extends Controller {
 	 */
 
 	// we'll create this here since it is specific to the controller rather than the domain class
-
+	val computerApply = (name: String, introduced: Option[Date], discontinued: Option[Date], companyId: Option[Long]) =>
+		Computer(name, introduced, discontinued, companyId.map(id => companyDao.retrieve(id.toInt).get))
+	val computerUnapply = (computer: Computer) =>
+		Some((computer.name, computer.introduced, computer.discontinued, computer.company.map(_.asInstanceOf[IntId].id.toLong)))
 	val computerForm = Form(
-		of(
-			(name: String, introduced: Option[Date], discontinued: Option[Date], companyId: Option[Long]) =>
-				Computer(name, introduced, discontinued, companyId.map(id => companyDao.retrieve(id.toInt).get))
-		)(
-				"name" -> requiredText,
-				"introduced" -> optional(date("yyyy-MM-dd")),
-				"discontinued" -> optional(date("yyyy-MM-dd")),
-				"company" -> optional(number)
-			)
+		of(computerApply, computerUnapply)(
+			"name" -> requiredText,
+			"introduced" -> optional(date("yyyy-MM-dd")),
+			"discontinued" -> optional(date("yyyy-MM-dd")),
+			"company" -> optional(text)
+		)
 	)
 
 	// -- Actions
@@ -69,7 +70,9 @@ object Application extends Controller {
 	 */
 	def edit(id: Int) = Action {
 		computerDao.retrieve(id).map { computer =>
-			Ok(html.editForm(id, computerForm.fill(computer), allCompaniesForView))
+			val cf = computerForm.fill(computer)
+			println(cf)
+			Ok(html.editForm(id, cf, allCompaniesForView))
 		}.getOrElse(NotFound)
 	}
 
