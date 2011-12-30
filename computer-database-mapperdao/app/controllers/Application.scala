@@ -25,16 +25,16 @@ object Application extends Controller {
 	 */
 
 	// we'll create this here since it is specific to the controller rather than the domain class
-	val computerApply = (name: String, introduced: Option[Date], discontinued: Option[Date], companyId: Option[Long]) =>
+	def computerApply(name: String, introduced: Option[Date], discontinued: Option[Date], companyId: Option[Long]) =
 		Computer(name, introduced, discontinued, companyId.map(id => companyDao.retrieve(id.toInt).get))
-	val computerUnapply = (computer: Computer) =>
+	def computerUnapply(computer: Computer) =
 		Some((computer.name, computer.introduced, computer.discontinued, computer.company.map(_.asInstanceOf[IntId].id.toLong)))
 	val computerForm = Form(
-		of(computerApply, computerUnapply)(
+		of(computerApply _, computerUnapply _)(
 			"name" -> requiredText,
 			"introduced" -> optional(date("yyyy-MM-dd")),
 			"discontinued" -> optional(date("yyyy-MM-dd")),
-			"company" -> optional(text)
+			"company" -> optional(number)
 		)
 	)
 
