@@ -8,7 +8,7 @@ object ApplicationBuild extends Build {
 	val appVersion = "1.0"
 
 	val appDependencies = Seq(
-			"com.googlecode.mapperdao" % "mapperdao" % "0.9.3",
+			"com.googlecode.mapperdao" % "mapperdao" % "1.0.0-beta",
 			"joda-time" % "joda-time" % "1.6.2",
 			"org.joda" % "joda-convert" % "1.2"
 	)
