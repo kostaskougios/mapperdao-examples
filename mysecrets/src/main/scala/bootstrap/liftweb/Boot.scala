@@ -25,7 +25,6 @@ class Boot {
 
 		val ifLogged = If(() => UserVar.get.isDefined, () => RedirectResponse("invalid"))
 		// Build SiteMap
-		// TODO: hide menus when they are not valid (user not logged in)
 		val entries =
 			Menu(Loc("Home", List("index"), "Home")) ::
 				Menu(Loc("Test", List("test"), "Test Page")) ::
