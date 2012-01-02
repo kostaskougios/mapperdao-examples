@@ -10,7 +10,6 @@ import com.googlecode.mapperdao.utils.TransactionalIntIdCRUD
 import com.googlecode.mapperdao.utils.IntIdAll
 import com.googlecode.mapperdao.Query
 import com.googlecode.mapperdao.QueryDao
-import com.rits.mysecrets.model.Reminder
 
 /**
  * @author kostantinos.kougios
@@ -61,9 +60,8 @@ object SecretEntity extends Entity[IntId, Secret](classOf[Secret]) {
 	val secret = column("secret") to (_.secret)
 	val user = manytoone(UserEntity) to (_.user) // many secrets belong to 1 user 
 	var sharedWith = manytomany(UserEntity) to (_.sharedWith) // many secrets can be shared amongst many users
-	val reminders = onetomany(ReminderEntity) to (_.reminders)
 	// instantiate the entity when it is read from the database
-	def constructor(implicit m) = new Secret(title, secret, user, sharedWith, reminders) with IntId with Persisted {
+	def constructor(implicit m) = new Secret(title, secret, user, sharedWith) with IntId with Persisted {
 		val id: Int = SecretEntity.id // the id property is added to the entity after persisting it
 	}
 }

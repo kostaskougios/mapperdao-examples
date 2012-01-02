@@ -7,15 +7,10 @@ import net.liftweb.http._
 import SHtml._
 import S._
 import com.rits.mysecrets.Daos._
-import com.rits.mysecrets.model.Secret
+import com.rits.mysecrets.model._
 import com.googlecode.mapperdao.IntId
 import net.liftweb.common.Logger
 import net.liftweb.common.Full
-import com.rits.mysecrets.model.User
-import com.rits.mysecrets.model.Reminder
-import com.rits.mysecrets.model.Daily
-import com.rits.mysecrets.model.Weekly
-import com.rits.mysecrets.model.RemindOnce
 import org.joda.time.format.ISODateTimeFormat
 import net.liftweb.common.Empty
 import org.joda.time.DateTime
@@ -77,8 +72,6 @@ class Secrets extends Logger {
 		object titleVar extends RequestVar("")
 		object secretTitleVar extends RequestVar("")
 		object sharedWithVar extends RequestVar(scala.collection.mutable.Set[User]())
-		object remindersVar extends RequestVar(scala.collection.mutable.Set[Reminder]())
-		object isNewVar extends RequestVar(!secretVar.get.isDefined)
 		// a list of constraints for validation
 		def validation = List(
 			(titleVar.isEmpty(), "Please enter a title for the secret."),
@@ -87,20 +80,20 @@ class Secrets extends Logger {
 
 		def getUpdatedSecret = {
 			val user = UserVar.get.get // get user from session
-			new Secret(titleVar.get, secretTitleVar.get, user, sharedWithVar.get.toSet, remindersVar.get.toSet) with IntId {
+			new Secret(titleVar.get, secretTitleVar.get, user, sharedWithVar.get.toSet) with IntId {
 				val id = -1
 			}
 		}
 		// now we'll decide if we edit an existing
 		// secret or create a new one. The submit
 		// button & callbacks are modified accordingly
-		val subm = if (isNewVar.get) {
+		val subm = if (!secretVar.isDefined) {
 			// Create a new secret
 			info("Creating a new secret.")
 			submit("Save", () => Validation.onValidation({
 				// create the instance of the new secret
 				val user = UserVar.get.get // get user from session
-				val s = new Secret(titleVar.get, secretTitleVar.get, user, sharedWithVar.get.toSet, remindersVar.get.toSet)
+				val s = new Secret(titleVar.get, secretTitleVar.get, user, sharedWithVar.get.toSet)
 				// insert it into the database
 				val newSecret = secretDao.create(s)
 				info("Created Secret (%d : %s)".format(newSecret.id, newSecret))
@@ -148,63 +141,12 @@ class Secrets extends Logger {
 				)
 			)
 		}
-		// binds the reminders
-		def bindReminders(template: NodeSeq): NodeSeq = remindersVar.get.toList.flatMap { reminder =>
-			object reminderTypeVar extends RequestVar("")
-			var hourOfDay = ""
-			var dayOfWeek = ""
-			var time = ""
-			bind("reminder", template,
-				"type" -> select(
-					List(("daily", "Daily"), ("weekly", "Weekly"), ("once", "Once")),
-					reminder match {
-						case _: Daily => Full("daily")
-						case _: Weekly => Full("weekly")
-						case _: RemindOnce => Full("once")
-					},
-					reminderTypeVar(_)),
-				"hourOfDay" -> text((reminder match {
-					case Daily(hourOfDay, _) => hourOfDay
-					case Weekly(hourOfDay, _, _) => hourOfDay
-					case RemindOnce(time, _) => time.getHourOfDay
-				}).toString, hourOfDay = _),
-				"dayOfWeek" -> text((reminder match {
-					case _: Daily => -1
-					case Weekly(_, dayOfWeek, _) => dayOfWeek
-					case RemindOnce(time, _) => time.getDayOfWeek
-				}).toString, dayOfWeek = _),
-				"time" -> text((reminder match {
-					case _: Daily => ""
-					case _: Weekly => ""
-					case RemindOnce(time, _) => time.toString(ISODateTimeFormat.dateTime)
-				}), t => {
-					time = t
-
-					val newReminder = reminderTypeVar.get match {
-						case "daily" => new Daily(hourOfDay.toShort, Set())
-						case "weekly" => new Weekly(hourOfDay.toShort, dayOfWeek.toShort, Set())
-						case "once" =>
-							val fmt = ISODateTimeFormat.dateTime()
-							new RemindOnce(fmt.parseDateTime(time), Set())
-					}
-					if (newReminder != reminder) {
-						remindersVar.get -= reminder
-						remindersVar.get += newReminder
-					}
-				})
-			)
-		}
 
 		bind(
 			"edit", in,
 			"title" -> text(titleVar, titleVar(_)),
 			"secret" -> textarea(secretTitleVar, secretTitleVar(_)),
 			"users" -> bindSharedWithUsers _,
-			"reminders" -> bindReminders _,
-			"addReminder" -> submit("Add Reminder", () => {
-				remindersVar.get += Daily(10, Set())
-				isNewVar.set(false)
-			}),
 			"submit" -> subm
 		)
 	}

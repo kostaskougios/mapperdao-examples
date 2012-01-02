@@ -28,7 +28,7 @@ class Test extends Logger {
 			"phone" -> text(phoneVar, phoneVar(_)),
 			"add" -> submit("Add", () => {
 				info("Adding: name: %s phone:%s".format(nameVar.get, phoneVar.get))
-				val secret = new Secret("xxx", "yyy", null, Set(), Set())
+				val secret = new Secret("xxx", "yyy", null, Set())
 				secretVar.set(secret)
 			}),
 			"submit" -> submit("Save", () => {

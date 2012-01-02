@@ -35,22 +35,3 @@ on delete cascade on update cascade
 alter table Secret_User add constraint FK_SU_User foreign key(user_id) references "User"(id)
 on delete cascade on update cascade
 ;
-create table Reminder (
-	id serial,
-	type smallint not null,
-	hourOfDay smallint not null,
-	dayOfWeek smallint not null,
-	time timestamp with time zone,
-	secret_id int not null,
-	primary key (id),
-	foreign key (secret_id) references Secret(id) on delete cascade on update cascade
-)
-;
-create table Reminder_User (
-	reminder_id int not null,
-	user_id int not null,
-	primary key (reminder_id,user_id),
-	foreign key (reminder_id) references Reminder(id) on delete cascade on update cascade,
-	foreign key (user_id) references "User"(id) on delete cascade on update cascade
-)
-;

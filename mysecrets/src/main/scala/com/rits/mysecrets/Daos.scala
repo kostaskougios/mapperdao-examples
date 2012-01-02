@@ -31,8 +31,7 @@ object Daos extends Logger {
 	// and we'll connect to the database, registering UserEntiry,SecretEntity...
 	private val entities = List(
 		UserEntity,
-		SecretEntity,
-		ReminderEntity
+		SecretEntity
 	)
 
 	private val (j, md, q) = database match {
@@ -50,10 +49,6 @@ object Daos extends Logger {
 	}
 
 	val secretDao = new SecretDao {
-		val (mapperDao, queryDao, txManager) = (md, q, txM)
-	}
-
-	val reminderDao = new ReminderDao {
 		val (mapperDao, queryDao, txManager) = (md, q, txM)
 	}
 

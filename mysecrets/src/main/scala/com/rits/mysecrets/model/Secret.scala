@@ -8,7 +8,7 @@ package com.rits.mysecrets.model
  *
  * 16 Sep 2011
  */
-class Secret(val title: String, val secret: String, val user: User, val sharedWith: Set[User], val reminders: Set[Reminder]) {
+class Secret(val title: String, val secret: String, val user: User, val sharedWith: Set[User]) {
 
 	override def toString = "Secret(%s, sharing with %d users)".format(title, sharedWith.size)
 }
