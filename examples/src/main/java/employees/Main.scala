@@ -20,7 +20,7 @@ object Main extends App {
 
 	println("Configuring mapperdao")
 
-	val (jdbc, mapperDao, queryDao) = Setup.mysql(dataSource,
+	val (jdbc, mapperDao, queryDao, txManager) = Setup.mysql(dataSource,
 		List(EmployeeEntity, EmployeeDepartmentEntity, DepartmentEntity)
 	)
 	val employeeDao = new EmployeeDao(mapperDao, queryDao)

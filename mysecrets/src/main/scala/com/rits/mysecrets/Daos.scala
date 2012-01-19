@@ -34,14 +34,10 @@ object Daos extends Logger {
 		SecretEntity
 	)
 
-	private val (j, md, q) = database match {
+	private val (j, md, q, txM) = database match {
 		case "postgresql" => Setup.postGreSql(dataSource, entities)
 		case "mysql" => Setup.mysql(dataSource, entities)
 	}
-	// our dao's are transactional, hence we need a transaction manager. MapperDao uses spring's
-	// excellent support for transactions via the org.springframework.transaction.PlatformTransactionManager
-	// (Our application is not using spring framework to manage beans, this app is a typical lift web app)
-	private val txM = Transaction.transactionManager(j)
 
 	// dao components (singletons), we also inject the dependencies
 	val userDao = new UserDao {

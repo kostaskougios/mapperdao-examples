@@ -23,10 +23,7 @@ object Daos {
 
 	// and we'll connect to the database, registering UserEntiry,SecretEntity...
 	private val entities = List(ProductEntity, CategoryEntity, AttributeEntity, PriceEntity)
-	private val (j, md, q) = Setup(database, dataSource, entities)
-	// our dao's are transactional, hence we need a transaction manager. MapperDao uses spring's
-	// excellent support for transactions via the org.springframework.transaction.PlatformTransactionManager
-	private val txM = Transaction.transactionManager(j)
+	private val (j, md, q, txM) = Setup(database, dataSource, entities)
 
 	// and now the dao singletons
 	val productsDao = new ProductsDao {

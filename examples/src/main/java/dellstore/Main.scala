@@ -34,11 +34,9 @@ object Main extends App {
 
 	println("Configuring mapperdao")
 
-	val (j, m, q) = Setup.postGreSql(dataSource,
+	val (j, m, q, txM) = Setup.postGreSql(dataSource,
 		List(CategoryEntity, ProductEntity, InventoryEntity, CustomerEntity, OrderEntity, OrderLineEntity)
 	)
-
-	val txM = Transaction.transactionManager(j)
 
 	val categoryDao = new CategoryDao {
 		val mapperDao = m

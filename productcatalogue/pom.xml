@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.rits</groupId>
 	<artifactId>productcatalogue</artifactId>
-	<version>0.9.3</version>
+	<version>1.0.0-rc1</version>
 	<packaging>war</packaging>
 	<name>Simple MapperDao Application</name>
 	<properties>
@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>com.googlecode.mapperdao</groupId>
 			<artifactId>mapperdao</artifactId>
-			<version>1.0.0-beta</version>
+			<version>1.0.0-rc1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.scala-lang</groupId>
