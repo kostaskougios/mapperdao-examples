@@ -18,20 +18,6 @@
 		<vscaladoc.links.liftweb.pathsufix>scaladocs/</vscaladoc.links.liftweb.pathsufix>
 		<vscaladoc.links.liftweb.baseurl>http://scala-tools.org/mvnsites/liftweb</vscaladoc.links.liftweb.baseurl>
 	</properties>
-	<repositories>
-		<repository>
-			<id>scala-tools.releases</id>
-			<name>Scala-Tools Dependencies Repository for Releases</name>
-			<url>http://scala-tools.org/repo-releases</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>scala-tools.releases</id>
-			<name>Scala-Tools Plugins Repository for Releases</name>
-			<url>http://scala-tools.org/repo-releases</url>
-		</pluginRepository>
-	</pluginRepositories>
 	<dependencies>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
