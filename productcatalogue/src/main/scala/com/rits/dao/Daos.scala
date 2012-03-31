@@ -23,7 +23,7 @@ object Daos {
 
 	// and we'll connect to the database, registering UserEntiry,SecretEntity...
 	private val entities = List(ProductEntity, CategoryEntity, AttributeEntity, PriceEntity)
-	private val (j, md, q, txM) = Setup(database, dataSource, entities)
+	private val (j, md, q, txM) = Setup(database, dataSource, entities, None)
 
 	// and now the dao singletons
 	val productsDao = new ProductsDao {
