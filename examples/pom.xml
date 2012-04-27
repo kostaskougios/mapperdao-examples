@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.googlecode</groupId>
 	<artifactId>mapperdao-examples</artifactId>
-	<version>1.0.0-rc4</version>
+	<version>1.0.0-rc5</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<scala.version>2.9.1</scala.version>
