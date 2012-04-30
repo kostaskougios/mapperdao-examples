@@ -4,15 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.rits</groupId>
 	<artifactId>productcatalogue</artifactId>
-	<version>1.0.0-rc5</version>
+	<version>1.0.0-rc6</version>
 	<packaging>war</packaging>
 	<name>Simple MapperDao Application</name>
 	<properties>
 		<port>8080</port>
 		<cx.version>2.0.3</cx.version>
 		<cx.router>com.rits.productcatalogue.Main</cx.router>
-		<scala.version>2.9.1</scala.version>
-		<scala.lib.version>2.9.0-1</scala.lib.version>
+		<scala.version>2.9.2</scala.version>
+		<scala.lib.version>2.9.1</scala.lib.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -94,13 +94,13 @@
 		<dependency>
 			<groupId>org.specs2</groupId>
 			<artifactId>specs2_${scala.lib.version}</artifactId>
-			<version>1.4</version>
+			<version>1.9</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.specs2</groupId>
 			<artifactId>specs2-scalaz-core_${scala.lib.version}</artifactId>
-			<version>6.0.RC2</version>
+			<version>6.0.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
