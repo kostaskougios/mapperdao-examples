@@ -39,9 +39,7 @@ object Main extends App {
 	)
 
 	val categoryDao = new CategoryDao {
-		val mapperDao = m
-		val queryDao = q
-		val txManager = txM
+		val (mapperDao, queryDao, txManager) = (m, q, txM)
 	}
 	val productDao = new ProductDao {
 		val mapperDao = m
