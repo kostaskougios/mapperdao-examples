@@ -12,13 +12,13 @@
 		<cx.version>2.0.3</cx.version>
 		<cx.router>com.rits.productcatalogue.Main</cx.router>
 		<scala.version>2.9.2</scala.version>
-		<scala.lib.version>2.9.1</scala.lib.version>
+		<scala.lib.version>2.9.2</scala.lib.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.googlecode.mapperdao</groupId>
 			<artifactId>mapperdao</artifactId>
-			<version>1.0.0-rc6</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.scala-lang</groupId>

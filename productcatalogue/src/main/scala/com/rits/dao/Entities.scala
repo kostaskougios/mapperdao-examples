@@ -86,15 +86,9 @@ object PriceEntity extends SimpleEntity[Price] {
 	val currency = column("currency") to (_.currency)
 	val unitPrice = column("unitprice") to (_.unitPrice)
 	val salePrice = column("saleprice") to (_.salePrice)
-
 	// this entity doesn't declare any primary keys.
 	// we will inform mapperdao of the primary keys of the table below:
-	declarePrimaryKey("currency") { price =>
-		Some(price.currency)
-	}
-	declarePrimaryKey("product_id") { price =>
-		None
-	}
+	declarePrimaryKey(currency)
 
 	def constructor(implicit m) = new Price(currency, unitPrice, salePrice) with Persisted
 }
