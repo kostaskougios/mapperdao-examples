@@ -37,6 +37,12 @@ abstract class OrderDao extends TransactionalIntIdCRUD[Order] with IntIdAll[Orde
 	 * all orders that the totalamount is between min and max
 	 */
 	def byTotal(min: Double, max: Double): List[Order with IntId] = query(select from o where o.totalAmount >= min and o.totalAmount <= max)
+
+	def of(customer: Customer) = query(
+		select
+			from o
+			where o.customer === customer
+	)
 }
 
 object OrderEntity extends Entity[IntId, Order]("orders") {
