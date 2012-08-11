@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.rits</groupId>
 	<artifactId>productcatalogue</artifactId>
-	<version>1.0.0-rc6</version>
+	<version>1.0.0.rc11</version>
 	<packaging>war</packaging>
 	<name>Simple MapperDao Application</name>
 	<properties>
@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>com.googlecode.mapperdao</groupId>
 			<artifactId>mapperdao</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.0.rc11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.scala-lang</groupId>
@@ -222,4 +222,10 @@
 			</build>
 		</profile>
 	</profiles>
+	<repositories>
+		<repository>
+			<id>sonatype.releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases/</url>
+		</repository>
+	</repositories>
 </project>
