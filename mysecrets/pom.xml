@@ -3,13 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.rits</groupId>
 	<artifactId>mysecrets</artifactId>
-	<version>1.0.0-rc6</version>
+	<version>1.0.0.rc11</version>
 	<packaging>war</packaging>
 	<name>mysecrets Project</name>
 	<inceptionYear>2011</inceptionYear>
 	<properties>
 		<scala.version>2.9.1</scala.version>
-		<mapperdao.version>1.0.0</mapperdao.version>
+		<mapperdao.version>1.0.0.rc11</mapperdao.version>
 		<!-- Common plugin settings -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
@@ -215,4 +215,10 @@
 			</build>
 		</profile>
 	</profiles>
+	<repositories>
+		<repository>
+			<id>sonatype.releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases/</url>
+		</repository>
+	</repositories>
 </project>
