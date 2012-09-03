@@ -5,7 +5,14 @@ package dellstore.model
  *
  * 30 Aug 2011
  */
-class Product(val category: Category, val title: String, val actor: String, val price: Float, val special: Boolean, val inventory: Inventory) {
+class Product(
+		val category: Category,
+		val title: String,
+		val actor: String,
+		val price: Float,
+		val special: Boolean,
+		val inventory: Inventory) {
+
 	override def equals(o: Any) = o match {
 		case p: Product => p.category == category && p.title == title
 		case _ => false

@@ -5,7 +5,11 @@ package dellstore.model
  *
  * 30 Aug 2011
  */
-class Inventory(val product: Product, val stock: Int, val sales: Int) {
+class Inventory(
+		val product: Product,
+		val stock: Int,
+		val sales: Int) {
+
 	override def equals(o: Any) = o match {
 		case i: Inventory => i.product == product
 		case _ => false
