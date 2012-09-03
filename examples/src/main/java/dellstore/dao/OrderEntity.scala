@@ -1,8 +1,6 @@
 package dellstore.dao
 
-import com.googlecode.mapperdao.Entity
-import com.googlecode.mapperdao.IntId
-import com.googlecode.mapperdao.Persisted
+import com.googlecode.mapperdao._
 import dellstore.model.Order
 
 object OrderEntity extends Entity[IntId, Order]("orders") {

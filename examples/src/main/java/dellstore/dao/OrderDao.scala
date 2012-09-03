@@ -1,19 +1,8 @@
 package dellstore.dao
-import com.googlecode.mapperdao.utils.IntIdAll
-import com.googlecode.mapperdao.utils.IntIdCRUD
-import com.googlecode.mapperdao.Entity
-import com.googlecode.mapperdao.IntId
-import com.googlecode.mapperdao.MapperDao
-import com.googlecode.mapperdao.Persisted
-import com.googlecode.mapperdao.Query
-import com.googlecode.mapperdao.QueryDao
-import com.googlecode.mapperdao.SimpleEntity
-import com.googlecode.mapperdao.ValuesMap
-import dellstore.model.Customer
-import dellstore.model.Product
-import dellstore.model.Order
-import dellstore.model.OrderLine
-import com.googlecode.mapperdao.utils.TransactionalIntIdCRUD
+
+import com.googlecode.mapperdao.utils._
+import com.googlecode.mapperdao._
+import dellstore.model._
 
 /**
  * @author kostantinos.kougios

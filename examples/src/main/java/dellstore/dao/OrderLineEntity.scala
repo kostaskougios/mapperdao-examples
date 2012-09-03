@@ -1,8 +1,6 @@
 package dellstore.dao
 
-import com.googlecode.mapperdao.SimpleEntity
-import com.googlecode.mapperdao.IntId
-import com.googlecode.mapperdao.Persisted
+import com.googlecode.mapperdao._
 import dellstore.model.OrderLine
 
 object OrderLineEntity extends SimpleEntity[OrderLine]("orderlines") {
