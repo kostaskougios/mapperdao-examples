@@ -6,12 +6,15 @@ import com.googlecode.mapperdao.IntId
 import com.googlecode.mapperdao.utils.All
 
 /**
- * dao for the Category class
+ * dao for the Category class. Mixin methods from TransactionalCRUD (create,retrieve,update,
+ * delete) and All (all and page methods)
  *
  * @author kostantinos.kougios
  *
  * 30 Aug 2011
  */
-abstract class CategoryDao extends TransactionalCRUD[IntId, Category, Int] with All[IntId, Category] {
+abstract class CategoryDao
+		extends TransactionalCRUD[IntId, Category, Int]
+		with All[IntId, Category] {
 	val entity = CategoryEntity
 }

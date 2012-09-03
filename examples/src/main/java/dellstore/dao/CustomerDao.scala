@@ -16,6 +16,15 @@ abstract class CustomerDao extends TransactionalIntIdCRUD[Customer] with IntIdAl
 
 	private val c = CustomerEntity
 
-	def byState(state: String): List[Customer with IntId] = query(select from c where c.state === state)
-	def byLastName(lastName: String): List[Customer with IntId] = query(select from c where c.lastname === lastName)
+	/**
+	 * all customers of a state. List[Customer with IntId]
+	 */
+	def byState(state: String) =
+		query(select from c where c.state === state)
+
+	/**
+	 * all customers with this lastName. List[Customer with IntId]
+	 */
+	def byLastName(lastName: String) =
+		query(select from c where c.lastname === lastName)
 }

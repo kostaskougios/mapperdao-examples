@@ -5,6 +5,9 @@ import com.googlecode.mapperdao._
 import dellstore.model._
 
 /**
+ * mixes in methods from TransactionalIntIdCRUD, IntIdAll and adds a couple
+ * of extra query methods
+ *
  * @author kostantinos.kougios
  *
  * 1 Sep 2011
@@ -19,14 +22,15 @@ abstract class OrderDao extends TransactionalIntIdCRUD[Order] with IntIdAll[Orde
 	private val c = CustomerEntity
 
 	/**
-	 * returns all orders from customers living at the provided state
+	 * returns all orders from customers living at the provided state. List[Order with IntId]
 	 */
-	def byState(state: String): List[Order with IntId] =
+	def byState(state: String) =
 		query(select from o join (o, o.customer, c) where c.state === state)
+
 	/**
-	 * all orders that the totalamount is between min and max
+	 * all orders that the totalamount is between min and max. List[Order with IntId]
 	 */
-	def byTotal(min: Double, max: Double): List[Order with IntId] =
+	def byTotal(min: Double, max: Double) =
 		query(select from o where o.totalAmount >= min and o.totalAmount <= max)
 
 	def of(customer: Customer) = query(
