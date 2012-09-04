@@ -19,5 +19,10 @@ class OrdersDaoSuite extends FunSuite with ShouldMatchers {
 		val orders = orderDao.of(customer)
 		orders.size should be > 0
 	}
+
+	test("orders for a category") {
+		val orders = orderDao.byCategory("Games")
+		orders.size should be > 0
+	}
 }
 

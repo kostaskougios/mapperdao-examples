@@ -19,6 +19,9 @@ abstract class OrderDao extends TransactionalIntIdCRUD[Order] with IntIdAll[Orde
 	import queryDao._
 
 	private val o = OrderEntity
+	private val ol = OrderLineEntity
+	private val pr = ProductEntity
+	private val ca = CategoryEntity
 	private val c = CustomerEntity
 
 	/**
@@ -37,5 +40,14 @@ abstract class OrderDao extends TransactionalIntIdCRUD[Order] with IntIdAll[Orde
 		select
 			from o
 			where o.customer === customer
+	)
+
+	def byCategory(categoryName: String) = query(
+		select
+			from o
+			join (o, o.orderLines, ol)
+			join (ol, ol.product, pr)
+			join (pr, pr.category, ca)
+			where ca.name === categoryName
 	)
 }
