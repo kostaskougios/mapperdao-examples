@@ -43,6 +43,7 @@ abstract class OrderDao extends TransactionalIntIdCRUD[Order] with IntIdAll[Orde
 	)
 
 	def byCategory(categoryName: String) = query(
+		QueryConfig.default.copy(lazyLoad = LazyLoad.all),
 		select
 			from o
 			join (o, o.orderLines, ol)
