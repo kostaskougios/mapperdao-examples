@@ -8,7 +8,7 @@ import employees.model._
  *
  * 2 Sep 2011
  */
-class EmployeeDao(val mapperDao: MapperDao, val queryDao: QueryDao) extends SimpleCRUD[Employee, Int] {
+class EmployeeDao(val mapperDao: MapperDao, val queryDao: QueryDao) extends StringIdCRUD[Employee] {
 	import queryDao._
 	import Query._
 	val entity = EmployeeEntity

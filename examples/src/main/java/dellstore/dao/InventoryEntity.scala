@@ -14,9 +14,9 @@ import dellstore.model._
  * CONSTRAINT inventory_pkey PRIMARY KEY (prod_id )
  * )
  */
-object InventoryEntity extends SimpleEntity[Inventory]("inventory") {
+object InventoryEntity extends Entity[NoId, Inventory]("inventory") {
 	val stock = column("quan_in_stock") to (_.stock)
 	val sales = column("sales") to (_.sales)
 	val product = onetoone(ProductEntity) foreignkey "prod_id" to (_.product)
-	def constructor(implicit m: ValuesMap) = new Inventory(product, stock, sales) with Persisted
+	def constructor(implicit m: ValuesMap) = new Inventory(product, stock, sales) with NoId
 }

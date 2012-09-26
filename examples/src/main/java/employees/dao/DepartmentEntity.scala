@@ -14,9 +14,9 @@ import employees.model._
  * )
  *
  */
-object DepartmentEntity extends SimpleEntity[Department]("departments", classOf[Department]) {
+object DepartmentEntity extends Entity[StringId, Department]("departments", classOf[Department]) {
 	val dept_no = key("dept_no") to (_.no)
 	val dept_name = column("dept_name") to (_.name)
 
-	def constructor(implicit m) = new Department(dept_no, dept_name) with Persisted
+	def constructor(implicit m) = new Department(dept_no, dept_name) with StringId
 }

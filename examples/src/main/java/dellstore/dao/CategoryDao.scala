@@ -14,7 +14,7 @@ import com.googlecode.mapperdao.utils.All
  * 30 Aug 2011
  */
 abstract class CategoryDao
-		extends TransactionalCRUD[IntId, Category, Int]
+		extends TransactionalCRUD[Int, IntId, Category]
 		with All[IntId, Category] {
 	val entity = CategoryEntity
 }

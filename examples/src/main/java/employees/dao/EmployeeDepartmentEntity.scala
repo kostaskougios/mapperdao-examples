@@ -18,7 +18,7 @@ import employees.model._
  * )
  *
  */
-object EmployeeDepartmentEntity extends SimpleEntity[EmployeeDepartment]("dept_emp", classOf[EmployeeDepartment]) {
+object EmployeeDepartmentEntity extends Entity[StringAndStringIds, EmployeeDepartment]("dept_emp", classOf[EmployeeDepartment]) {
 	val emp_no = key("emp_no") to (ed => if (ed.employee != null) ed.employee.id else -1)
 	val dept_no = key("dept_no") to (ed => if (ed.department != null) ed.department.no else null)
 	val from_date = column("from_date") to (_.fromDate)
@@ -27,5 +27,5 @@ object EmployeeDepartmentEntity extends SimpleEntity[EmployeeDepartment]("dept_e
 	val employee = manytoone(EmployeeEntity) foreignkey "emp_no" to (_.employee)
 	val department = manytoone(DepartmentEntity) foreignkey "dept_no" to (_.department)
 
-	def constructor(implicit m) = new EmployeeDepartment(employee, department, from_date, to_date) with Persisted
+	def constructor(implicit m) = new EmployeeDepartment(employee, department, from_date, to_date) with StringAndStringIds
 }

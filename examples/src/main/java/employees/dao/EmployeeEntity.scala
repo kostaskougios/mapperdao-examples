@@ -16,7 +16,7 @@ import employees.model._
  * PRIMARY KEY (`emp_no`)
  * )
  */
-object EmployeeEntity extends SimpleEntity[Employee]("employees", classOf[Employee]) {
+object EmployeeEntity extends Entity[StringId, Employee]("employees", classOf[Employee]) {
 	val emp_no = key("emp_no") to (_.id)
 	val birth_date = column("birth_date") to (_.birthDate)
 	val first_name = column("first_name") to (_.firstName)
@@ -27,6 +27,6 @@ object EmployeeEntity extends SimpleEntity[Employee]("employees", classOf[Employ
 
 	def constructor(implicit m) = {
 		val g = Gender.fromString(gender)
-		new Employee(emp_no, birth_date, first_name, last_name, g, hire_date, employeeDepartment) with Persisted
+		new Employee(emp_no, birth_date, first_name, last_name, g, hire_date, employeeDepartment) with StringId
 	}
 }
