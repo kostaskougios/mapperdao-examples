@@ -68,7 +68,7 @@ object UserEntity extends Entity[IntId, User] {
 	val email = column("email") to (_.email)
 	val password = column("password") to (_.password)
 
-	def constructor(implicit m) = new User(name, email, password) with IntId with Persisted {
+	def constructor(implicit m) = new User(name, email, password) with IntId {
 		val id: Int = UserEntity.id // when an entity is been loaded from the database, the auto-generated id is available
 	}
 }

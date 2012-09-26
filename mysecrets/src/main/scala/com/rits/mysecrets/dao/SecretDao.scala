@@ -61,7 +61,7 @@ object SecretEntity extends Entity[IntId, Secret] {
 	val user = manytoone(UserEntity) to (_.user) // many secrets belong to 1 user 
 	var sharedWith = manytomany(UserEntity) to (_.sharedWith) // many secrets can be shared amongst many users
 	// instantiate the entity when it is read from the database
-	def constructor(implicit m) = new Secret(title, secret, user, sharedWith) with IntId with Persisted {
+	def constructor(implicit m) = new Secret(title, secret, user, sharedWith) with IntId {
 		val id: Int = SecretEntity.id // the id property is added to the entity after persisting it
 	}
 }
