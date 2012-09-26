@@ -116,7 +116,7 @@ class CatalogRouter extends RequestRouter("/catalogue") {
 			tags
 		)
 		val updated = oldProduct match {
-			case p: Product with IntId with Persisted => productsDao.update(p, newProduct)
+			case p: Product with IntId  => productsDao.update(p, newProduct)
 			case _ => productsDao.create(newProduct)
 		}
 		flash("saved") = true

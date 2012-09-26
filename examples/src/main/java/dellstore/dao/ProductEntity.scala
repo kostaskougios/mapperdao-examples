@@ -12,7 +12,7 @@ object ProductEntity extends Entity[IntId, Product]("products") {
 	val special = column("special") to (v => v.special)
 	val inventory = onetoonereverse(InventoryEntity) foreignkey "prod_id" to (_.inventory)
 
-	def constructor(implicit m) = new Product(category, title, actor, price, special, inventory) with Persisted with IntId {
+	def constructor(implicit m) = new Product(category, title, actor, price, special, inventory)  with IntId {
 		val id: Int = ProductEntity.id
 	}
 }
