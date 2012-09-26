@@ -3,6 +3,7 @@ import java.util.Properties
 import com.googlecode.mapperdao.utils.Setup
 import com.googlecode.mapperdao.jdbc.Transaction
 import org.apache.commons.dbcp.BasicDataSourceFactory
+import com.googlecode.mapperdao.utils.Database
 
 /**
  * this is a factory for all the dao's. It initializes the database connection pool
@@ -23,7 +24,7 @@ object Daos {
 
 	// and we'll connect to the database, registering UserEntiry,SecretEntity...
 	private val entities = List(ProductEntity, CategoryEntity, AttributeEntity, PriceEntity)
-	private val (j, md, q, txM) = Setup(database, dataSource, entities, None)
+	private val (j, md, q, txM) = Setup(Database.byName(database), dataSource, entities, None)
 
 	// and now the dao singletons
 	val productsDao = new ProductsDao {
