@@ -3,7 +3,7 @@ package dellstore
 import java.util.Properties
 import org.apache.commons.dbcp.BasicDataSourceFactory
 import com.googlecode.mapperdao.utils.Setup
-import com.googlecode.mapperdao.IntId
+import com.googlecode.mapperdao._
 import dellstore.dao.CategoryDao
 import dellstore.dao.CustomerDao
 import dellstore.dao.OrderDao
@@ -115,14 +115,14 @@ object Main extends App {
 			println("Order : %s".format(orderDao.retrieve(orderId)))
 	}
 
-	def printCustomers(customers: List[Customer with IntId]) {
+	def printCustomers(customers: List[Customer with SurrogateIntId]) {
 		customers.foreach { printCustomer(_) }
 	}
-	def printCustomer(c: Customer with IntId) {
+	def printCustomer(c: Customer with SurrogateIntId) {
 		println("%d :\t%s".format(c.id, c))
 	}
 
-	def printOrders(orders: List[Order with IntId]) {
+	def printOrders(orders: List[Order with SurrogateIntId]) {
 		orders.foreach(o => println("%d :\t%s".format(o.id, o)))
 	}
 }

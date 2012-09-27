@@ -12,7 +12,7 @@ import dellstore.model._
  *
  * 1 Sep 2011
  */
-abstract class OrderDao extends TransactionalIntIdCRUD[Order] with IntIdAll[Order] {
+abstract class OrderDao extends TransactionalSurrogateIntIdCRUD[Order] with SurrogateIntIdAll[Order] {
 	val entity = OrderEntity
 
 	import Query._

@@ -1,9 +1,8 @@
 package dellstore.dao
 
 import dellstore.model._
-import com.googlecode.mapperdao.utils.TransactionalCRUD
-import com.googlecode.mapperdao.IntId
-import com.googlecode.mapperdao.utils.All
+import com.googlecode.mapperdao.utils._
+import com.googlecode.mapperdao.SurrogateIntId
 
 /**
  * dao for the Category class. Mixin methods from TransactionalCRUD (create,retrieve,update,
@@ -14,7 +13,7 @@ import com.googlecode.mapperdao.utils.All
  * 30 Aug 2011
  */
 abstract class CategoryDao
-		extends TransactionalCRUD[Int, IntId, Category]
-		with All[IntId, Category] {
+		extends TransactionalCRUD[Int, SurrogateIntId, Category]
+		with All[SurrogateIntId, Category] {
 	val entity = CategoryEntity
 }
