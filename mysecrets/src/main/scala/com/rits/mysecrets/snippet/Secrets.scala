@@ -8,7 +8,7 @@ import SHtml._
 import S._
 import com.rits.mysecrets.Daos._
 import com.rits.mysecrets.model._
-import com.googlecode.mapperdao.IntId
+import com.googlecode.mapperdao.SurrogateIntId
 import net.liftweb.common.Logger
 import net.liftweb.common.Full
 import org.joda.time.format.ISODateTimeFormat
@@ -23,7 +23,7 @@ import org.joda.time.DateTime
  * 17 Sep 2011
  */
 class Secrets extends Logger {
-	object secretVar extends SessionVar[Option[Secret with IntId]](None)
+	object secretVar extends SessionVar[Option[Secret with SurrogateIntId]](None)
 
 	def list(in: NodeSeq): NodeSeq = {
 		secretVar.set(None)
@@ -80,7 +80,7 @@ class Secrets extends Logger {
 
 		def getUpdatedSecret = {
 			val user = UserVar.get.get // get user from session
-			new Secret(titleVar.get, secretTitleVar.get, user, sharedWithVar.get.toSet) with IntId {
+			new Secret(titleVar.get, secretTitleVar.get, user, sharedWithVar.get.toSet) with SurrogateIntId {
 				val id = -1
 			}
 		}
