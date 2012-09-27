@@ -1,16 +1,15 @@
 package com.rits.dao
 
-import com.googlecode.mapperdao.utils.TransactionalIntIdCRUD
+import com.googlecode.mapperdao.utils._
 import com.rits.model._
-import com.googlecode.mapperdao.QueryDao
-import com.googlecode.mapperdao.Query
+import com.googlecode.mapperdao._
 
 /**
  * @author kostantinos.kougios
  *
  * 10 Oct 2011
  */
-abstract class CategoriesDao extends TransactionalIntIdCRUD[Category] {
+abstract class CategoriesDao extends TransactionalSurrogateIntIdCRUD[Category] {
 	protected val entity = CategoryEntity
 	protected val queryDao: QueryDao
 	import queryDao._

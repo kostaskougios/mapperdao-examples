@@ -7,9 +7,8 @@ import freemarker._
 import com.rits.dao.Daos
 import com.rits.model._
 import routers._
-import com.googlecode.mapperdao.utils.Helpers
-import com.googlecode.mapperdao.Persisted
-import com.googlecode.mapperdao.IntId
+import com.googlecode.mapperdao.utils._
+import com.googlecode.mapperdao._
 
 /**
  * @author kostantinos.kougios
@@ -116,7 +115,7 @@ class CatalogRouter extends RequestRouter("/catalogue") {
 			tags
 		)
 		val updated = oldProduct match {
-			case p: Product with IntId  => productsDao.update(p, newProduct)
+			case p: Product with SurrogateIntId => productsDao.update(p, newProduct)
 			case _ => productsDao.create(newProduct)
 		}
 		flash("saved") = true

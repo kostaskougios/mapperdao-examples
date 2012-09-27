@@ -1,8 +1,7 @@
 package com.rits.dao
 
-import com.googlecode.mapperdao.utils.TransactionalIntIdCRUD
+import com.googlecode.mapperdao.utils._
 import com.rits.model._
-import com.googlecode.mapperdao.utils.IntIdAll
 
 /**
  * The product dao, as simple as a dao can be! By mixing in the
@@ -18,6 +17,6 @@ import com.googlecode.mapperdao.utils.IntIdAll
  *
  * 10 Oct 2011
  */
-abstract class ProductsDao extends TransactionalIntIdCRUD[Product] with IntIdAll[Product] {
+abstract class ProductsDao extends TransactionalSurrogateIntIdCRUD[Product] with SurrogateIntIdAll[Product] {
 	val entity = ProductEntity
 }
