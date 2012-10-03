@@ -18,7 +18,7 @@ import employees.model._
  * )
  *
  */
-object EmployeeDepartmentEntity extends Entity[NaturalStringAndStringIds, EmployeeDepartment]("dept_emp", classOf[EmployeeDepartment]) {
+object EmployeeDepartmentEntity extends Entity[(String, String), NaturalStringAndStringIds, EmployeeDepartment]("dept_emp", classOf[EmployeeDepartment]) {
 	val emp_no = key("emp_no") to (ed => if (ed.employee != null) ed.employee.id else -1)
 	val dept_no = key("dept_no") to (ed => if (ed.department != null) ed.department.no else null)
 	val from_date = column("from_date") to (_.fromDate)

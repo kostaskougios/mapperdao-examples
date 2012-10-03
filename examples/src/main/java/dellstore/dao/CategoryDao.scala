@@ -14,6 +14,6 @@ import com.googlecode.mapperdao.SurrogateIntId
  */
 abstract class CategoryDao
 		extends TransactionalCRUD[Int, SurrogateIntId, Category]
-		with All[SurrogateIntId, Category] {
+		with All[Int, SurrogateIntId, Category] {
 	val entity = CategoryEntity
 }

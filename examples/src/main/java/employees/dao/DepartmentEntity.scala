@@ -14,7 +14,7 @@ import employees.model._
  * )
  *
  */
-object DepartmentEntity extends Entity[NaturalStringId, Department]("departments", classOf[Department]) {
+object DepartmentEntity extends Entity[String, NaturalStringId, Department]("departments") {
 	val dept_no = key("dept_no") to (_.no)
 	val dept_name = column("dept_name") to (_.name)
 

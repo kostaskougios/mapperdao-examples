@@ -16,7 +16,7 @@ import employees.model._
  * PRIMARY KEY (`emp_no`)
  * )
  */
-object EmployeeEntity extends Entity[NaturalStringId, Employee]("employees", classOf[Employee]) {
+object EmployeeEntity extends Entity[String, NaturalStringId, Employee]("employees") {
 	val emp_no = key("emp_no") to (_.id)
 	val birth_date = column("birth_date") to (_.birthDate)
 	val first_name = column("first_name") to (_.firstName)

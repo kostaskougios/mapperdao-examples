@@ -6,6 +6,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<scala.version>2.9.2</scala.version>
+		<mapperdao.version>1.0.0.rc15</mapperdao.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -16,7 +17,7 @@
 		<dependency>
 			<groupId>com.googlecode.mapperdao</groupId>
 			<artifactId>mapperdao</artifactId>
-			<version>1.0.0.rc15-SNAPSHOT</version>
+			<version>${mapperdao.version}-${scala.version}-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>

@@ -18,7 +18,7 @@ import dellstore.model.OrderLine
  * ON UPDATE NO ACTION ON DELETE CASCADE
  * )
  */
-object OrderLineEntity extends Entity[NaturalIntId, OrderLine]("orderlines") {
+object OrderLineEntity extends Entity[Int, NaturalIntId, OrderLine]("orderlines") {
 	val orderlineid = key("orderlineid") to (_.id)
 	val order = manytoone(OrderEntity) foreignkey "orderid" to (_.order)
 	val product = onetoone(ProductEntity) foreignkey "prod_id" to (_.product)
