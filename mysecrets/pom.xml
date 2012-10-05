@@ -8,8 +8,8 @@
 	<name>mysecrets Project</name>
 	<inceptionYear>2011</inceptionYear>
 	<properties>
-		<scala.version>2.9.1</scala.version>
-		<mapperdao.version>1.0.0.rc15-SNAPSHOT</mapperdao.version>
+		<scala.version>2.9.2</scala.version>
+		<mapperdao.version>1.0.0.rc15-${scala.version}</mapperdao.version>
 		<!-- Common plugin settings -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
