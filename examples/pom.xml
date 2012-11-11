@@ -6,7 +6,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<scala.version>2.9.2</scala.version>
-		<mapperdao.version>1.0.0.rc15-${scala.version}</mapperdao.version>
+		<mapperdao.version>1.0.0.rc16-${scala.version}</mapperdao.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -44,6 +44,11 @@
 			<artifactId>scalatest_2.9.2</artifactId>
 			<version>1.8</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-tools.time</groupId>
+			<artifactId>time_2.9.1</artifactId>
+			<version>0.5</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
