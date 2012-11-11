@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.rits</groupId>
 	<artifactId>productcatalogue</artifactId>
-	<version>1.0.0.rc15-SNAPSHOT</version>
+	<version>1.0.0.rc16-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Simple MapperDao Application</name>
 	<properties>
@@ -13,7 +13,7 @@
 		<cx.router>com.rits.productcatalogue.Main</cx.router>
 		<scala.version>2.9.2</scala.version>
 		<scala.lib.version>2.9.2</scala.lib.version>
-		<mapperdao.version>1.0.0.rc15-${scala.version}</mapperdao.version>
+		<mapperdao.version>1.0.0.rc16-${scala.version}</mapperdao.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -66,19 +66,21 @@
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.0-801.jdbc4</version>
+			<version>9.1-901-1.jdbc4</version>
 		</dependency>
 		<!-- please note the oracle driver must be installed to the local repository -->
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.2.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- please note the mssql driver must be installed to the local repository -->
 		<dependency>
 			<groupId>com.microsoft</groupId>
 			<artifactId>sqljdbc4</artifactId>
 			<version>4.0.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>

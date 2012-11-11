@@ -18,7 +18,11 @@ object Daos {
 	// We'll use apache's basic data source to pool the connections
 	private val properties = new Properties
 	val database = System.getProperty("database")
-	if (database == null) throw new IllegalArgumentException("Please configure -Ddatabase=X, X can be postgresql, mysql, sqlserver or oracle")
+	private val validDatabases = Set("postgresql", "mysql", "sqlserver", "oracle")
+	if (!validDatabases(database)) {
+		println("-Ddatabase value is not correct")
+		throw new IllegalArgumentException("Please configure -Ddatabase=X, X can be postgresql, mysql, sqlserver or oracle")
+	}
 	properties.load(getClass.getResourceAsStream("/jdbc.%s.properties".format(database)))
 	private val dataSource = BasicDataSourceFactory.createDataSource(properties)
 
