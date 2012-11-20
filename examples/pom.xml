@@ -56,6 +56,11 @@
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.scalaconcurrency</groupId>
+			<artifactId>scalaconcurrency</artifactId>
+			<version>0.8.0-${scala.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

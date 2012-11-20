@@ -8,6 +8,7 @@ import com.googlecode.mapperdao.jdbc.Transaction
 import com.googlecode.mapperdao.jdbc.BatchOptions
 import com.googlecode.mapperdao.jdbc.Batch
 import org.springframework.jdbc.core.SqlParameterValue
+import com.googlecode.concurrent.ExecutorServiceManager
 
 /**
  * benchmark of batch vs non-batch jdbc operations
@@ -17,6 +18,9 @@ import org.springframework.jdbc.core.SqlParameterValue
  * Nov 19, 2012
  */
 object BatchVsNonBatch extends App {
+	val BatchSz = 20000
+	val MultiThreadedBatch = 2000
+
 	val properties = new Properties
 	properties.load(getClass.getResourceAsStream("/tests.properties"))
 	val dataSource = BasicDataSourceFactory.createDataSource(properties)
@@ -48,15 +52,50 @@ object BatchVsNonBatch extends App {
 		j.batchUpdate(BatchOptions(Batch.WithBatch, Array("id")), "insert into BatchVsNonBatch(name) values(?)", args)
 	}
 
+	println("initial warmup...")
+	noBatch(500)
+	batch(500)
+	ExecutorServiceManager.lifecycle(40, 1 to 40) { i =>
+		noBatch(10)
+	}
+
 	{
 		cleanup()
 
 		println("warmup...")
-		noBatch(100)
+		noBatch(1000)
+
+		println("benchmarking non-batch multithreaded insert")
+		val start = System.currentTimeMillis
+		ExecutorServiceManager.lifecycle(40, 1 to 40) { i =>
+			noBatch(MultiThreadedBatch)
+		}
+		println("no batch multithreaded dt:" + (System.currentTimeMillis - start))
+	}
+
+	{
+		cleanup()
+
+		println("warmup...")
+		batch(1000)
+
+		println("benchmarking batch multithreaded insert")
+		val start = System.currentTimeMillis
+		ExecutorServiceManager.lifecycle(40, 1 to 40) { i =>
+			batch(MultiThreadedBatch)
+		}
+		println("batch multithreaded dt:" + (System.currentTimeMillis - start))
+	}
+
+	{
+		cleanup()
+
+		println("warmup...")
+		noBatch(1000)
 
 		println("benchmarking non-batch insert")
 		val start = System.currentTimeMillis
-		noBatch(10000)
+		noBatch(BatchSz)
 		println("no batch dt:" + (System.currentTimeMillis - start))
 	}
 
@@ -64,11 +103,11 @@ object BatchVsNonBatch extends App {
 		cleanup()
 
 		println("warmup...")
-		batch(100)
+		batch(1000)
 
 		println("benchmarking batch insert")
 		val start = System.currentTimeMillis
-		batch(10000)
+		batch(BatchSz)
 		println("batch dt:" + (System.currentTimeMillis - start))
 	}
 }
