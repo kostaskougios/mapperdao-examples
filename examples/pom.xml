@@ -2,11 +2,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.googlecode</groupId>
 	<artifactId>mapperdao-examples</artifactId>
-	<version>1.0.0.rc15-SNAPSHOT</version>
+	<version>1.0.0.rc17-SNAPSHOT</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<scala.version>2.9.2</scala.version>
-		<mapperdao.version>1.0.0.rc16-${scala.version}</mapperdao.version>
+		<mapperdao.version>1.0.0.rc17-${scala.version}-SNAPSHOT</mapperdao.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>0.9.29</version>
+			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
