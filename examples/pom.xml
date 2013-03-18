@@ -5,8 +5,9 @@
 	<version>1.0.0.rc17-SNAPSHOT</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<scala.version>2.9.2</scala.version>
-		<mapperdao.version>1.0.0.rc17-${scala.version}-SNAPSHOT</mapperdao.version>
+		<scala.version>2.10.1</scala.version>
+        <scala.lib.version>2.10.0</scala.lib.version>
+		<mapperdao.version>1.0.0.rc18-${scala.version}</mapperdao.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -41,8 +42,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.scalatest</groupId>
-			<artifactId>scalatest_2.9.2</artifactId>
-			<version>1.8</version>
+			<artifactId>scalatest_2.10.0</artifactId>
+			<version>2.0.M5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -59,7 +60,7 @@
 		<dependency>
 			<groupId>com.googlecode.scalaconcurrency</groupId>
 			<artifactId>scalaconcurrency</artifactId>
-			<version>0.8.0-${scala.version}</version>
+			<version>0.8.0-${scala.lib.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

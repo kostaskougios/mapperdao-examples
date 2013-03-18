@@ -11,9 +11,9 @@
 		<port>8080</port>
 		<cx.version>2.0.3</cx.version>
 		<cx.router>com.rits.productcatalogue.Main</cx.router>
-		<scala.version>2.9.2</scala.version>
-		<scala.lib.version>2.9.2</scala.lib.version>
-		<mapperdao.version>1.0.0.rc16-${scala.version}</mapperdao.version>
+		<scala.version>2.10.1</scala.version>
+		<scala.lib.version>2.10.0</scala.lib.version>
+		<mapperdao.version>1.0.0.rc18-${scala.version}</mapperdao.version>
 	</properties>
 	<dependencies>
 		<dependency>
