@@ -58,6 +58,7 @@ object Benchmark extends App
 	 *
 	 * date			loops			dt
 	 * ------------------------------------
+	 * 2013/03/23   10000           18645   desktop,ssd
 	 * 2013/03/20	10000			16261	laptop, in a transaction
 	 * 2013/02/05	1000			5116
 	 * 2013/02/05	10000			32800
