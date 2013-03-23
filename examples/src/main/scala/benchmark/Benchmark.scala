@@ -42,9 +42,6 @@ object Benchmark extends App
 			val m = benchmarkSelect(inserted.id, _: Int)
 			m(500)
 			m
-		case "update" =>
-			benchmarkUpdate(mapperDao.insert(ProductEntity, p), 500)
-			benchmarkUpdate(mapperDao.insert(ProductEntity, p), _: Int)
 	}
 
 	println("benchmarking...")
@@ -77,13 +74,6 @@ object Benchmark extends App
 	def benchmarkSelect(id: Int, loops: Int) {
 		for (i <- 0 to loops) {
 			mapperDao.select(ProductEntity, id)
-		}
-	}
-
-	def benchmarkUpdate(inserted: Product with SurrogateIntId, loops: Int) {
-		var old = inserted
-		for (i <- 0 to loops) {
-			old = mapperDao.update(ProductEntity, old, p)
 		}
 	}
 
