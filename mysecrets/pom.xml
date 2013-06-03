@@ -6,11 +6,11 @@
     <artifactId>mysecrets</artifactId>
     <version>1.0.0.rc18</version>
     <packaging>war</packaging>
-    <name>mysecrets Project</name>
+    <name>mysecrets</name>
     <inceptionYear>2011</inceptionYear>
     <properties>
         <scala.version>2.10.1</scala.version>
-        <mapperdao.version>1.0.0.rc20-2.10.1-SNAPSHOT</mapperdao.version>
+        <mapperdao.version>1.0.0.rc23-2.10.1-SNAPSHOT</mapperdao.version>
         <!-- Common plugin settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>

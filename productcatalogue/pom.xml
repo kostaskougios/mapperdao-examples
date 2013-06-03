@@ -7,14 +7,14 @@
     <artifactId>productcatalogue</artifactId>
     <version>1.0.0.rc16-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Simple MapperDao Application</name>
+    <name>product catalogue</name>
     <properties>
         <port>8080</port>
         <cx.version>2.0.3</cx.version>
         <cx.router>com.rits.productcatalogue.Main</cx.router>
         <scala.version>2.10.1</scala.version>
         <scala.lib.version>2.10.0</scala.lib.version>
-        <mapperdao.version>1.0.0.rc20-2.10.1-SNAPSHOT</mapperdao.version>
+        <mapperdao.version>1.0.0.rc23-2.10.1-SNAPSHOT</mapperdao.version>
     </properties>
     <dependencies>
         <dependency>
