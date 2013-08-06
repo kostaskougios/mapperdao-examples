@@ -5,6 +5,7 @@ import java.util.Properties
 import com.googlecode.mapperdao.utils.{Database, Setup}
 import com.googlecode.mapperdao.jdbc.Transaction
 import com.googlecode.mapperdao.{ValuesMap, Entity, SurrogateIntId, UpdateConfig}
+import com.googlecode.concurrent.ExecutorServiceManager
 
 /**
  * benchmark : an attempt to isolate and benchmark mapperdao
@@ -50,9 +51,12 @@ object Benchmark extends App
 		}
 
 		def benchmarkSelect(loops: Int, inserted: List[Product with SurrogateIntId]) {
-			inserted.foreach {
-				i =>
-					mapperDao.select(ProductEntity, i.id)
+			ExecutorServiceManager.lifecycle(8, 1) {
+				_ =>
+					inserted.foreach {
+						i =>
+							mapperDao.select(ProductEntity, i.id)
+					}
 			}
 		}
 
@@ -72,6 +76,19 @@ object Benchmark extends App
 		jdbc.update("delete from Product")
 		jdbc.update("delete from Attribute")
 
+		def maintain() {
+			println("maintenance...")
+			database match {
+				case "postgresql" =>
+					jdbc.update("VACUUM full")
+				case "mysql" =>
+					List("Product", "Attribute", "Product_Attribute").foreach {
+						t =>
+							jdbc.update(s"ALTER TABLE ${t} ENGINE=INNODB")
+					}
+			}
+		}
+		maintain()
 		// cool off
 		Thread.sleep(2000)
 
@@ -86,6 +103,7 @@ object Benchmark extends App
 			case "select" =>
 				println("inserting test data")
 				val inserted = benchmarkInsert(loops)
+				maintain()
 				val m = benchmarkSelect(_: Int, inserted)
 				m(500)
 				m

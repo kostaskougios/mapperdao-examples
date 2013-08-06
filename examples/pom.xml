@@ -61,7 +61,7 @@
         <dependency>
             <groupId>com.googlecode.scalaconcurrency</groupId>
             <artifactId>scalaconcurrency</artifactId>
-            <version>0.8.0-${scala.lib.version}</version>
+            <version>0.8.1-${scala.lib.version}</version>
         </dependency>
     </dependencies>
     <build>
