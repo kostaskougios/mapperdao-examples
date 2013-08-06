@@ -6,9 +6,9 @@
     <version>1.0.0.rc17-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <scala.version>2.10.1</scala.version>
+        <scala.version>2.10.2</scala.version>
         <scala.lib.version>2.10.0</scala.lib.version>
-        <mapperdao.version>1.0.0.rc23-${scala.version}-SNAPSHOT</mapperdao.version>
+        <mapperdao.version>1.0.0.rc24-${scala.version}-SNAPSHOT</mapperdao.version>
     </properties>
     <dependencies>
         <dependency>
