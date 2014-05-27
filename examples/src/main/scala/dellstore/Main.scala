@@ -7,8 +7,8 @@ import dellstore.model.Gender
 import dellstore.model.CreditCard
 import dellstore.model.Address
 import java.util.UUID
-import org.scala_tools.time.Imports._
 import dellstore.model.OrderLine
+import org.joda.time.DateTime
 
 /**
  * dellstore sample for postgresql dellstore sample database
