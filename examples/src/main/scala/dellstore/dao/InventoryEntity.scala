@@ -20,5 +20,5 @@ object InventoryEntity extends Entity[Unit, NoId, Inventory]("inventory")
 	val sales = column("sales") to (_.sales)
 	val product = onetoone(ProductEntity) foreignkey "prod_id" to (_.product)
 
-	def constructor(implicit m: ValuesMap) = new Inventory(product, stock, sales) with NoId
+	def constructor(implicit m: ValuesMap) = new Inventory(product, stock, sales) with Stored
 }

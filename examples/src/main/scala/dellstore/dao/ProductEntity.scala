@@ -13,7 +13,7 @@ object ProductEntity extends Entity[Int, SurrogateIntId, Product]("products")
 	val special = column("special") to (v => v.special)
 	val inventory = onetoonereverse(InventoryEntity) foreignkey "prod_id" to (_.inventory)
 
-	def constructor(implicit m: ValuesMap) = new Product(category, title, actor, price, special, inventory) with SurrogateIntId
+	def constructor(implicit m: ValuesMap) = new Product(category, title, actor, price, special, inventory) with Stored
 	{
 		val id: Int = ProductEntity.id
 	}

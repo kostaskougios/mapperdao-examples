@@ -26,5 +26,5 @@ object OrderLineEntity extends Entity[Int, NaturalIntId, OrderLine]("orderlines"
 	val quantity = column("quantity") to (_.quantity)
 	val orderdate = column("orderdate") to (_.date)
 
-	def constructor(implicit m: ValuesMap) = new OrderLine(orderlineid, order, product, quantity, orderdate) with NaturalIntId
+	def constructor(implicit m: ValuesMap) = new OrderLine(orderlineid, order, product, quantity, orderdate) with Stored
 }

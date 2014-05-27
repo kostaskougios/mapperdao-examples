@@ -66,7 +66,7 @@ object CustomerEntity extends Entity[Int, SurrogateIntId, Customer]("customers")
 		val address = Address(address1, address2, city, state, zip, country, region)
 		val creditCard = CreditCard(creditcardtype, creditcard, creditcardexpiration)
 		val g = Gender.fromString(gender)
-		new Customer(firstname, lastname, address, email, phone, creditCard, username, password, age, income, g) with SurrogateIntId
+		new Customer(firstname, lastname, address, email, phone, creditCard, username, password, age, income, g) with Stored
 		{
 			val id: Int = customerId
 		}
