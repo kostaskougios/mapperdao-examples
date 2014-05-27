@@ -10,7 +10,7 @@ object ProductEntity extends Entity[Int, SurrogateIntId, Product]("products")
 	val actor = column("actor") to (_.actor)
 	val price = column("price") to (_.price)
 	val category = manytoone(CategoryEntity) foreignkey "category" to (_.category)
-	val special = column("special") to (v => v.special)
+	val special = column("special") to (_.special)
 	val inventory = onetoonereverse(InventoryEntity) foreignkey "prod_id" to (_.inventory)
 
 	def constructor(implicit m: ValuesMap) = new Product(category, title, actor, price, special, inventory) with Stored
