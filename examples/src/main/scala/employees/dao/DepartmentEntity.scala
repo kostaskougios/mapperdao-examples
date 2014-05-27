@@ -19,5 +19,5 @@ object DepartmentEntity extends Entity[String, NaturalStringId, Department]("dep
 	val dept_no = key("dept_no") to (_.no)
 	val dept_name = column("dept_name") to (_.name)
 
-	def constructor(implicit m) = new Department(dept_no, dept_name) with NaturalStringId
+	def constructor(implicit m: ValuesMap) = new Department(dept_no, dept_name) with NaturalStringId
 }

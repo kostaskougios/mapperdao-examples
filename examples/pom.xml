@@ -1,46 +1,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.googlecode</groupId>
-    <artifactId>mapperdao-examples</artifactId>
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.googlecode</groupId>
+	<artifactId>mapperdao-examples</artifactId>
 	<version>1.0.0</version>
 	<properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<scala.version>2.11.1</scala.version>
 		<scala.lib.version>2.11</scala.lib.version>
 		<mapperdao.version>1.0.0.2.11</mapperdao.version>
 	</properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>${scala.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.mapperdao</groupId>
-            <artifactId>mapperdao</artifactId>
-            <version>${mapperdao.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.1-901-1.jdbc4</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.17</version>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.mapperdao</groupId>
+			<artifactId>mapperdao</artifactId>
+			<version>${mapperdao.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901-1.jdbc4</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.17</version>
+		</dependency>
 		<dependency>
 			<groupId>org.scalatest</groupId>
 			<artifactId>scalatest_2.11</artifactId>
@@ -48,83 +48,80 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.scalaconcurrency</groupId>
-            <artifactId>scalaconcurrency</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.scalaconcurrency</groupId>
+			<artifactId>scalaconcurrency</artifactId>
 			<version>0.9.0-${scala.lib.version}</version>
 		</dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            <!-- Ensures we are compiling at 1.7 level -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- Ensures we are compiling at 1.7 level -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.scala-tools</groupId>
-                <artifactId>maven-scala-plugin</artifactId>
-                <version>2.15.2</version>
-                <configuration>
-                    <scalaVersion>${scala.version}</scalaVersion>
-                    <charset>${project.build.sourceEncoding}</charset>
-                    <args>
-                        <arg>-Xexperimental</arg>
-                    </args>
-                    <jvmArgs>
-                        <jvmArg>-Xmx1024m</jvmArg>
-                    </jvmArgs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.1.2</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <includes>
-                        <include>**/*Spec.class</include>
-                    </includes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <repositories>
-        <repository>
-            <id>sonatype.snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+				<version>2.15.2</version>
+				<configuration>
+					<scalaVersion>${scala.version}</scalaVersion>
+					<charset>${project.build.sourceEncoding}</charset>
+					<jvmArgs>
+						<jvmArg>-Xmx1024m</jvmArg>
+					</jvmArgs>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<includes>
+						<include>**/*Spec.class</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>sonatype.snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
 </project>

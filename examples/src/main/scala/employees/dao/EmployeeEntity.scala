@@ -26,7 +26,7 @@ object EmployeeEntity extends Entity[String, NaturalStringId, Employee]("employe
 	val hire_date = column("hire_date") to (_.hireDate)
 	val employeeDepartment = onetomany(EmployeeDepartmentEntity) foreignkey "emp_no" to (_.employeeDepartment)
 
-	def constructor(implicit m) = {
+	def constructor(implicit m: ValuesMap) = {
 		val g = Gender.fromString(gender)
 		new Employee(emp_no, birth_date, first_name, last_name, g, hire_date, employeeDepartment) with NaturalStringId
 	}

@@ -29,5 +29,5 @@ object EmployeeDepartmentEntity extends Entity[(String, String), NaturalStringAn
 	val employee = manytoone(EmployeeEntity) foreignkey "emp_no" to (_.employee)
 	val department = manytoone(DepartmentEntity) foreignkey "dept_no" to (_.department)
 
-	def constructor(implicit m) = new EmployeeDepartment(employee, department, from_date, to_date) with NaturalStringAndStringIds
+	def constructor(implicit m: ValuesMap) = new EmployeeDepartment(employee, department, from_date, to_date) with NaturalStringAndStringIds
 }

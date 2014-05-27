@@ -61,7 +61,7 @@ object CustomerEntity extends Entity[Int, SurrogateIntId, Customer]("customers")
 	val gender = column("gender") to (customer => Gender.toString(customer.gender))
 
 	// constructor
-	def constructor(implicit m) = {
+	def constructor(implicit m: ValuesMap) = {
 		// instantiate the embedded entities
 		val address = Address(address1, address2, city, state, zip, country, region)
 		val creditCard = CreditCard(creditcardtype, creditcard, creditcardexpiration)

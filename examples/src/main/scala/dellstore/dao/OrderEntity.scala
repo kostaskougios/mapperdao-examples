@@ -41,7 +41,7 @@ object OrderEntity extends Entity[Int, SurrogateIntId, Order]("orders")
 	 */
 	val orderLines = onetomany(OrderLineEntity) foreignkey "orderid" getter "orderLines" to (_.orderLines)
 
-	def constructor(implicit m) = new Order(date, customer, netAmount, tax, totalAmount, orderLines) with SurrogateIntId
+	def constructor(implicit m: ValuesMap) = new Order(date, customer, netAmount, tax, totalAmount, orderLines) with SurrogateIntId
 	{
 		val id: Int = orderid
 	}
